@@ -1,0 +1,535 @@
+{% extends 'base.html' %}
+
+{% block title %}EventPro - Premium Event Management Platform{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <!-- Background Image -->
+    <img src="/media/hero.jpg" alt="Hero Background" class="absolute inset-0 w-full h-full object-cover">
+    
+    <!-- Gradient Overlay -->
+    <div class="absolute inset-0 bg-gradient-to-br from-pink-600/70 via-purple-700/80 to-blue-600/70"></div>
+    
+    <!-- Additional Dark Overlay for Better Text Readability -->
+    <div class="absolute inset-0 bg-black/30"></div>
+    
+    <!-- Floating Elements -->
+    <div class="absolute top-20 left-10 w-20 h-20 bg-white/10 rounded-full blur-xl floating"></div>
+    <div class="absolute top-40 right-20 w-32 h-32 bg-primary/20 rounded-full blur-2xl floating" style="animation-delay: -2s;"></div>
+    <div class="absolute bottom-20 left-1/4 w-16 h-16 bg-secondary/20 rounded-full blur-xl floating" style="animation-delay: -4s;"></div>
+    
+    <div class="container mx-auto px-4 text-center text-white relative z-10">
+        <div class="max-w-4xl mx-auto">
+            <!-- Main Heading -->
+            <h1 class="text-5xl md:text-7xl font-bold mb-6 leading-tight">
+                The Best Biggest
+                <span class="block bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent">
+                    EVENT 
+                </span>
+                <span class="block text-3xl md:text-4xl font-normal mt-2">IN 2025</span>
+            </h1>
+            
+            <p class="text-xl md:text-2xl text-gray-200 mb-8 max-w-2xl mx-auto leading-relaxed">
+                Create unforgettable experiences with our premium event management platform
+            </p>
+            
+            <!-- CTA Buttons -->
+            <div class="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+                <a href="{% url 'event_list' %}" class="bg-gradient-to-r from-primary to-secondary text-white px-8 py-4 rounded-full text-lg font-semibold hover-glow transition-all duration-300 flex items-center justify-center">
+                    <i class="fas fa-rocket mr-2"></i>
+                    Get Started
+                </a>
+                <a href="#services" class="border-2 border-white text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-white hover:text-dark transition-all duration-300 flex items-center justify-center">
+                    <i class="fas fa-play mr-2"></i>
+                    Learn More
+                </a>
+            </div>
+            
+            <!-- Countdown Timer -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-md mx-auto">
+                <div class="glass-effect rounded-2xl p-4">
+                    <div class="text-3xl font-bold text-primary" id="days">27</div>
+                    <div class="text-sm text-gray-300">DAYS</div>
+                </div>
+                <div class="glass-effect rounded-2xl p-4">
+                    <div class="text-3xl font-bold text-primary" id="hours">15</div>
+                    <div class="text-sm text-gray-300">HRS</div>
+                </div>
+                <div class="glass-effect rounded-2xl p-4">
+                    <div class="text-3xl font-bold text-primary" id="minutes">56</div>
+                    <div class="text-sm text-gray-300">MIN</div>
+                </div>
+                <div class="glass-effect rounded-2xl p-4">
+                    <div class="text-3xl font-bold text-primary" id="seconds">23</div>
+                    <div class="text-sm text-gray-300">SEC</div>
+                </div>
+            </div>
+            <p class="text-gray-300 mt-4">Next Major Event Launch</p>
+        </div>
+    </div>
+</section>
+    
+    <!-- Scroll Indicator -->
+    <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white animate-bounce">
+        <i class="fas fa-chevron-down text-2xl"></i>
+    </div>
+</section>
+
+<section class="py-16 px-6 bg-white">
+  <div class="max-w-6xl mx-auto">
+    <!-- Header -->
+    <div class="text-center mb-12">
+      <p class="text-pink-500 font-semibold text-sm uppercase tracking-wide mb-2">LATEST FROM THE BLOG</p>
+      <h2 class="text-5xl font-bold text-gray-900">Featured Events</h2>
+    </div>
+    
+    <!-- Cards Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <!-- Birthday Event Card -->
+      <div class="bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
+        <div class="relative">
+          <img src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Birthday Party" class="w-full h-64 object-cover">
+          <div class="absolute top-4 left-4">
+            <span class="bg-pink-500 text-white px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wide">BIRTHDAY EVENT</span>
+          </div>
+        </div>
+        <div class="p-6">
+          <div class="flex items-center gap-4 mb-4">
+            <div class="text-center">
+              <div class="text-4xl font-bold text-gray-900">19</div>
+              <div class="text-sm text-gray-600">February</div>
+            </div>
+            <div class="flex-1">
+              
+              <h3 class="text-xl font-bold text-gray-900 leading-tight">Best Kids' Birthday Party Ideas</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Corporate Event Card -->
+      <div class="bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
+        <div class="relative">
+          <img src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Corporate Event" class="w-full h-64 object-cover">
+          <div class="absolute top-4 left-4">
+            <span class="bg-pink-500 text-white px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wide">CORPORATE EVENT</span>
+          </div>
+        </div>
+        <div class="p-6">
+          <div class="flex items-center gap-4 mb-4">
+            <div class="text-center">
+              <div class="text-4xl font-bold text-gray-900">18</div>
+              <div class="text-sm text-gray-600">February</div>
+            </div>
+            <div class="flex-1">
+              
+              <h3 class="text-xl font-bold text-gray-900 leading-tight">Top 10 Afterparty Golden Rules</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Wedding Event Card -->
+      <div class="bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
+        <div class="relative">
+          <img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Wedding Event" class="w-full h-64 object-cover">
+          <div class="absolute top-4 left-4">
+            <span class="bg-pink-500 text-white px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wide">WEDDING EVENT</span>
+          </div>
+        </div>
+        <div class="p-6">
+          <div class="flex items-center gap-4 mb-4">
+            <div class="text-center">
+              <div class="text-4xl font-bold text-gray-900">17</div>
+              <div class="text-sm text-gray-600">February</div>
+            </div>
+            <div class="flex-1">
+              
+              <h3 class="text-xl font-bold text-gray-900 leading-tight">Summer Wedding Decor Trends</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Event Gallery Section -->
+<section class="py-20 bg-gray-50">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl md:text-5xl font-bold text-dark mb-4">
+                Event
+                <span class="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Gallery</span>
+            </h2>
+            <p class="text-xl text-gray-600">Witness the magic we create</p>
+        </div>
+        
+        <!-- Gallery Grid -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="relative group overflow-hidden rounded-2xl aspect-square">
+                <img src="/media/concert.jpg" alt="Concert" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                <div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-all duration-300"></div>
+                <div class="absolute inset-0 flex items-center justify-center">
+                    <i class="fas fa-music text-white text-4xl opacity-80"></i>
+                </div>
+                <div class="absolute bottom-4 left-4 text-white">
+                    <h4 class="font-semibold">Concert</h4>
+                    <p class="text-sm opacity-80">Live Music</p>
+                </div>
+            </div>
+            
+            <div class="relative group overflow-hidden rounded-2xl aspect-square">
+                <img src="/media/corp.webp" alt="Corporate" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                <div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-all duration-300"></div>
+                <div class="absolute inset-0 flex items-center justify-center">
+                    <i class="fas fa-users text-white text-4xl opacity-80"></i>
+                </div>
+                <div class="absolute bottom-4 left-4 text-white">
+                    <h4 class="font-semibold">Corporate</h4>
+                    <p class="text-sm opacity-80">Business Event</p>
+                </div>
+            </div>
+            
+            <div class="relative group overflow-hidden rounded-2xl aspect-square md:col-span-2">
+                <img src="/media/wedding.jpg" alt="Wedding" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                <div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-all duration-300"></div>
+                <div class="absolute inset-0 flex items-center justify-center">
+                    <i class="fas fa-heart text-white text-6xl opacity-80"></i>
+                </div>
+                <div class="absolute bottom-4 left-4 text-white">
+                    <h4 class="font-semibold text-xl">Wedding</h4>
+                    <p class="text-sm opacity-80">Dream Celebration</p>
+                </div>
+            </div>
+            
+            <div class="relative group overflow-hidden rounded-2xl aspect-square md:col-span-2">
+                <img src="/media/conference.jpg" alt="Conference" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                <div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-all duration-300"></div>
+                <div class="absolute inset-0 flex items-center justify-center">
+                    <i class="fas fa-graduation-cap text-white text-6xl opacity-80"></i>
+                </div>
+                <div class="absolute bottom-4 left-4 text-white">
+                    <h4 class="font-semibold text-xl">Conference</h4>
+                    <p class="text-sm opacity-80">Professional Gathering</p>
+                </div>
+            </div>
+            
+            <div class="relative group overflow-hidden rounded-2xl aspect-square">
+                <img src="/media/party.jpg" alt="Party" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                <div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-all duration-300"></div>
+                <div class="absolute inset-0 flex items-center justify-center">
+                    <i class="fas fa-birthday-cake text-white text-4xl opacity-80"></i>
+                </div>
+                <div class="absolute bottom-4 left-4 text-white">
+                    <h4 class="font-semibold">Party</h4>
+                    <p class="text-sm opacity-80">Celebration</p>
+                </div>
+            </div>
+            
+            <div class="relative group overflow-hidden rounded-2xl aspect-square">
+                <img src="/media/gala.jpg" alt="Gala" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                <div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-all duration-300"></div>
+                <div class="absolute inset-0 flex items-center justify-center">
+                    <i class="fas fa-star text-white text-4xl opacity-80"></i>
+                </div>
+                <div class="absolute bottom-4 left-4 text-white">
+                    <h4 class="font-semibold">Gala</h4>
+                    <p class="text-sm opacity-80">Premium Event</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Speakers Section -->
+<section id="speakers" class="py-20 bg-white">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl md:text-5xl font-bold text-dark mb-4">
+                Voluntary
+                <span class="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Speakers</span>
+            </h2>
+            <p class="text-xl text-gray-600">Meet our expert event coordinators</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <!-- Speaker 1 -->
+            <div class="text-center group">
+                <div class="relative mb-6 mx-auto w-48 h-48">
+                    <img src="/media/Speaker1.jpeg" alt="Sarah Johnson" class="w-full h-full rounded-full object-cover group-hover:scale-105 transition-transform duration-300">
+                    <div class="absolute -bottom-2 left-1/2 transform -translate-x-1/2">
+                        <div class="flex space-x-2">
+                            <div class="w-3 h-3 bg-blue-500 rounded-full"></div>
+                            <div class="w-3 h-3 bg-red-500 rounded-full"></div>
+                            <div class="w-3 h-3 bg-green-500 rounded-full"></div>
+                            <div class="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                        </div>
+                    </div>
+                </div>
+                <h4 class="text-xl font-semibold text-dark mb-2">Michael Chen</h4>
+                <p class="text-gray-600 mb-4">Senior Event Coordinator</p>
+            </div>
+            
+            <!-- Speaker 2 -->
+            <div class="text-center group">
+                <div class="relative mb-6 mx-auto w-48 h-48">
+                    <img src="/media/Speaker2.jpeg" alt="Michael Chen" class="w-full h-full rounded-full object-cover group-hover:scale-105 transition-transform duration-300">
+                    <div class="absolute -bottom-2 left-1/2 transform -translate-x-1/2">
+                        <div class="flex space-x-2">
+                            <div class="w-3 h-3 bg-blue-500 rounded-full"></div>
+                            <div class="w-3 h-3 bg-red-500 rounded-full"></div>
+                            <div class="w-3 h-3 bg-green-500 rounded-full"></div>
+                            <div class="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                        </div>
+                    </div>
+                </div>
+                <h4 class="text-xl font-semibold text-dark mb-2">Sarah Johnson</h4>
+                <p class="text-gray-600 mb-4">Creative Director</p>
+            </div>
+            
+            <!-- Speaker 3 -->
+            <div class="text-center group">
+                <div class="relative mb-6 mx-auto w-48 h-48">
+                    <img src="/media/Speaker3.jpeg" alt="Emily Rodriguez" class="w-full h-full rounded-full object-cover group-hover:scale-105 transition-transform duration-300">
+                    <div class="absolute -bottom-2 left-1/2 transform -translate-x-1/2">
+                        <div class="flex space-x-2">
+                            <div class="w-3 h-3 bg-blue-500 rounded-full"></div>
+                            <div class="w-3 h-3 bg-red-500 rounded-full"></div>
+                            <div class="w-3 h-3 bg-green-500 rounded-full"></div>
+                            <div class="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                        </div>
+                    </div>
+                </div>
+                <h4 class="text-xl font-semibold text-dark mb-2">Emily Rodriguez</h4>
+                <p class="text-gray-600 mb-4">Operations Manager</p>
+            </div>
+            
+            <!-- Speaker 4 -->
+            <div class="text-center group">
+                <div class="relative mb-6 mx-auto w-48 h-48">
+                    <img src="/media/Speaker4.jpeg" alt="David Park" class="w-full h-full rounded-full object-cover group-hover:scale-105 transition-transform duration-300">
+                    <div class="absolute -bottom-2 left-1/2 transform -translate-x-1/2">
+                        <div class="flex space-x-2">
+                            <div class="w-3 h-3 bg-blue-500 rounded-full"></div>
+                            <div class="w-3 h-3 bg-red-500 rounded-full"></div>
+                            <div class="w-3 h-3 bg-green-500 rounded-full"></div>
+                            <div class="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                        </div>
+                    </div>
+                </div>
+                <h4 class="text-xl font-semibold text-dark mb-2">David Park</h4>
+                <p class="text-gray-600 mb-4">Technical Lead</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Stats Section -->
+<section class="py-20 bg-gradient-to-r from-dark to-gray-800 text-white">
+    <div class="container mx-auto px-4">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            <div class="space-y-2">
+                <div class="text-5xl font-bold text-primary">500+</div>
+                <div class="text-gray-300">Events Managed</div>
+            </div>
+            <div class="space-y-2">
+                <div class="text-5xl font-bold text-secondary">50K+</div>
+                <div class="text-gray-300">Happy Clients</div>
+            </div>
+            <div class="space-y-2">
+                <div class="text-5xl font-bold text-accent">25+</div>
+                <div class="text-gray-300">Cities Covered</div>
+            </div>
+            <div class="space-y-2">
+                <div class="text-5xl font-bold text-yellow-400">100%</div>
+                <div class="text-gray-300">Success Rate</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Pricing Section -->
+<section class="py-20 bg-gray-50">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl md:text-5xl font-bold text-dark mb-4">
+                Get your
+                <span class="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Ticket</span>
+            </h2>
+            <p class="text-xl text-gray-600">Choose the perfect plan for your event needs</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            <!-- Basic Plan -->
+            <div class="bg-white rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-300 border border-gray-100 relative">
+                <div class="text-center">
+                    <h3 class="text-2xl font-bold text-dark mb-2">EARLY BIRD</h3>
+                    <div class="text-6xl font-bold text-primary mb-2">$299</div>
+                    <p class="text-gray-600 mb-8">Perfect for small events</p>
+                    
+                    <div class="space-y-4 mb-8">
+                        <div class="flex items-center justify-center space-x-2">
+                            <i class="fas fa-check text-green-500"></i>
+                            <span>Up to 50 guests</span>
+                        </div>
+                        <div class="flex items-center justify-center space-x-2">
+                            <i class="fas fa-check text-green-500"></i>
+                            <span>Basic planning</span>
+                        </div>
+                        <div class="flex items-center justify-center space-x-2">
+                            <i class="fas fa-check text-green-500"></i>
+                            <span>Email support</span>
+                        </div>
+                    </div>
+                    
+                    <button class="w-full bg-gradient-to-r from-primary to-secondary text-white py-4 rounded-full font-semibold hover-glow transition-all duration-300">
+                        Choose Plan
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Popular Plan -->
+            <div class="bg-gradient-to-r from-primary to-secondary rounded-3xl p-8 shadow-2xl transform scale-105 relative">
+                <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-yellow-400 text-dark px-6 py-2 rounded-full text-sm font-semibold">
+                    MOST POPULAR
+                </div>
+                <div class="text-center text-white">
+                    <h3 class="text-2xl font-bold mb-2">REGULAR</h3>
+                    <div class="text-6xl font-bold mb-2">$599</div>
+                    <p class="text-white/80 mb-8">Perfect for medium events</p>
+                    
+                    <div class="space-y-4 mb-8">
+                        <div class="flex items-center justify-center space-x-2">
+                            <i class="fas fa-check text-yellow-400"></i>
+                            <span>Up to 200 guests</span>
+                        </div>
+                        <div class="flex items-center justify-center space-x-2">
+                            <i class="fas fa-check text-yellow-400"></i>
+                            <span>Full planning & coordination</span>
+                        </div>
+                        <div class="flex items-center justify-center space-x-2">
+                            <i class="fas fa-check text-yellow-400"></i>
+                            <span>24/7 support</span>
+                        </div>
+                        <div class="flex items-center justify-center space-x-2">
+                            <i class="fas fa-check text-yellow-400"></i>
+                            <span>Vendor management</span>
+                        </div>
+                    </div>
+                    
+                    <button class="w-full bg-white text-primary py-4 rounded-full font-semibold hover:bg-gray-100 transition-all duration-300">
+                        Choose Plan
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Premium Plan -->
+            <div class="bg-white rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-300 border border-gray-100">
+                <div class="text-center">
+                    <h3 class="text-2xl font-bold text-dark mb-2">PLATINUM</h3>
+                    <div class="text-6xl font-bold text-primary mb-2">$999</div>
+                    <p class="text-gray-600 mb-8">Perfect for large events</p>
+                    
+                    <div class="space-y-4 mb-8">
+                        <div class="flex items-center justify-center space-x-2">
+                            <i class="fas fa-check text-green-500"></i>
+                            <span>Unlimited guests</span>
+                        </div>
+                        <div class="flex items-center justify-center space-x-2">
+                            <i class="fas fa-check text-green-500"></i>
+                            <span>Premium planning</span>
+                        </div>
+                        <div class="flex items-center justify-center space-x-2">
+                            <i class="fas fa-check text-green-500"></i>
+                            <span>Dedicated manager</span>
+                        </div>
+                        <div class="flex items-center justify-center space-x-2">
+                            <i class="fas fa-check text-green-500"></i>
+                            <span>Custom branding</span>
+                        </div>
+                    </div>
+                    
+                    <button class="w-full bg-gradient-to-r from-primary to-secondary text-white py-4 rounded-full font-semibold hover-glow transition-all duration-300">
+                        Choose Plan
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-20 bg-gradient-to-r from-primary to-secondary">
+    <div class="container mx-auto px-4 text-center text-white">
+        <h2 class="text-4xl md:text-5xl font-bold mb-6">
+            Ready to Create Your
+            <span class="block">Perfect Event?</span>
+        </h2>
+        <p class="text-xl mb-8 max-w-2xl mx-auto">
+            Join thousands of satisfied clients who trust EventPro for their most important occasions
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="{% url 'signup' %}" class="bg-white text-primary px-8 py-4 rounded-full text-lg font-semibold hover:bg-gray-100 transition-all duration-300">
+                Get Started Today
+            </a>
+            <a href={% url "contact" %} class="border-2 border-white text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-white hover:text-primary transition-all duration-300">
+                Contact Us
+            </a>
+        </div>
+    </div>
+</section>
+
+<script>
+// Countdown Timer
+function updateCountdown() {
+    const eventDate = new Date();
+    eventDate.setDate(eventDate.getDate() + 27);
+    eventDate.setHours(15, 56, 23);
+    
+    const now = new Date().getTime();
+    const distance = eventDate.getTime() - now;
+    
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    
+    document.getElementById('days').innerHTML = days;
+    document.getElementById('hours').innerHTML = hours;
+    document.getElementById('minutes').innerHTML = minutes;
+    document.getElementById('seconds').innerHTML = seconds;
+}
+
+// Update countdown every second
+setInterval(updateCountdown, 1000);
+updateCountdown();
+
+// Intersection Observer for animations
+const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+};
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+        }
+    });
+}, observerOptions);
+
+// Observe all sections
+document.addEventListener('DOMContentLoaded', () => {
+    const sections = document.querySelectorAll('section');
+    sections.forEach(section => {
+        section.style.opacity = '0';
+        section.style.transform = 'translateY(50px)';
+        section.style.transition = 'all 0.8s ease-out';
+        observer.observe(section);
+    });
+});
+</script>
+{% endblock %}

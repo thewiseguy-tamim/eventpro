@@ -1,0 +1,509 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ event.event_name }}{% endblock %}
+
+{% block content %}
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+    
+    * {
+        font-family: 'Inter', sans-serif;
+    }
+    
+    .hero-section {
+        position: relative;
+        height: 70vh;
+        min-height: 500px;
+        overflow: hidden;
+        border-radius: 24px;
+        margin-bottom: 60px;
+    }
+    
+    .hero-image {
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+        transition: transform 0.3s ease;
+    }
+    
+    .hero-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.7) 100%);
+    }
+    
+    .hero-content {
+        position: absolute;
+        bottom: 60px;
+        left: 60px;
+        right: 60px;
+        color: white;
+        z-index: 10;
+    }
+    
+    .hero-category {
+        display: inline-block;
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(10px);
+        padding: 8px 16px;
+        border-radius: 20px;
+        font-size: 14px;
+        font-weight: 500;
+        margin-bottom: 16px;
+    }
+    
+    .hero-title {
+        font-size: 48px;
+        font-weight: 700;
+        margin-bottom: 12px;
+        line-height: 1.1;
+        letter-spacing: -0.025em;
+    }
+    
+    .hero-subtitle {
+        font-size: 20px;
+        opacity: 0.9;
+        font-weight: 400;
+    }
+    
+    .content-grid {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 60px;
+        margin-bottom: 60px;
+    }
+    
+    .event-details {
+        background: white;
+        border-radius: 20px;
+        padding: 40px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    }
+    
+    .details-section {
+        margin-bottom: 40px;
+    }
+    
+    .details-section:last-child {
+        margin-bottom: 0;
+    }
+    
+    .section-title {
+        font-size: 18px;
+        font-weight: 600;
+        color: #111827;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+    
+    .section-icon {
+        width: 20px;
+        height: 20px;
+        color: #6b7280;
+    }
+    
+    .detail-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 16px;
+        padding: 16px 0;
+        border-bottom: 1px solid #f3f4f6;
+    }
+    
+    .detail-item:last-child {
+        border-bottom: none;
+        padding-bottom: 0;
+    }
+    
+    .detail-icon {
+        width: 20px;
+        height: 20px;
+        color: #9ca3af;
+        margin-top: 2px;
+        flex-shrink: 0;
+    }
+    
+    .detail-content h4 {
+        font-size: 14px;
+        font-weight: 600;
+        color: #374151;
+        margin-bottom: 4px;
+    }
+    
+    .detail-content p {
+        font-size: 16px;
+        color: #111827;
+        margin: 0;
+        line-height: 1.5;
+    }
+    
+    .detail-content .text-sm {
+        font-size: 14px;
+        color: #6b7280;
+        margin-top: 4px;
+    }
+    
+    .action-sidebar {
+        position: sticky;
+        top: 40px;
+        height: fit-content;
+    }
+    
+    .action-card {
+        background: white;
+        border-radius: 20px;
+        padding: 32px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        margin-bottom: 24px;
+    }
+    
+    .action-card h3 {
+        font-size: 18px;
+        font-weight: 600;
+        color: #111827;
+        margin-bottom: 16px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+    
+    .action-card p {
+        color: #6b7280;
+        margin-bottom: 24px;
+        line-height: 1.6;
+    }
+    
+    .btn-primary {
+        background: #111827;
+        color: white;
+        border: none;
+        padding: 16px 24px;
+        border-radius: 12px;
+        font-weight: 600;
+        font-size: 16px;
+        width: 100%;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        text-decoration: none;
+    }
+    
+    .btn-primary:hover {
+        background: #1f2937;
+        color: white;
+        text-decoration: none;
+        transform: translateY(-1px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    }
+    
+    .btn-secondary {
+        background: white;
+        color: #111827;
+        border: 2px solid #e5e7eb;
+        padding: 14px 24px;
+        border-radius: 12px;
+        font-weight: 600;
+        font-size: 16px;
+        width: 100%;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        text-decoration: none;
+    }
+    
+    .btn-secondary:hover {
+        background: #f9fafb;
+        border-color: #d1d5db;
+        color: #111827;
+        text-decoration: none;
+        transform: translateY(-1px);
+    }
+    
+    .btn-warning {
+        background: #f59e0b;
+        color: white;
+        border: none;
+        padding: 12px 20px;
+        border-radius: 10px;
+        font-weight: 500;
+        font-size: 14px;
+        flex: 1;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        text-decoration: none;
+    }
+    
+    .btn-warning:hover {
+        background: #d97706;
+        color: white;
+        text-decoration: none;
+        transform: translateY(-1px);
+    }
+    
+    .btn-danger {
+        background: #ef4444;
+        color: white;
+        border: none;
+        padding: 12px 20px;
+        border-radius: 10px;
+        font-weight: 500;
+        font-size: 14px;
+        flex: 1;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        text-decoration: none;
+    }
+    
+    .btn-danger:hover {
+        background: #dc2626;
+        color: white;
+        text-decoration: none;
+        transform: translateY(-1px);
+    }
+    
+    .management-actions {
+        display: flex;
+        gap: 12px;
+        margin-top: 16px;
+    }
+    
+    .participants-preview {
+        background: #f8fafc;
+        border-radius: 16px;
+        padding: 24px;
+        text-align: center;
+    }
+    
+    .participants-count {
+        font-size: 32px;
+        font-weight: 700;
+        color: #111827;
+        margin-bottom: 8px;
+    }
+    
+    .participants-label {
+        color: #6b7280;
+        font-size: 14px;
+        font-weight: 500;
+    }
+
+    @media (max-width: 1024px) {
+        .content-grid {
+            grid-template-columns: 1fr;
+            gap: 40px;
+        }
+        
+        .action-sidebar {
+            position: static;
+        }
+        
+        .hero-content {
+            left: 40px;
+            right: 40px;
+            bottom: 40px;
+        }
+        
+        .hero-title {
+            font-size: 36px;
+        }
+        
+        .event-details {
+            padding: 32px;
+        }
+    }
+    
+    @media (max-width: 768px) {
+        .hero-section {
+            height: 50vh;
+            min-height: 400px;
+            margin-bottom: 40px;
+        }
+        
+        .hero-content {
+            left: 24px;
+            right: 24px;
+            bottom: 24px;
+        }
+        
+        .hero-title {
+            font-size: 28px;
+        }
+        
+        .hero-subtitle {
+            font-size: 16px;
+        }
+        
+        .event-details {
+            padding: 24px;
+        }
+        
+        .action-card {
+            padding: 24px;
+        }
+        
+        .content-grid {
+            gap: 32px;
+        }
+        
+        .management-actions {
+            flex-direction: column;
+        }
+    }
+</style>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+<div class="min-h-screen bg-gray-50 py-20">
+    <div class="max-w-6xl mx-auto px-6">
+        <!-- Hero Section -->
+        <div class="hero-section">
+            {% if event.event_image %}
+                <img src="{{ event.event_image.url }}" alt="{{ event.event_name }}" class="hero-image">
+            {% else %}
+                <div class="hero-image bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center">
+                    <i class="fas fa-image text-gray-400 text-6xl"></i>
+                </div>
+            {% endif %}
+            <div class="hero-overlay"></div>
+            <div class="hero-content">
+                <div class="hero-category">{{ event.event_category|default:"Special Event" }}</div>
+                <h1 class="hero-title">{{ event.event_name }}</h1>
+                <p class="hero-subtitle">Join us for an unforgettable experience</p>
+            </div>
+        </div>
+        
+        <!-- Content Grid -->
+        <div class="content-grid">
+            <!-- Event Details -->
+            <div class="event-details">
+                <div class="details-section">
+                    <h2 class="section-title">
+                        <i class="fas fa-info-circle section-icon"></i>
+                        Event Information
+                    </h2>
+                    
+                    <div class="detail-item">
+                        <i class="fas fa-calendar-alt detail-icon"></i>
+                        <div class="detail-content">
+                            <h4>Date & Time</h4>
+                            <p>{{ event.event_date_time|date:"l, F d, Y" }}</p>
+                            <div class="text-sm">{{ event.event_date_time|time:"g:i A" }}</div>
+                        </div>
+                    </div>
+                    
+                    <div class="detail-item">
+                        <i class="fas fa-map-marker-alt detail-icon"></i>
+                        <div class="detail-content">
+                            <h4>Location</h4>
+                            <p>{{ event.event_location }}</p>
+                            {% if event.event_address %}
+                                <div class="text-sm">{{ event.event_address }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    <div class="detail-item">
+                        <i class="fas fa-tag detail-icon"></i>
+                        <div class="detail-content">
+                            <h4>Category</h4>
+                            <p>{{ event.event_category|default:"General Event" }}</p>
+                        </div>
+                    </div>
+                </div>
+                
+                {% if event.event_description %}
+                <div class="details-section">
+                    <h2 class="section-title">
+                        <i class="fas fa-align-left section-icon"></i>
+                        Description
+                    </h2>
+                    <div class="text-gray-700 leading-relaxed">
+                        {{ event.event_description|linebreaks }}
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+            
+            <!-- Action Sidebar -->
+            <div class="action-sidebar">
+                <!-- Participants Count -->
+                <div class="action-card">
+                    <div class="participants-preview">
+                        <div class="participants-count">{{ event.total_participants }}</div>
+                        <div class="participants-label">People Registered</div>
+                    </div>
+                </div>
+                
+                <!-- RSVP Section -->
+                {% if user.is_authenticated %}
+                    <div class="action-card">
+                        <h3>
+                            <i class="fas fa-ticket-alt text-green-500"></i>
+                            Ready to Join?
+                        </h3>
+                        <p>Reserve your spot at this exciting event and be part of something special.</p>
+                        <form method="post" action="{% url 'event_rsvp' event.pk %}">
+                            {% csrf_token %}
+                            <button type="submit" class="btn-primary">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Join Event</span>
+                            </button>
+                        </form>
+                    </div>
+                {% else %}
+                    <div class="action-card">
+                        <h3>
+                            <i class="fas fa-sign-in-alt text-blue-500"></i>
+                            Join This Event
+                        </h3>
+                        <p>Please sign in to your account to RSVP for this event and secure your spot.</p>
+                        <a href="{% url 'login' %}" class="btn-primary">
+                            <i class="fas fa-user"></i>
+                            <span>Sign In to RSVP</span>
+                        </a>
+                    </div>
+                {% endif %}
+                
+                <!-- Management Section -->
+                {% if user.role in 'admin,manager' %}
+                    <div class="action-card">
+                        <h3>
+                            <i class="fas fa-cog text-amber-500"></i>
+                            Event Management
+                        </h3>
+                        <p>Manage this event's details, settings, and registration status.</p>
+                        <div class="management-actions">
+                            <a href="{% url 'event_update' event.pk %}" class="btn-warning">
+                                <i class="fas fa-edit"></i>
+                                <span>Edit</span>
+                            </a>
+                            <a href="{% url 'event_delete' event.pk %}" class="btn-danger">
+                                <i class="fas fa-trash"></i>
+                                <span>Delete</span>
+                            </a>
+                        </div>
+                    </div>
+                {% endif %}
+                
+                <!-- Back to Events -->
+                <a href="{% url 'event_list' %}" class="btn-secondary">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>Back to Events</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

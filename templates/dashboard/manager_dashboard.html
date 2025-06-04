@@ -1,0 +1,342 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Manager Dashboard - EventPro{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
+    <!-- Create Category Modal -->
+    <div id="categoryModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center">
+        <div class="bg-white rounded-xl shadow-2xl p-6 w-full max-w-md mx-4">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-semibold text-gray-800">Create New Category</h3>
+                <button onclick="closeCategoryModal()" class="text-gray-400 hover:text-gray-600">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            <form action="{% url 'eventcategory-add' %}" method="POST" id="categoryForm">
+                {% csrf_token %}
+                <div class="mb-4">
+                    <label for="categoryName" class="block text-sm font-medium text-gray-700 mb-2">Category Name</label>
+                    <input type="text" id="categoryName" name="name" required 
+                           class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                           placeholder="Enter category name">
+                </div>
+                <div class="flex space-x-3">
+                    <button type="submit" class="flex-1 bg-gradient-to-r from-primary to-secondary text-white py-2 px-4 rounded-lg hover:opacity-90 transition-opacity">
+                        Create Category
+                    </button>
+                    <button type="button" onclick="closeCategoryModal()" class="flex-1 bg-gray-300 text-gray-700 py-2 px-4 rounded-lg hover:bg-gray-400 transition-colors">
+                        Cancel
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="container mx-auto px-4 sm:px-6 py-8">
+        <!-- Header -->
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
+            <div>
+                <h1 class="text-3xl sm:text-4xl font-bold text-gray-800 mb-2">Organizer Dashboard</h1>
+                <p class="text-gray-600">Welcome, {{ user.first_name }} {{ user.last_name }}</p>
+            </div>
+            {% comment %} <div class="flex items-center space-x-4 w-full sm:w-auto">
+                <form method="GET" class="relative flex-1 sm:flex-none">
+                    <input type="text" name="search" id="searchInput" placeholder="Search..." 
+                           class="w-full sm:w-64 pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                           value="{{ search_query }}">
+                    <i class="fas fa-search absolute left-3 top-2.5 h-4 w-4 text-gray-400"></i>
+                </form>
+                <div class="flex space-x-2">
+                    <button onclick="openCategoryModal()" class="p-2 bg-gradient-to-r from-primary to-secondary text-white rounded-lg shadow-sm hover:opacity-90 transition-opacity" title="Create Category">
+                        <i class="fas fa-plus h-5 w-5"></i>
+                    </button>
+                    <button class="p-2 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow relative" title="Notifications">
+                        <i class="fas fa-bell h-5 w-5 text-gray-600"></i>
+                        <span class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">3</span>
+                    </button>
+                </div>
+            </div> {% endcomment %}
+        </div>
+
+        <!-- Stats Cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <div class="bg-white rounded-xl shadow-sm hover:shadow-lg transition-shadow p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-gray-600">Total Events</p>
+                        <p class="text-3xl font-bold text-gray-900">{{ total_events }}</p>
+                        <p class="text-xs text-green-600 mt-1">
+                            <i class="fas fa-trending-up h-3 w-3 inline mr-1"></i>
+                            +12% from last month
+                        </p>
+                    </div>
+                    <div class="bg-blue-100 p-3 rounded-lg">
+                        <i class="fas fa-calendar h-6 w-6 text-blue-600"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white rounded-xl shadow-sm hover:shadow-lg transition-shadow p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-gray-600">Total Users</p>
+                        <p class="text-3xl font-bold text-gray-900">{{ total_users }}</p>
+                        <p class="text-xs text-green-600 mt-1">
+                            <i class="fas fa-trending-up h-3 w-3 inline mr-1"></i>
+                            +8% from last month
+                        </p>
+                    </div>
+                    <div class="bg-green-100 p-3 rounded-lg">
+                        <i class="fas fa-users h-6 w-6 text-green-600"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white rounded-xl shadow-sm hover:shadow-lg transition-shadow p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-gray-600">Active Events</p>
+                        <p class="text-3xl font-bold text-gray-900">{{ active_events }}</p>
+                        <p class="text-xs text-blue-600 mt-1">
+                            <i class="fas fa-clock h-3 w-3 inline mr-1"></i>
+                            Upcoming events
+                        </p>
+                    </div>
+                    <div class="bg-purple-100 p-3 rounded-lg">
+                        <i class="fas fa-trending-up h-6 w-6 text-purple-600"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white rounded-xl shadow-sm hover:shadow-lg transition-shadow p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-gray-600">Total RSVPs</p>
+                        <p class="text-3xl font-bold text-gray-900">{{ total_rsvps }}</p>
+                        <p class="text-xs text-orange-600 mt-1">
+                            <i class="fas fa-users h-3 w-3 inline mr-1"></i>
+                            Registered participants
+                        </p>
+                    </div>
+                    <div class="bg-orange-100 p-3 rounded-lg">
+                        <i class="fas fa-users h-6 w-6 text-orange-600"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <div class="mb-8">
+            <div class="border-b border-gray-200">
+                <nav class="-mb-px flex space-x-8 overflow-x-auto">
+                    <button class="tab-btn {% if not request.GET.tab or request.GET.tab == 'events' %}active border-b-2 border-primary text-primary{% else %}border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300{% endif %} py-2 px-1 text-sm font-medium whitespace-nowrap" data-tab="events">
+                        <i class="fas fa-calendar h-4 w-4 inline mr-2"></i>
+                        Events Management
+                    </button>
+                    <button class="tab-btn {% if request.GET.tab == 'categories' %}active border-b-2 border-primary text-primary{% else %}border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300{% endif %} py-2 px-1 text-sm font-medium whitespace-nowrap" data-tab="categories">
+                        <i class="fas fa-tags h-4 w-4 inline mr-2"></i>
+                        Categories
+                    </button>
+                </nav>
+            </div>
+        </div>
+
+        <!-- Events Management Tab -->
+        <div id="events-tab" class="tab-content {% if request.GET.tab == 'categories' %}hidden{% endif %}">
+            <div class="bg-white rounded-xl shadow-sm p-6 mb-6">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
+                    <h2 class="text-2xl font-semibold text-gray-800">Event Management</h2>
+                    <div class="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
+                        <a href="{% url 'event_create' %}" class="bg-gradient-to-r from-primary to-secondary text-white px-4 py-2 rounded-lg flex items-center justify-center space-x-2 transition-opacity hover:opacity-90">
+                            <i class="fas fa-plus h-4 w-4"></i>
+                            <span>Create New Event</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="overflow-x-auto">
+                    <table class="w-full table-auto">
+                        <thead>
+                            <tr class="bg-gray-50">
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Event Name</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Location</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Category</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Participants</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            {% for event in events %}
+                            <tr class="hover:bg-gray-50 transition-colors">
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm font-medium text-gray-900">{{ event.event_name }}</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm text-gray-900">{{ event.event_date_time|date:"M d, Y H:i" }}</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm text-gray-900">{{ event.event_location }}</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm text-gray-900">{{ event.event_category.name|default:"Other" }}</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm text-gray-900 flex items-center">
+                                        <i class="fas fa-users h-4 w-4 mr-1 text-gray-400"></i>
+                                        {{ event.total_participants|default:0 }}
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                    <div class="flex space-x-2">
+                                        <a href="{% url 'event_update' pk=event.id %}" class="text-indigo-600 hover:text-indigo-900 p-1 rounded hover:bg-indigo-50 transition-colors" title="Edit Event">
+                                            <i class="fas fa-edit h-4 w-4"></i>
+                                        </a>
+                                        <a href="{% url 'event_detail' pk=event.id %}" class="text-blue-600 hover:text-blue-900 p-1 rounded hover:bg-blue-50 transition-colors" title="View Event">
+                                            <i class="fas fa-eye h-4 w-4"></i>
+                                        </a>
+                                        <form action="{% url 'event_delete' pk=event.id %}" method="POST" onsubmit="return confirm('Are you sure you want to delete this event? This action cannot be undone.');" class="inline">
+                                            {% csrf_token %}
+                                            <button type="submit" class="text-red-600 hover:text-red-900 p-1 rounded hover:bg-red-50 transition-colors" title="Delete Event">
+                                                <i class="fas fa-trash h-4 w-4"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="6" class="px-6 py-8 text-center text-sm text-gray-500">
+                                    <div class="flex flex-col items-center">
+                                        <i class="fas fa-calendar-times h-12 w-12 text-gray-300 mb-4"></i>
+                                        <p class="mb-2">No events found.</p>
+                                        <a href="{% url 'event_create' %}" class="text-primary hover:text-secondary font-medium">Create your first event</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Categories Management Tab -->
+        <div id="categories-tab" class="tab-content {% if request.GET.tab != 'categories' %}hidden{% endif %}">
+            <div class="bg-white rounded-xl shadow-sm p-6">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
+                    <h2 class="text-2xl font-semibold text-gray-800">Category Management</h2>
+                    <button onclick="openCategoryModal()" class="bg-gradient-to-r from-primary to-secondary text-white px-4 py-2 rounded-lg flex items-center justify-center space-x-2 transition-opacity hover:opacity-90">
+                        <i class="fas fa-plus h-4 w-4"></i>
+                        <span>Create New Category</span>
+                    </button>
+                </div>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {% for category in categories %}
+                    <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-lg border border-gray-200 hover:shadow-md transition-shadow">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-10 h-10 bg-gradient-to-r from-primary to-secondary rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-tag text-white"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-semibold text-gray-800">{{ category.name }}</h3>
+                                    <p class="text-sm text-gray-600">{{ category.event_set.count }} events</p>
+                                </div>
+                            </div>
+                            <div class="flex space-x-2">
+                                <form action="{% url 'eventcategory-delete' pk=category.id %}" method="POST" onsubmit="return confirm('Are you sure you want to delete the category \"{{ category.name }}\"? This action cannot be undone.');" class="inline">
+                                    {% csrf_token %}
+                                    <button type="submit" class="text-red-600 hover:text-red-900 p-1 rounded hover:bg-red-50 transition-colors" title="Delete Category">
+                                        <i class="fas fa-trash h-4 w-4"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <div class="col-span-full text-center py-8">
+                        <i class="fas fa-tags h-12 w-12 text-gray-300 mb-4"></i>
+                        <p class="text-gray-500 mb-4">No categories found.</p>
+                        <button onclick="openCategoryModal()" class="text-primary hover:text-secondary font-medium">Create your first category</button>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Tab switching functionality
+    function switchTab(tab) {
+        // Update URL with tab parameter
+        const url = new URL(window.location);
+        url.searchParams.set('tab', tab);
+        window.history.pushState({}, '', url);
+
+        // Remove active classes from all tabs
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.classList.remove('active', 'border-primary', 'text-primary');
+            btn.classList.add('border-transparent', 'text-gray-500');
+        });
+        
+        // Hide all tab content
+        document.querySelectorAll('.tab-content').forEach(content => {
+            content.classList.add('hidden');
+        });
+
+        // Activate selected tab
+        const activeBtn = document.querySelector(`[data-tab="${tab}"]`);
+        if (activeBtn) {
+            activeBtn.classList.add('active', 'border-primary', 'text-primary');
+            activeBtn.classList.remove('border-transparent', 'text-gray-500');
+        }
+        
+        // Show selected tab content
+        const tabContent = document.getElementById(`${tab}-tab`);
+        if (tabContent) {
+            tabContent.classList.remove('hidden');
+        }
+    }
+
+    // Category modal functions
+    function openCategoryModal() {
+        document.getElementById('categoryModal').classList.remove('hidden');
+    }
+
+    function closeCategoryModal() {
+        document.getElementById('categoryModal').classList.add('hidden');
+        document.getElementById('categoryForm').reset();
+    }
+
+    // Initialize dashboard
+    document.addEventListener('DOMContentLoaded', function() {
+        // Tab switching
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                switchTab(this.dataset.tab);
+            });
+        });
+
+        // Search functionality
+        const searchInput = document.getElementById('searchInput');
+        if (searchInput) {
+            let timeout;
+            searchInput.addEventListener('input', function() {
+                clearTimeout(timeout);
+                timeout = setTimeout(() => {
+                    this.form.submit();
+                }, 300);
+            });
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('categoryModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeCategoryModal();
+            }
+        });
+    });
+</script>
+{% endblock %}

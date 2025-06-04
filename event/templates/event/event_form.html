@@ -1,0 +1,179 @@
+{% extends 'base.html' %}
+
+{% block title %}Event Form{% endblock %}
+
+{% block content %}
+<style>
+    .form-input {
+        transition: all 0.3s ease;
+        border: 2px solid #e5e7eb;
+        background: #ffffff;
+    }
+    .form-input:focus {
+        border-color: #667eea;
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        background: #ffffff;
+        outline: none;
+    }
+    .form-label {
+        color: #374151;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        display: block;
+    }
+    .btn-save {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        box-shadow: 0 4px 15px 0 rgba(102, 126, 234, 0.4);
+        transition: all 0.3s ease;
+    }
+    .btn-save:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px 0 rgba(102, 126, 234, 0.6);
+    }
+    .form-container {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    .file-input-label {
+        display: inline-block;
+        cursor: pointer;
+        background: #f3f4f6;
+        padding: 10px 20px;
+        border-radius: 8px;
+        border: 2px dashed #d1d5db;
+        transition: all 0.3s ease;
+    }
+    .file-input-label:hover {
+        background: #e5e7eb;
+        border-color: #667eea;
+    }
+    .file-preview img {
+        max-width: 100%;
+        max-height: 200px;
+        object-fit: cover;
+        border-radius: 8px;
+        margin-top: 10px;
+    }
+</style>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+<div class="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 py-12 px-4">
+    <div class="max-w-2xl mx-auto">
+        <div class="form-container rounded-3xl shadow-2xl overflow-hidden">
+            <div class="bg-gradient-to-r from-purple-600 to-blue-600 p-8 text-center">
+                <div class="mb-4">
+                    <i class="fas fa-{% if object %}edit{% else %}plus-circle{% endif %} text-5xl text-white"></i>
+                </div>
+                <h1 class="text-3xl font-bold text-white">
+                    {% if object %}Edit Event{% else %}Create New Event{% endif %}
+                </h1>
+                <p class="text-blue-100 mt-2">
+                    {% if object %}Update event details{% else %}Fill in the event information{% endif %}
+                </p>
+            </div>
+
+            <div class="p-8">
+                <form method="post" enctype="multipart/form-data" class="space-y-6">
+                    {% csrf_token %}
+
+                    {% for field in form %}
+                        {% if field.name != 'event_image' and field.name != 'clear_image' %}
+                            <div class="space-y-2">
+                                <label for="{{ field.id_for_label }}" class="form-label">
+                                    <i class="fas fa-{% if 'name' in field.name %}tag{% elif 'date' in field.name %}calendar{% elif 'location' in field.name %}map-marker{% elif 'address' in field.name %}home{% elif 'category' in field.name %}folder{% else %}info-circle{% endif %} text-purple-500 mr-2"></i>
+                                    {{ field.label }}
+                                    {% if field.field.required %}
+                                        <span class="text-red-500">*</span>
+                                    {% endif %}
+                                </label>
+
+                                {% if field.field.widget.input_type == 'textarea' %}
+                                    <textarea name="{{ field.name }}" id="{{ field.id_for_label }}" class="form-input w-full px-4 py-3 rounded-xl resize-none h-32" placeholder="{{ field.help_text|default:'Enter details...' }}" {% if field.field.required %}required{% endif %}>{{ field.value|default:'' }}</textarea>
+                                {% elif field.field.widget.input_type == 'select' %}
+                                    <select name="{{ field.name }}" id="{{ field.id_for_label }}" class="form-input w-full px-4 py-3 rounded-xl" {% if field.field.required %}required{% endif %}>
+                                        {% for choice in field.field.choices %}
+                                            <option value="{{ choice.0 }}" {% if choice.0 == field.value %}selected{% endif %}>
+                                                {{ choice.1 }}
+                                            </option>
+                                        {% endfor %}
+                                    </select>
+                                {% else %}
+                                    <input type="{{ field.field.widget.input_type|default:'text' }}" name="{{ field.name }}" id="{{ field.id_for_label }}" value="{{ field.value|default:'' }}" class="form-input w-full px-4 py-3 rounded-xl" placeholder="{{ field.help_text|default:'Enter '|add:field.label|lower }}" {% if field.field.required %}required{% endif %}>
+                                {% endif %}
+
+                                {% if field.errors %}
+                                    <div class="text-red-500 text-sm mt-1">
+                                        {% for error in field.errors %}
+                                            <p><i class="fas fa-exclamation-circle mr-1"></i>{{ error }}</p>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+
+                    <!-- Custom File Input for Event Image -->
+                    <div class="space-y-2">
+                        <label for="id_event_image" class="form-label">
+                            <i class="fas fa-image text-purple-500 mr-2"></i>Event Image
+                        </label>
+
+                        {% comment %} <label for="id_event_image" class="file-input-label">
+                            <i class="fas fa-upload mr-2"></i>Choose Image
+                        </label> {% endcomment %}
+                        {{ form.event_image }}
+                    </div>
+
+                    {% if object.event_image %}
+                        <div class="file-preview mt-4">
+                            <img src="{{ object.event_image.url }}" alt="Current event image">
+                        </div>
+                        <div class="space-y-2 mt-2">
+                            {% comment %} <label for="{{ form.clear_image.id_for_label }}" class="form-label">
+                                <i class="fas fa-trash text-purple-500 mr-2"></i>{{ form.clear_image.label }}
+                            </label> {% endcomment %}
+                            {{ form.clear_image }}
+                        </div>
+                    {% endif %}
+
+                    <div class="pt-6">
+                        <button type="submit" class="btn-save w-full text-white font-bold py-4 px-6 rounded-xl transition-all duration-300">
+                            <i class="fas fa-save mr-2"></i>
+                            {% if object %}Update Event{% else %}Create Event{% endif %}
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const fileInput = document.getElementById('id_event_image');
+        const fileLabel = document.querySelector('.file-input-label');
+        const previewContainer = document.querySelector('.file-preview') || document.createElement('div');
+        if (!previewContainer.classList.contains('file-preview')) {
+            previewContainer.classList.add('file-preview');
+            fileInput.parentNode.appendChild(previewContainer);
+        }
+
+        if (fileInput && fileLabel) {
+            fileInput.addEventListener('change', function () {
+                const fileName = this.files[0]?.name || 'Choose Image';
+                fileLabel.innerHTML = `<i class="fas fa-upload mr-2"></i>${fileName}`;
+
+                if (this.files && this.files[0]) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        previewContainer.innerHTML = `<img src="${e.target.result}" alt="New image preview">`;
+                    };
+                    reader.readAsDataURL(this.files[0]);
+                }
+            });
+        }
+    });
+</script>
+{% endblock %}

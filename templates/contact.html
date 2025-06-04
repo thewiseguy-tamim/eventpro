@@ -1,0 +1,339 @@
+{% extends 'base.html' %}
+
+{% block title %}Contact Us - EventPro{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="relative min-h-[80vh] bg-gradient-to-br from-primary/90 via-secondary/90 to-accent/90 flex items-center justify-center overflow-hidden">
+    <!-- Background Image -->
+    <div class="absolute inset-0 z-0">
+        <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2069&q=80" 
+             alt="Event planning background" 
+             class="w-full h-full object-cover">
+    </div>
+    
+    <!-- Gradient Overlay -->
+    <div class="absolute inset-0 bg-gradient-to-br from-primary/90 via-secondary/90 to-accent/90 z-1"></div>
+    
+    <!-- Animated Background Elements -->
+    <div class="absolute inset-0 z-2">
+        <div class="floating absolute top-10 left-10 w-20 h-20 bg-white/10 rounded-full blur-xl"></div>
+        <div class="floating absolute top-32 right-20 w-32 h-32 bg-white/5 rounded-full blur-2xl" style="animation-delay: -2s;"></div>
+        <div class="floating absolute bottom-20 left-1/4 w-16 h-16 bg-white/15 rounded-full blur-lg" style="animation-delay: -4s;"></div>
+    </div>
+    
+    <div class="relative z-10 text-center text-white px-4">
+        <div class="mb-8">
+            <div class="inline-flex items-center justify-center w-24 h-24 bg-white/20 rounded-full mb-6 backdrop-blur-sm">
+                <i class="fas fa-envelope text-4xl text-white"></i>
+            </div>
+        </div>
+        <h1 class="text-5xl md:text-7xl font-bold mb-6 leading-tight">
+            Get In <span class="text-yellow-300">Touch</span>
+        </h1>
+        <p class="text-xl md:text-2xl text-white/90 max-w-2xl mx-auto leading-relaxed mb-8">
+            Ready to create something extraordinary? Let's bring your vision to life.
+        </p>
+        
+        <!-- Additional Hero Content -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto mt-12">
+            <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 hover:bg-white/20 transition-all duration-300">
+                <div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-calendar-check text-white text-xl"></i>
+                </div>
+                <h3 class="text-lg font-semibold mb-2">Free Consultation</h3>
+                <p class="text-white/80 text-sm">Start with a complimentary planning session</p>
+            </div>
+            
+            <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 hover:bg-white/20 transition-all duration-300">
+                <div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-clock text-white text-xl"></i>
+                </div>
+                <h3 class="text-lg font-semibold mb-2">Quick Response</h3>
+                <p class="text-white/80 text-sm">We'll get back to you within 24 hours</p>
+            </div>
+            
+            <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 hover:bg-white/20 transition-all duration-300">
+                <div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-star text-white text-xl"></i>
+                </div>
+                <h3 class="text-lg font-semibold mb-2">5-Star Service</h3>
+                <p class="text-white/80 text-sm">Rated #1 by our satisfied clients</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section class="py-20 bg-gray-50">
+    <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+            <!-- Contact Form -->
+            <div class="order-2 lg:order-1">
+                <div class="bg-white rounded-3xl shadow-2xl p-8 md:p-12 relative overflow-hidden">
+                    <!-- Decorative Elements -->
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-primary/10 to-secondary/10 rounded-full blur-2xl"></div>
+                    <div class="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-accent/10 to-primary/10 rounded-full blur-xl"></div>
+                    
+                    <div class="relative z-10">
+                        <div class="text-center mb-8">
+                            <h2 class="text-3xl md:text-4xl font-bold text-dark mb-4">Send us a Message</h2>
+                            <p class="text-gray-600 text-lg">We'd love to hear about your upcoming event</p>
+                        </div>
+
+                        <form method="post" class="space-y-6">
+                            {% csrf_token %}
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="group">
+                                    <label class="block text-sm font-semibold text-gray-700 mb-2">First Name</label>
+                                    <input type="text" name="first_name" required 
+                                           class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-primary focus:outline-none transition-all duration-300 group-hover:border-gray-300">
+                                </div>
+                                <div class="group">
+                                    <label class="block text-sm font-semibold text-gray-700 mb-2">Last Name</label>
+                                    <input type="text" name="last_name" required 
+                                           class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-primary focus:outline-none transition-all duration-300 group-hover:border-gray-300">
+                                </div>
+                            </div>
+                            
+                            <div class="group">
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Email Address</label>
+                                <input type="email" name="email" required 
+                                       class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-primary focus:outline-none transition-all duration-300 group-hover:border-gray-300">
+                            </div>
+                            
+                            <div class="group">
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Phone Number</label>
+                                <input type="tel" name="phone" 
+                                       class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-primary focus:outline-none transition-all duration-300 group-hover:border-gray-300">
+                            </div>
+                            
+                            <div class="group">
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Event Type</label>
+                                <select name="event_type" required 
+                                        class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-primary focus:outline-none transition-all duration-300 group-hover:border-gray-300">
+                                    <option value="">Select an event type</option>
+                                    <option value="wedding">Wedding</option>
+                                    <option value="corporate">Corporate Event</option>
+                                    <option value="conference">Conference</option>
+                                    <option value="party">Private Party</option>
+                                    <option value="fundraiser">Fundraiser</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            
+                            <div class="group">
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Expected Guest Count</label>
+                                <input type="number" name="guest_count" min="1" 
+                                       class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-primary focus:outline-none transition-all duration-300 group-hover:border-gray-300">
+                            </div>
+                            
+                            <div class="group">
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Event Date (if known)</label>
+                                <input type="date" name="event_date" 
+                                       class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-primary focus:outline-none transition-all duration-300 group-hover:border-gray-300">
+                            </div>
+                            
+                            <div class="group">
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Tell us about your event</label>
+                                <textarea name="message" rows="5" required 
+                                          placeholder="Describe your vision, requirements, and any specific details you'd like us to know..."
+                                          class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-primary focus:outline-none transition-all duration-300 group-hover:border-gray-300 resize-none"></textarea>
+                            </div>
+                            
+                            <button type="submit" 
+                                    class="w-full bg-gradient-to-r from-primary to-secondary text-white py-4 px-8 rounded-xl font-semibold hover-glow transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-primary/25">
+                                <i class="fas fa-paper-plane mr-2"></i>
+                                Send Message
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Why Choose Us Section -->
+            <div class="order-1 lg:order-2 space-y-8">
+                <div class="text-center lg:text-left">
+                    <h2 class="text-3xl md:text-4xl font-bold text-dark mb-4">Why Choose EventPro?</h2>
+                    <p class="text-gray-600 text-lg leading-relaxed">
+                        Experience the difference with our award-winning event planning team. We transform your dreams into unforgettable memories.
+                    </p>
+                </div>
+
+                <!-- Feature Cards -->
+                <div class="space-y-6">
+                    <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 group">
+                        <div class="flex items-start space-x-4">
+                            <div class="w-14 h-14 bg-gradient-to-r from-primary to-secondary rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                                <i class="fas fa-trophy text-white text-xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-dark text-lg mb-2">Award-Winning Team</h3>
+                                <p class="text-gray-600">Recognized industry leaders with 15+ years of experience creating extraordinary events.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 group">
+                        <div class="flex items-start space-x-4">
+                            <div class="w-14 h-14 bg-gradient-to-r from-secondary to-accent rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                                <i class="fas fa-users text-white text-xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-dark text-lg mb-2">Personalized Service</h3>
+                                <p class="text-gray-600">Every event is unique. We tailor our approach to match your vision and style perfectly.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 group">
+                        <div class="flex items-start space-x-4">
+                            <div class="w-14 h-14 bg-gradient-to-r from-accent to-primary rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                                <i class="fas fa-network-wired text-white text-xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-dark text-lg mb-2">Trusted Network</h3>
+                                <p class="text-gray-600">Exclusive partnerships with premium vendors, venues, and suppliers worldwide.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 group">
+                        <div class="flex items-start space-x-4">
+                            <div class="w-14 h-14 bg-gradient-to-r from-primary to-accent rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                                <i class="fas fa-shield-alt text-white text-xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-dark text-lg mb-2">Stress-Free Guarantee</h3>
+                                <p class="text-gray-600">Comprehensive planning and day-of coordination so you can enjoy your special moment.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stats Section -->
+                <div class="bg-gradient-to-r from-primary to-secondary rounded-2xl p-6">
+                    <h3 class="text-white font-semibold text-lg mb-6 text-center">Our Success Story</h3>
+                    <div class="grid grid-cols-2 gap-4 text-center text-white">
+                        <div>
+                            <div class="text-3xl font-bold mb-1">500+</div>
+                            <div class="text-sm text-white/80">Events Planned</div>
+                        </div>
+                        <div>
+                            <div class="text-3xl font-bold mb-1">98%</div>
+                            <div class="text-sm text-white/80">Client Satisfaction</div>
+                        </div>
+                        <div>
+                            <div class="text-3xl font-bold mb-1">15+</div>
+                            <div class="text-sm text-white/80">Years Experience</div>
+                        </div>
+                        <div>
+                            <div class="text-3xl font-bold mb-1">50+</div>
+                            <div class="text-sm text-white/80">Team Members</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ Section -->
+<section class="py-20 bg-white">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold text-dark mb-4">Frequently Asked Questions</h2>
+            <p class="text-gray-600 text-lg max-w-2xl mx-auto">
+                Get quick answers to common questions about our event planning services
+            </p>
+        </div>
+
+        <div class="max-w-4xl mx-auto space-y-4">
+            <div class="bg-gray-50 rounded-2xl overflow-hidden">
+                <button class="w-full px-6 py-4 text-left font-semibold text-dark hover:text-primary transition-colors duration-300 flex items-center justify-between faq-toggle">
+                    <span>How far in advance should I book your services?</span>
+                    <i class="fas fa-chevron-down transition-transform duration-300"></i>
+                </button>
+                <div class="faq-content hidden px-6 pb-4">
+                    <p class="text-gray-600">We recommend booking 3-6 months in advance for large events like weddings or corporate functions. However, we can accommodate shorter timelines based on availability and event complexity.</p>
+                </div>
+            </div>
+
+            <div class="bg-gray-50 rounded-2xl overflow-hidden">
+                <button class="w-full px-6 py-4 text-left font-semibold text-dark hover:text-primary transition-colors duration-300 flex items-center justify-between faq-toggle">
+                    <span>What's included in your event planning packages?</span>
+                    <i class="fas fa-chevron-down transition-transform duration-300"></i>
+                </button>
+                <div class="faq-content hidden px-6 pb-4">
+                    <p class="text-gray-600">Our packages include venue selection, vendor coordination, timeline management, day-of coordination, and post-event follow-up. Specific services vary by package level and can be customized to your needs.</p>
+                </div>
+            </div>
+
+            <div class="bg-gray-50 rounded-2xl overflow-hidden">
+                <button class="w-full px-6 py-4 text-left font-semibold text-dark hover:text-primary transition-colors duration-300 flex items-center justify-between faq-toggle">
+                    <span>Do you work with specific budgets?</span>
+                    <i class="fas fa-chevron-down transition-transform duration-300"></i>
+                </button>
+                <div class="faq-content hidden px-6 pb-4">
+                    <p class="text-gray-600">Absolutely! We work with budgets of all sizes and will create a customized plan that maximizes your investment. During our consultation, we'll discuss your budget and priorities to ensure the best possible outcome.</p>
+                </div>
+            </div>
+
+            <div class="bg-gray-50 rounded-2xl overflow-hidden">
+                <button class="w-full px-6 py-4 text-left font-semibold text-dark hover:text-primary transition-colors duration-300 flex items-center justify-between faq-toggle">
+                    <span>Can you handle events outside your local area?</span>
+                    <i class="fas fa-chevron-down transition-transform duration-300"></i>
+                </button>
+                <div class="faq-content hidden px-6 pb-4">
+                    <p class="text-gray-600">Yes! We provide destination event planning services. Travel costs and logistics will be discussed during planning, and we have a network of trusted partners in many locations.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // FAQ Toggle functionality
+    document.querySelectorAll('.faq-toggle').forEach(button => {
+        button.addEventListener('click', function() {
+            const content = this.nextElementSibling;
+            const icon = this.querySelector('i');
+            
+            // Close all other FAQs
+            document.querySelectorAll('.faq-content').forEach(otherContent => {
+                if (otherContent !== content && !otherContent.classList.contains('hidden')) {
+                    otherContent.classList.add('hidden');
+                    otherContent.previousElementSibling.querySelector('i').style.transform = 'rotate(0deg)';
+                }
+            });
+            
+            // Toggle current FAQ
+            content.classList.toggle('hidden');
+            icon.style.transform = content.classList.contains('hidden') ? 'rotate(0deg)' : 'rotate(180deg)';
+        });
+    });
+
+    // Form animation on focus
+    document.querySelectorAll('input, select, textarea').forEach(input => {
+        input.addEventListener('focus', function() {
+            this.parentElement.classList.add('scale-105');
+        });
+        
+        input.addEventListener('blur', function() {
+            this.parentElement.classList.remove('scale-105');
+        });
+    });
+
+    // Success message animation
+    const form = document.querySelector('form');
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            const button = form.querySelector('button[type="submit"]');
+            button.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Sending...';
+            button.disabled = true;
+        });
+    }
+</script>
+{% endblock %}

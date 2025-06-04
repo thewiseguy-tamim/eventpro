@@ -1,0 +1,72 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Change User Role</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 min-h-screen flex items-center justify-center">
+    <div class="bg-white rounded-xl p-6 w-full max-w-sm mx-auto shadow-lg">
+        <div class="flex justify-between items-center mb-4">
+            <h3 class="text-lg font-semibold">Change User Role</h3>
+            <a href="{% url 'admin_dashboard' %}" class="text-gray-400 hover:text-gray-600 p-1 rounded hover:bg-gray-100 transition-colors">
+                <i data-lucide="x" class="h-6 w-6"></i>
+            </a>
+        </div>
+        <form method="POST">
+            {% csrf_token %}
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Select Role</label>
+                    {{ form.role }}
+                </div>
+            </div>
+            <div class="flex justify-end space-x-3 mt-6">
+                <a href="{% url 'admin_dashboard' %}" class="px-4 py-2 text-gray-600 hover:text-gray-800 hover:bg-gray-100 rounded-lg transition-colors">Cancel</a>
+                <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors">Update Role</button>
+            </div>
+        </form>
+    </div>
+
+    {% if messages %}
+        <div id="notificationContainer" class="fixed top-4 right-4 z-50">
+            {% for message in messages %}
+                <div class="notification {{ message.tags }} show">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <i data-lucide="{% if message.tags == 'success' %}check-circle{% elif message.tags == 'error' %}x-circle{% else %}alert-circle{% endif %}" class="h-5 w-5 mr-2"></i>
+                            <span>{{ message }}</span>
+                        </div>
+                        <button onclick="this.parentElement.parentElement.remove()" class="ml-4 text-white hover:text-gray-200">
+                            <i data-lucide="x" class="h-4 w-4"></i>
+                        </button>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <script>
+        lucide.createIcons();
+
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                document.querySelectorAll('.notification').forEach(notification => {
+                    notification.classList.add('show');
+                    setTimeout(() => {
+                        notification.classList.remove('show');
+                        setTimeout(() => {
+                            if (notification.parentElement) {
+                                notification.remove();
+                            }
+                        }, 300);
+                    }, 5000);
+                });
+            }, 100);
+        });
+    </script>
+</body>
+</html>
