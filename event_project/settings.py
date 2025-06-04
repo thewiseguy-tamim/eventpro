@@ -3,7 +3,8 @@ from pathlib import Path
 from dotenv import load_dotenv
 import dj_database_url
 
-ALLOWED_HOSTS = ['eventpro-4059.onrender.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['*']
+CSRF_TRUSTED_ORIGINS = ['https://*.onrender.com', 'http://127.0.0.1:8000/']
 
 
 # Load environment variables from .env file
