@@ -3,21 +3,26 @@ from pathlib import Path
 from dotenv import load_dotenv
 import dj_database_url
 
-ALLOWED_HOSTS = ['*']
-CSRF_TRUSTED_ORIGINS = ['https://*.onrender.com', 'http://127.0.0.1:8000/']
-
-
 # Load environment variables from .env file
 load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Quick-start development settings - unsuitable for production
-SECRET_KEY = 'django-insecure-t#k^k0z8#5!q8l#3z#r#z#v#z#z#z#z#z#z#z#z#z#z#z#z#z#z#z'
-DEBUG = True
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = 'django-insecure-t#k^k0z8#5!q8l#3z#r#z#v#z#z#z#z#z#z#z#z#z#z#z#z#z'
 
-ALLOWED_HOSTS = []
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = True  # Set to False in production
+
+# Allow all hosts (development only)
+ALLOWED_HOSTS = ['*']
+
+# CSRF trusted origins
+CSRF_TRUSTED_ORIGINS = [
+    'https://*.onrender.com',
+    'http://127.0.0.1:8000'
+]
 
 # Application definition
 INSTALLED_APPS = [
@@ -61,18 +66,10 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'event_project.wsgi.application'
 
-# # Database
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
+# Database
 DATABASES = {
     'default': dj_database_url.config(
         default='postgresql://event_db_r79x_user:mTv7j3ziVL7y7sE10yXE6j2zg6m5fWPe@dpg-d0vth8umcj7s73fvkcl0-a.oregon-postgres.render.com/event_db_r79x',
-        
         conn_max_age=600
     )
 }
