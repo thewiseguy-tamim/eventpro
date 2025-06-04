@@ -3,6 +3,9 @@ from pathlib import Path
 from dotenv import load_dotenv
 import dj_database_url
 
+ALLOWED_HOSTS = ['eventpro-4059.onrender.com', 'localhost', '127.0.0.1']
+
+
 # Load environment variables from .env file
 load_dotenv()
 
@@ -11,7 +14,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Quick-start development settings - unsuitable for production
 SECRET_KEY = 'django-insecure-t#k^k0z8#5!q8l#3z#r#z#v#z#z#z#z#z#z#z#z#z#z#z#z#z#z#z'
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = []
 
