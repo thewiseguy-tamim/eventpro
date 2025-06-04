@@ -60,129 +60,283 @@
 <body class="bg-gray-50 font-sans">
     <!-- Modern Navbar -->
     <nav class="fixed w-full top-0 z-50 transition-all duration-300" id="navbar">
-        <div class="glass-effect">
-            <div class="container mx-auto px-4 py-3">
-                <div class="flex flex-col md:flex-row md:justify-between items-center text-center">
-
-                    <!-- Logo -->
-                    <a href="{% url 'home' %}" class="flex items-center space-x-3 group">
-                        <div class="relative">
-                            <div class="w-10 h-10 bg-gradient-to-r from-primary to-secondary rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                                <i class="fas fa-calendar-star text-white text-lg"></i>
-                            </div>
-                            <div class="absolute inset-0 bg-gradient-to-r from-primary to-secondary rounded-xl blur-md opacity-30 group-hover:opacity-50 transition-opacity duration-300"></div>
+    <div class="glass-effect bg-white/80 backdrop-blur-md shadow-sm">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-3">
+            <div class="flex flex-col md:flex-row md:justify-between items-center text-center">
+                <!-- Logo -->
+                <a href="{% url 'home' %}" class="flex items-center space-x-3 group">
+                    <div class="relative">
+                        <div class="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-primary to-secondary rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                            <i class="fas fa-calendar-star text-white text-lg sm:text-xl"></i>
                         </div>
-                        <div>
-                            <h1 class="text-2xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">EventPro</h1>
-                            <p class="text-xs text-gray-600 -mt-1">Premium Events</p>
-                        </div>
-                    </a>
-
-                    <!-- Desktop Navigation -->
-                    <div class="hidden md:flex space-x-8">
-                        <a href="{% url 'event_list' %}" class="text-dark hover:text-primary transition-colors duration-300 font-medium relative group">
-                            Events
-                            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300"></span>
-                        </a>
-                        <a href="{% url 'about' %}" class="text-dark hover:text-primary transition-colors duration-300 font-medium relative group">
-                            About
-                            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300"></span>
-                        </a>
-                        {% comment %} <a href="#services" class="text-dark hover:text-primary transition-colors duration-300 font-medium relative group">
-                            Services
-                            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300"></span>
-                        </a> {% endcomment %}
-                        <a href="{% url 'contact' %}" class="text-dark hover:text-primary transition-colors duration-300 font-medium relative group">
-                            Contact
-                            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300"></span>
-                        </a>
+                        <div class="absolute inset-0 bg-gradient-to-r from-primary to-secondary rounded-xl blur-md opacity-30 group-hover:opacity-50 transition-opacity duration-300 pulse-ring sm:pulse-ring"></div>
                     </div>
+                    <div>
+                        <h1 class="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent floating">EventPro</h1>
+                        <p class="text-xs sm:text-sm text-gray-600 -mt-1">Premium Events</p>
+                    </div>
+                </a>
 
-                    <!-- User Section -->
-                    <div class="flex items-center space-x-4">
-                        {% if user.is_authenticated %}
-                            <div class="relative">
-                                <img src="{% if user.profile_picture %}{{ user.profile_picture.url }}{% else %}https://ui-avatars.com/api/?name={{ user.first_name }}+{{ user.last_name }}&background=E91E63&color=fff&size=40{% endif %}" 
-                                     alt="Avatar" 
-                                     class="w-10 h-10 rounded-full cursor-pointer border-2 border-transparent hover:border-primary transition-all duration-300 avatar-img">
-                                
-                                <!-- Dropdown Menu -->
-                                <div class="absolute right-0 mt-2 w-64 bg-black/70 backdrop-blur-md rounded-2xl shadow-2xl hidden dropdown-menu overflow-hidden">
-                                    <div class="p-4 border-b border-white/20">
-                                        <div class="flex items-center space-x-3">
-                                            <img src="{% if user.profile_picture %}{{ user.profile_picture.url }}{% else %}https://ui-avatars.com/api/?name={{ user.first_name }}+{{ user.last_name }}&background=E91E63&color=fff&size=40{% endif %}" 
-                                                 alt="Avatar" class="w-12 h-12 rounded-full">
-                                            <div>
-                                                <p class="text-white font-semibold">{{ user.first_name }} {{ user.last_name }}</p>
-                                                <p class="text-white/70 text-sm capitalize">{{ user.role }}</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="py-2">
-                                        <a href="{% url 'profile' %}" class="flex items-center px-4 py-3 text-white hover:bg-white/10 transition-colors duration-200">
-                                            <i class="fas fa-user mr-3"></i>
-                                            Profile
-                                        </a>
-                                        <a href="{% url 'my_events' %}" class="flex items-center px-4 py-3 text-white hover:bg-white/10 transition-colors duration-200">
-                                            <i class="fas fa-calendar-check mr-3"></i>
-                                            My Events
-                                        </a>
-                                        {% if user.role == 'admin' %}
-                                            <a href="{% url 'admin_dashboard' %}" class="flex items-center px-4 py-3 text-white hover:bg-white/10 transition-colors duration-200">
-                                                <i class="fas fa-tachometer-alt mr-3"></i>
-                                                Admin Dashboard
-                                            </a>
-                                        {% elif user.role == 'manager' %}
-                                            <a href="{% url 'manager_dashboard' %}" class="flex items-center px-4 py-3 text-white hover:bg-white/10 transition-colors duration-200">
-                                                <i class="fas fa-chart-line mr-3"></i>
-                                                Manager Dashboard
-                                            </a>
-                                        {% else %}
-                                            <a href="{% url 'client_dashboard' %}" class="flex items-center px-4 py-3 text-white hover:bg-white/10 transition-colors duration-200">
-                                                <i class="fas fa-home mr-3"></i>
-                                                Dashboard
-                                            </a>
-                                        {% endif %}
-                                        <div class="border-t border-white/20 mt-2">
-                                            <form action="{% url 'logout' %}" method="post" class="block">
-                                                {% csrf_token %}
-                                                <button type="submit" class="flex items-center w-full px-4 py-3 text-white hover:bg-red-500/20 transition-colors duration-200">
-                                                    <i class="fas fa-sign-out-alt mr-3"></i>
-                                                    Sign Out
-                                                </button>
-                                            </form>
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex space-x-6 lg:space-x-8 items-center">
+                    <a href="{% url 'event_list' %}" class="text-dark hover:text-primary transition-colors duration-300 font-medium relative group text-sm lg:text-base">
+                        Events
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300"></span>
+                    </a>
+                    <a href="{% url 'about' %}" class="text-dark hover:text-primary transition-colors duration-300 font-medium relative group text-sm lg:text-base">
+                        About
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300"></span>
+                    </a>
+                    <a href="{% url 'contact' %}" class="text-dark hover:text-primary transition-colors duration-300 font-medium relative group text-sm lg:text-base">
+                        Contact
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300"></span>
+                    </a>
+                </div>
+
+                <!-- User Section -->
+                <div class="flex items-center space-x-3 sm:space-x-4">
+                    {% if user.is_authenticated %}
+                        <div class="relative">
+                            <img src="{% if user.profile_picture %}{{ user.profile_picture.url }}{% else %}https://ui-avatars.com/api/?name={{ user.first_name }}+{{ user.last_name }}&background=E91E63&color=fff&size=40{% endif %}" 
+                                 alt="Avatar" 
+                                 class="w-10 h-10 sm:w-12 sm:h-12 rounded-full cursor-pointer border-2 border-transparent hover:border-primary transition-all duration-300 hover-glow avatar-img">
+                            
+                            <!-- Dropdown Menu -->
+                            <div class="absolute right-0 mt-2 w-64 sm:w-72 bg-black/80 backdrop-blur-md rounded-2xl shadow-2xl hidden dropdown-menu overflow-hidden transition-all duration-300 transform origin-top-right">
+                                <div class="p-4 border-b border-white/20">
+                                    <div class="flex items-center space-x-3">
+                                        <img src="{% if user.profile_picture %}{{ user.profile_picture.url }}{% else %}https://ui-avatars.com/api/?name={{ user.first_name }}+{{ user.last_name }}&background=E91E63&color=fff&size=40{% endif %}" 
+                                             alt="Avatar" class="w-12 h-12 sm:w-14 sm:h-14 rounded-full">
+                                        <div>
+                                            <p class="text-white font-semibold text-sm sm:text-base">{{ user.first_name }} {{ user.last_name }}</p>
+                                            <p class="text-white/70 text-xs sm:text-sm capitalize">{{ user.role }}</p>
                                         </div>
                                     </div>
                                 </div>
+                                <div class="py-2">
+                                    <a href="{% url 'profile' %}" class="flex items-center px-4 py-3 text-white hover:bg-white/10 transition-colors duration-200 text-sm sm:text-base">
+                                        <i class="fas fa-user mr-3"></i>
+                                        Profile
+                                    </a>
+                                    <a href="{% url 'my_events' %}" class="flex items-center px-4 py-3 text-white hover:bg-white/10 transition-colors duration-200 text-sm sm:text-base">
+                                        <i class="fas fa-calendar-check mr-3"></i>
+                                        My Events
+                                    </a>
+                                    {% if user.role == 'admin' %}
+                                        <a href="{% url 'admin_dashboard' %}" class="flex items-center px-4 py-3 text-white hover:bg-white/10 transition-colors duration-200 text-sm sm:text-base">
+                                            <i class="fas fa-tachometer-alt mr-3"></i>
+                                            Admin Dashboard
+                                        </a>
+                                    {% elif user.role == 'manager' %}
+                                        <a href="{% url 'manager_dashboard' %}" class="flex items-center px-4 py-3 text-white hover:bg-white/10 transition-colors duration-200 text-sm sm:text-base">
+                                            <i class="fas fa-chart-line mr-3"></i>
+                                            Manager Dashboard
+                                        </a>
+                                    {% else %}
+                                        <a href="{% url 'client_dashboard' %}" class="flex items-center px-4 py-3 text-white hover:bg-white/10 transition-colors duration-200 text-sm sm:text-base">
+                                            <i class="fas fa-home mr-3"></i>
+                                            Dashboard
+                                        </a>
+                                    {% endif %}
+                                    <div class="border-t border-white/20 mt-2">
+                                        <form action="{% url 'logout' %}" method="post" class="block">
+                                            {% csrf_token %}
+                                            <button type="submit" class="flex items-center w-full px-4 py-3 text-white hover:bg-red-500/20 transition-colors duration-200 text-sm sm:text-base">
+                                                <i class="fas fa-sign-out-alt mr-3"></i>
+                                                Sign Out
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
                             </div>
-                        {% else %}
-                            <a href="{% url 'login' %}" class="text-dark hover:text-primary transition-colors duration-300 font-medium">
-                                Login
-                            </a>
-                            <a href="{% url 'signup' %}" class="bg-gradient-to-r from-primary to-secondary text-white px-6 py-2 rounded-full hover-glow transition-all duration-300 font-medium">
-                                Sign Up
-                            </a>
-                        {% endif %}
+                        </div>
+                    {% else %}
+                        <a href="{% url 'login' %}" class="text-dark hover:text-primary transition-colors duration-300 font-medium text-sm sm:text-base">Login</a>
+                        <a href="{% url 'signup' %}" class="bg-gradient-to-r from-primary to-secondary text-white px-4 sm:px-6 py-2 rounded-full hover-glow transition-all duration-300 font-medium text-sm sm:text-base">Sign Up</a>
+                    {% endif %}
 
-                        <!-- Mobile Menu Button -->
-                        <button id="mobile-menu-btn" class="md:hidden text-dark hover:text-primary">
-                            <i class="fas fa-bars text-xl"></i>
-                        </button>
-                    </div>
+                    <!-- Mobile Menu Button -->
+                    <button id="mobile-menu-btn" class="md:hidden text-dark hover:text-primary transition-colors duration-300">
+                        <i class="fas fa-bars text-xl sm:text-2xl"></i>
+                    </button>
                 </div>
+            </div>
 
-                <!-- Mobile Menu -->
-                <div id="mobile-menu" class="md:hidden hidden mt-4 pb-4">
-                    <div class="flex flex-col space-y-3">
-                        <a href="{% url 'event_list' %}" class="text-dark hover:text-primary transition-colors duration-300 font-medium py-2">Events</a>
-                        <a href="#about" class="text-dark hover:text-primary transition-colors duration-300 font-medium py-2">About</a>
-                        {% comment %} <a href="#services" class="text-dark hover:text-primary transition-colors duration-300 font-medium py-2">Services</a> {% endcomment %}
-                        <a href="#contact" class="text-dark hover:text-primary transition-colors duration-300 font-medium py-2">Contact</a>
-                    </div>
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="md:hidden hidden mt-4 pb-4 transition-all duration-300 transform origin-top">
+                <div class="flex flex-col space-y-3">
+                    <a href="{% url 'event_list' %}" class="text-dark hover:text-primary transition-colors duration-300 font-medium py-2 text-base">Events</a>
+                    <a href="{% url 'about' %}" class="text-dark hover:text-primary transition-colors duration-300 font-medium py-2 text-base">About</a>
+                    <a href="{% url 'contact' %}" class="text-dark hover:text-primary transition-colors duration-300 font-medium py-2 text-base">Contact</a>
                 </div>
             </div>
         </div>
-    </nav>
+    </div>
+</nav>
+
+<script>
+    // Tailwind Configuration
+    tailwind.config = {
+        theme: {
+            extend: {
+                colors: {
+                    primary: '#E91E63',
+                    secondary: '#7C3AED',
+                    accent: '#06B6D4',
+                    dark: '#1E293B'
+                },
+                backgroundImage: {
+                    'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+                    'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+                    'hero-pattern': 'linear-gradient(135deg, #E91E63 0%, #7C3AED 100%)'
+                }
+            }
+        }
+    }
+
+    // JavaScript for Menu Interactions
+    document.addEventListener('DOMContentLoaded', () => {
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const avatarImg = document.querySelector('.avatar-img');
+        const dropdownMenu = document.querySelector('.dropdown-menu');
+
+        // Toggle mobile menu
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            mobileMenu.classList.toggle('scale-y-0');
+            mobileMenu.classList.toggle('scale-y-100');
+        });
+
+        // Toggle dropdown menu
+        if (avatarImg && dropdownMenu) {
+            avatarImg.addEventListener('click', (e) => {
+                e.stopPropagation();
+                dropdownMenu.classList.toggle('hidden');
+                dropdownMenu.classList.toggle('scale-y-0');
+                dropdownMenu.classList.toggle('scale-y-100');
+            });
+
+            // Close dropdown when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!avatarImg.contains(e.target) && !dropdownMenu.contains(e.target)) {
+                    dropdownMenu.classList.add('hidden');
+                    dropdownMenu.classList.add('scale-y-0');
+                    dropdownMenu.classList.remove('scale-y-100');
+                }
+            });
+        }
+
+        // Close mobile menu when resizing to desktop
+        window.addEventListener('resize', () => {
+            if (window.innerWidth >= 768) {
+                mobileMenu.classList.add('hidden');
+                mobileMenu.classList.add('scale-y-0');
+                mobileMenu.classList.remove('scale-y-100');
+            }
+        });
+    });
+</script>
+
+<style>
+    /* Glass Effect */
+    .glass-effect {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    @media (max-width: 640px) {
+        .glass-effect {
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+        }
+    }
+
+    /* Hover Glow Effect */
+    .hover-glow:hover {
+        box-shadow: 0 0 20px rgba(233, 30, 99, 0.3);
+        transform: translateY(-2px);
+        transition: all 0.3s ease;
+    }
+
+    @media (hover: none) {
+        .hover-glow:hover {
+            box-shadow: none;
+            transform: none;
+        }
+    }
+
+    /* Floating Animation */
+    .floating {
+        animation: floating 6s ease-in-out infinite;
+    }
+
+    @keyframes floating {
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(-10px); }
+    }
+
+    @media (max-width: 640px) {
+        .floating {
+            animation: floating 6s ease-in-out infinite;
+        }
+        @keyframes floating {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
+        }
+    }
+
+    /* Pulse Ring Animation */
+    .pulse-ring {
+        animation: pulse-ring 2s cubic-bezier(0.455, 0.03, 0.515, 0.955) infinite;
+    }
+
+    @keyframes pulse-ring {
+        0% { transform: scale(0.33); opacity: 1; }
+        80%, 100% { transform: scale(1.8); opacity: 0; }
+    }
+
+    @media (max-width: 640px) {
+        .pulse-ring {
+            animation: pulse-ring 2.5s cubic-bezier(0.455, 0.03, 0.515, 0.955) infinite;
+        }
+        @keyframes pulse-ring {
+            0% { transform: scale(0.33); opacity: 1; }
+            80%, 100% { transform: scale(1.2); opacity: 0; }
+        }
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 640px) {
+        .container {
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+    }
+
+    @media (min-width: 640px) {
+        .container {
+            padding-left: 1.5rem;
+            padding-right: 1.5rem;
+        }
+    }
+
+    @media (min-width: 1024px) {
+        .container {
+            padding-left: 2rem;
+            padding-right: 2rem;
+        }
+    }
+
+    /* Touch-friendly padding for buttons */
+    .hover-glow, .avatar-img, #mobile-menu-btn {
+        min-width: 44px;
+        min-height: 44px;
+        touch-action: manipulation;
+    }
+</style>
 
     <!-- Messages -->
     {% if messages %}
