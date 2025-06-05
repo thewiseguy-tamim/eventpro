@@ -6,6 +6,8 @@
     <title>{% block title %}EventPro - Premium Event Management{% endblock %}</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
 
     <script>
         tailwind.config = {
@@ -26,403 +28,267 @@
             }
         }
     </script>
-
+    
     <style>
-        /* Glass Effect */
         .glass-effect {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
-
-        @media (max-width: 640px) {
-            .glass-effect {
-                backdrop-filter: blur(6px);
-                -webkit-backdrop-filter: blur(6px);
-            }
-        }
-
-        /* Hover Glow Effect */
         .hover-glow:hover {
-            box-shadow: 0 8px 25px rgba(233, 30, 99, 0.15);
-            transform: translateY(-1px);
+            box-shadow: 0 0 30px rgba(233, 30, 99, 0.5);
+            transform: translateY(-2px);
             transition: all 0.3s ease;
         }
-
-        @media (hover: none) {
-            .hover-glow:hover {
-                box-shadow: none;
-                transform: none;
-            }
-        }
-
-        /* Floating Animation */
         .floating {
-            animation: floating 3s ease-in-out infinite;
+            animation: floating 6s ease-in-out infinite;
         }
-
         @keyframes floating {
             0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-3px); }
+            50% { transform: translateY(-20px); }
         }
-
-        /* Pulse Ring Animation */
         .pulse-ring {
             animation: pulse-ring 2s cubic-bezier(0.455, 0.03, 0.515, 0.955) infinite;
         }
-
         @keyframes pulse-ring {
-            0% { transform: scale(0.5); opacity: 1; }
-            80%, 100% { transform: scale(1.5); opacity: 0; }
-        }
-
-        @media (max-width: 640px) {
-            .pulse-ring {
-                animation: pulse-ring 2.5s cubic-bezier(0.455, 0.03, 0.515, 0.955) infinite;
-            }
-            @keyframes pulse-ring {
-                0% { transform: scale(0.33); opacity: 1; }
-                80%, 100% { transform: scale(1.2); opacity: 0; }
-            }
-        }
-
-        /* Mobile Menu Animation */
-        .mobile-menu-enter {
-            animation: slideDown 0.3s ease-out forwards;
-        }
-
-        .mobile-menu-exit {
-            animation: slideUp 0.3s ease-in forwards;
-        }
-
-        @keyframes slideDown {
-            from { 
-                opacity: 0;
-                transform: translateY(-10px);
-                max-height: 0;
-            }
-            to { 
-                opacity: 1;
-                transform: translateY(0);
-                max-height: 300px;
-            }
-        }
-
-        @keyframes slideUp {
-            from { 
-                opacity: 1;
-                transform: translateY(0);
-                max-height: 300px;
-            }
-            to { 
-                opacity: 0;
-                transform: translateY(-10px);
-                max-height: 0;
-            }
-        }
-
-        /* Dropdown Animation */
-        .dropdown-enter {
-            animation: dropdownIn 0.2s ease-out forwards;
-        }
-
-        .dropdown-exit {
-            animation: dropdownOut 0.2s ease-in forwards;
-        }
-
-        @keyframes dropdownIn {
-            from {
-                opacity: 0;
-                transform: scale(0.95) translateY(-10px);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1) translateY(0);
-            }
-        }
-
-        @keyframes dropdownOut {
-            from {
-                opacity: 1;
-                transform: scale(1) translateY(0);
-            }
-            to {
-                opacity: 0;
-                transform: scale(0.95) translateY(-10px);
-            }
-        }
-
-        /* Hamburger Animation */
-        .hamburger {
-            cursor: pointer;
-            width: 24px;
-            height: 24px;
-            transition: all 0.25s;
-            position: relative;
-        }
-
-        .hamburger-top,
-        .hamburger-middle,
-        .hamburger-bottom {
-            position: absolute;
-            width: 24px;
-            height: 2px;
-            top: 0;
-            left: 0;
-            background: #1E293B;
-            border-radius: 1px;
-            transform: rotate(0);
-            transition: all 0.5s;
-        }
-
-        .hamburger-middle {
-            transform: translateY(7px);
-        }
-
-        .hamburger-bottom {
-            transform: translateY(14px);
-        }
-
-        .open .hamburger-top {
-            transform: rotate(45deg) translateY(6px) translateX(6px);
-        }
-
-        .open .hamburger-middle {
-            display: none;
-        }
-
-        .open .hamburger-bottom {
-            transform: rotate(-45deg) translateY(6px) translateX(-6px);
-        }
-
-        /* Custom scrollbar for dropdown */
-        .custom-scrollbar::-webkit-scrollbar {
-            width: 4px;
-        }
-
-        .custom-scrollbar::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 2px;
-        }
-
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: rgba(233, 30, 99, 0.5);
-            border-radius: 2px;
-        }
-
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-            background: rgba(233, 30, 99, 0.7);
-        }
-
-        /* Message Slide Animation */
-        .animate-slide-in {
-            animation: slideIn 0.3s ease-out forwards;
-        }
-
-        @keyframes slideIn {
-            from { transform: translateX(100%); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-
-        /* Responsive Adjustments */
-        @media (max-width: 640px) {
-            .container {
-                padding-left: 1rem;
-                padding-right: 1rem;
-            }
-            .messages-container {
-                top: 16rem;
-                right: 0.5rem;
-                max-width: 90%;
-            }
-        }
-
-        @media (min-width: 640px) {
-            .container {
-                padding-left: 1.5rem;
-                padding-right: 1.5rem;
-            }
-        }
-
-        @media (min-width: 1024px) {
-            .container {
-                padding-left: 2rem;
-                padding-right: 2rem;
-            }
-        }
-
-        /* Touch-friendly padding */
-        .hover-glow, .avatar-img, #hamburger, .social-link, .subscribe-btn {
-            min-width: 44px;
-            min-height: 44px;
-            touch-action: manipulation;
-        }
-
-        /* Footer adjustments */
-        .footer-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-        }
-
-        @media (max-width: 640px) {
-            .footer-grid {
-                grid-template-columns: 1fr;
-            }
+            0% { transform: scale(0.33); opacity: 1; }
+            80%, 100% { transform: scale(2.4); opacity: 0; }
         }
     </style>
     {% block extra_css %}
     {% endblock %}
 </head>
 <body class="bg-gray-50 font-sans">
-    <!-- Enhanced Responsive Navbar -->
+    <!-- Modern Navbar -->
     <nav class="fixed w-full top-0 z-50 transition-all duration-300" id="navbar">
-        <div class="glass-effect shadow-lg">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="flex justify-between items-center h-16 lg:h-20">
-                    <!-- Logo Section -->
-                    <div class="flex-shrink-0">
-                        <a href="{% url 'home' %}" class="flex items-center space-x-3 group">
-                            <div class="relative">
-                                <div class="w-10 h-10 lg:w-12 lg:h-12 bg-gradient-to-r from-primary to-secondary rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg">
-                                    <i class="fas fa-calendar-star text-white text-lg lg:text-xl"></i>
-                                </div>
-                                <div class="absolute inset-0 bg-gradient-to-r from-primary to-secondary rounded-xl blur opacity-20 group-hover:opacity-40 transition-opacity duration-300 pulse-ring"></div>
+        <div class="glass-effect bg-white/80 backdrop-blur-md shadow-sm">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-3">
+                <div class="flex justify-between items-center">
+                    <!-- Logo -->
+                    <a href="{% url 'home' %}" class="flex items-center space-x-3 group">
+                        <div class="relative">
+                            <div class="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-primary to-secondary rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                                <i class="fas fa-calendar-star text-white text-lg sm:text-xl"></i>
                             </div>
-                            <div class="hidden sm:block">
-                                <h1 class="text-xl lg:text-2xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent floating">EventPro</h1>
-                                <p class="text-xs lg:text-sm text-gray-600 -mt-1">Premium Events</p>
-                            </div>
-                        </a>
-                    </div>
+                            <div class="absolute inset-0 bg-gradient-to-r from-primary to-secondary rounded-xl blur-md opacity-30 group-hover:opacity-50 transition-opacity duration-300 pulse-ring"></div>
+                        </div>
+                        <div>
+                            <h1 class="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent floating">EventPro</h1>
+                            <p class="text-xs sm:text-sm text-gray-600 -mt-1">Premium Events</p>
+                        </div>
+                    </a>
+
+                    <!-- Hamburger Button for Mobile -->
+                    <button id="hamburger-btn" class="md:hidden text-dark hover:text-primary transition-colors duration-300 focus:outline-none">
+                        <i class="fas fa-bars text-xl sm:text-2xl"></i>
+                    </button>
 
                     <!-- Desktop Navigation -->
-                    <div class="hidden lg:flex items-center space-x-8">
-                        <a href="{% url 'event_list' %}" class="text-dark hover:text-primary transition-colors duration-300 font-medium relative group">
-                            Events
-                            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-primary to-secondary group-hover:w-full transition-all duration-300"></span>
-                        </a>
-                        <a href="{% url 'about' %}" class="text-dark hover:text-primary transition-colors duration-300 font-medium relative group">
-                            About
-                            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-primary to-secondary group-hover:w-full transition-all duration-300"></span>
-                        </a>
-                        <a href="{% url 'contact' %}" class="text-dark hover:text-primary transition-colors duration-300 font-medium relative group">
-                            Contact
-                            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-primary to-secondary group-hover:w-full transition-all duration-300"></span>
-                        </a>
+                    <div class="hidden md:flex items-center absolute left-1/2 transform -translate-x-1/2">
+                        <div class="flex space-x-6 lg:space-x-8">
+                            <a href="{% url 'home' %}" class="text-dark hover:text-primary transition-colors duration-300 font-medium relative group text-sm lg:text-base">
+                                Home
+                                <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300"></span>
+                            </a>
+                            <a href="{% url 'event_list' %}" class="text-dark hover:text-primary transition-colors duration-300 font-medium relative group text-sm lg:text-base">
+                                Events
+                                <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300"></span>
+                            </a>
+                            <a href="{% url 'about' %}" class="text-dark hover:text-primary transition-colors duration-300 font-medium relative group text-sm lg:text-base">
+                                About
+                                <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300"></span>
+                            </a>
+                            <a href="{% url 'contact' %}" class="text-dark hover:text-primary transition-colors duration-300 font-medium relative group text-sm lg:text-base">
+                                Contact
+                                <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300"></span>
+                            </a>
+                        </div>
                     </div>
 
-                    <!-- Desktop User Section -->
-                    <div class="flex lg:flex items-center space-x-4">
+                    <!-- User Menu -->
+                    <div class="hidden md:flex items-center">
+                        {% if not user.is_authenticated %}
+                            <div class="flex items-center space-x-4">
+                                <a href="{% url 'login' %}" class="text-dark hover:text-primary transition-colors duration-300 font-medium text-sm lg:text-base">Login</a>
+                                <a href="{% url 'signup' %}" class="bg-gradient-to-r from-primary to-secondary text-white px-4 sm:px-6 py-2 rounded-full hover-glow transition-all duration-300 font-medium text-sm lg:text-base">Sign Up</a>
+                            </div>
+                        {% endif %}
                         {% if user.is_authenticated %}
-                            <div class="relative user-dropdown">
+                            <div class="relative">
                                 <img src="{% if user.profile_picture %}{{ user.profile_picture.url }}{% else %}https://ui-avatars.com/api/?name={{ user.first_name }}+{{ user.last_name }}&background=E91E63&color=fff&size=40{% endif %}" 
                                      alt="Avatar" 
-                                     class="w-10 h-10 rounded-full cursor-pointer border-2 border-transparent hover:border-primary transition-all duration-300 hover-glow avatar-img"
-                                     id="desktop-avatar">
-                                
-                                <!-- Desktop Dropdown Menu -->
-                                <div class="absolute right-0 mt-3 w-72 bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl hidden dropdown-menu border border-white/20 overflow-hidden custom-scrollbar">
-                                    <div class="p-6 border-b border-gray-100">
-                                        <div class="flex items-center space-x-4">
-                                            <img src="{% if user.profile_picture %}{{ user.profile_picture.url }}{% else %}https://ui-avatars.com/api/?name={{ user.first_name }}+{{ user.last_name }}&background=E91E63&color=fff&size=56{% endif %}" 
-                                                 alt="Avatar" class="w-14 h-14 rounded-full shadow-lg">
+                                     class="w-10 h-10 sm:w-12 sm:h-12 rounded-full cursor-pointer border-2 border-transparent hover:border-primary transition-all duration-300 hover-glow avatar-img">
+                                <!-- Dropdown Menu -->
+                                <div class="absolute right-0 mt-2 w-64 sm:w-72 bg-black/80 backdrop-blur-md rounded-2xl shadow-2xl hidden dropdown-menu overflow-hidden transition-all duration-300 transform origin-top-right">
+                                    <div class="p-4 border-b border-white/20">
+                                        <div class="flex items-center space-x-3">
+                                            <img src="{% if user.profile_picture %}{{ user.profile_picture.url }}{% else %}https://ui-avatars.com/api/?name={{ user.first_name }}+{{ user.last_name }}&background=E91E63&color=fff&size=40{% endif %}" 
+                                                 alt="Avatar" class="w-12 h-12 sm:w-14 sm:h-14 rounded-full">
                                             <div>
-                                                <p class="text-dark font-semibold text-lg">{{ user.first_name }} {{ user.last_name }}</p>
-                                                <p class="text-gray-600 text-sm capitalize">{{ user.role }}</p>
+                                                <p class="text-white font-semibold text-sm sm:text-base">{{ user.first_name }} {{ user.last_name }}</p>
+                                                <p class="text-white/70 text-xs sm:text-sm capitalize">{{ user.role }}</p>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="py-2">
-                                        <a href="{% url 'profile' %}" class="flex items-center px-6 py-3 text-dark hover:bg-gradient-to-r hover:from-primary/10 hover:to-secondary/10 transition-all duration-200 group">
-                                            <i class="fas fa-user mr-4 text-primary group-hover:scale-110 transition-transform"></i>
-                                            <span class="font-medium">Profile</span>
+                                        <a href="{% url 'profile' %}" class="flex items-center px-4 py-3 text-white hover:bg-white/10 transition-colors duration-200 text-sm sm:text-base">
+                                            <i class="fas fa-user mr-3"></i>
+                                            Profile
                                         </a>
-                                        <a href="{% url 'my_events' %}" class="flex items-center px-6 py-3 text-dark hover:bg-gradient-to-r hover:from-primary/10 hover:to-secondary/10 transition-all duration-200 group">
-                                            <i class="fas fa-calendar-check mr-4 text-primary group-hover:scale-110 transition-transform"></i>
-                                            <span class="font-medium">My Events</span>
+                                        <a href="{% url 'my_events' %}" class="flex items-center px-4 py-3 text-white hover:bg-white/10 transition-colors duration-200 text-sm sm:text-base">
+                                            <i class="fas fa-calendar-check mr-3"></i>
+                                            My Events
                                         </a>
                                         {% if user.role == 'admin' %}
-                                            <a href="{% url 'admin_dashboard' %}" class="flex items-center px-6 py-3 text-dark hover:bg-gradient-to-r hover:from-primary/10 hover:to-secondary/10 transition-all duration-200 group">
-                                                <i class="fas fa-tachometer-alt mr-4 text-primary group-hover:scale-110 transition-transform"></i>
-                                                <span class="font-medium">Admin Dashboard</span>
+                                            <a href="{% url 'admin_dashboard' %}" class="flex items-center px-4 py-3 text-white hover:bg-white/10 transition-colors duration-200 text-sm sm:text-base">
+                                                <i class="fas fa-tachometer-alt mr-3"></i>
+                                                Admin Dashboard
                                             </a>
                                         {% elif user.role == 'manager' %}
-                                            <a href="{% url 'manager_dashboard' %}" class="flex items-center px-6 py-3 text-dark hover:bg-gradient-to-r hover:from-primary/10 hover:to-secondary/10 transition-all duration-200 group">
-                                                <i class="fas fa-chart-line mr-4 text-primary group-hover:scale-110 transition-transform"></i>
-                                                <span class="font-medium">Manager Dashboard</span>
+                                            <a href="{% url 'manager_dashboard' %}" class="flex items-center px-4 py-3 text-white hover:bg-white/10 transition-colors duration-200 text-sm sm:text-base">
+                                                <i class="fas fa-chart-line mr-3"></i>
+                                                Manager Dashboard
                                             </a>
                                         {% else %}
-                                            <a href="{% url 'client_dashboard' %}" class="flex items-center px-6 py-3 text-dark hover:bg-gradient-to-r hover:from-primary/10 hover:to-secondary/10 transition-all duration-200 group">
-                                                <i class="fas fa-home mr-4 text-primary group-hover:scale-110 transition-transform"></i>
-                                                <span class="font-medium">Dashboard</span>
+                                            <a href="{% url 'client_dashboard' %}" class="flex items-center px-4 py-3 text-white hover:bg-white/10 transition-colors duration-200 text-sm sm:text-base">
+                                                <i class="fas fa-home mr-3"></i>
+                                                Dashboard
                                             </a>
                                         {% endif %}
-                                        <div class="border-t border-gray-100 mt-2">
+                                        <div class="border-t border-white/20 mt-2">
                                             <form action="{% url 'logout' %}" method="post" class="block">
                                                 {% csrf_token %}
-                                                <button type="submit" class="flex items-center w-full px-6 py-3 text-red-600 hover:bg-red-50 transition-colors duration-200 group">
-                                                    <i class="fas fa-sign-out-alt mr-4 group-hover:scale-110 transition-transform"></i>
-                                                    <span class="font-medium">Sign Out</span>
+                                                <button type="submit" class="flex items-center w-full px-4 py-3 text-white hover:bg-red-500/20 transition-colors duration-200 text-sm sm:text-base">
+                                                    <i class="fas fa-sign-out-alt mr-3"></i>
+                                                    Sign Out
                                                 </button>
                                             </form>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        {% else %}
-                            <a href="{% url 'login' %}" class="text-dark hover:text-primary transition-colors duration-300 font-medium text-sm lg:text-base">Login</a>
-                            <a href="{% url 'signup' %}" class="bg-gradient-to-r from-primary to-secondary text-white px-4 py-2 rounded-full hover-glow transition-all duration-300 font-medium text-sm lg:text-base">Sign Up</a>
                         {% endif %}
-
-                        <!-- Mobile Hamburger Menu -->
-                        <div class="flex lg:hidden items-center">
-                            <div class="hamburger" id="hamburger">
-                                <div class="hamburger-top"></div>
-                                <div class="hamburger-middle"></div>
-                                <div class="hamburger-bottom"></div>
-                            </div>
-                        </div>
                     </div>
                 </div>
+            </div>
 
-                <!-- Mobile Navigation Menu -->
-                <div class="lg:hidden hidden overflow-hidden" id="mobile-menu">
-                    <div class="px-2 pt-2 pb-3 space-y-1 bg-white/90 backdrop-blur-sm rounded-b-2xl border-t border-gray-100">
-                        <a href="{% url 'event_list' %}" class="block px-4 py-3 text-dark hover:text-primary hover:bg-gradient-to-r hover:from-primary/5 hover:to-secondary/5 transition-all duration-300 font-medium rounded-lg">
-                            <i class="fas fa-calendar-alt mr-3 text-primary"></i>
-                            Events
-                        </a>
-                        <a href="{% url 'about' %}" class="block px-4 py-3 text-dark hover:text-primary hover:bg-gradient-to-r hover:from-primary/5 hover:to-secondary/5 transition-all duration-300 font-medium rounded-lg">
-                            <i class="fas fa-info-circle mr-3 text-primary"></i>
-                            About
-                        </a>
-                        <a href="{% url 'contact' %}" class="block px-4 py-3 text-dark hover:text-primary hover:bg-gradient-to-r hover:from-primary/5 hover:to-secondary/5 transition-all duration-300 font-medium rounded-lg">
-                            <i class="fas fa-envelope mr-3 text-primary"></i>
-                            Contact
-                        </a>
-                        {% if not user.is_authenticated %}
-                            <div class="pt-4 border-t border-gray-200 space-y-2">
-                                <a href="{% url 'login' %}" class="block text-center px-4 py-3 text-dark hover:text-primary transition-colors duration-300 font-medium border border-gray-200 rounded-lg hover:border-primary">
-                                    Login
-                                </a>
-                                <a href="{% url 'signup' %}" class="block text-center px-4 py-3 bg-gradient-to-r from-primary to-secondary text-white rounded-lg hover-glow transition-all duration-300 font-medium">
-                                    Sign Up
-                                </a>
+            <!-- Mobile Menu (Hamburger) -->
+            <div id="mobile-menu" class="md:hidden hidden mt-4 pb-4 bg-white/80 backdrop-blur-md glass-effect transition-all duration-300 transform origin-top scale-y-0">
+                <div class="flex flex-col items-center space-y-3 px-4">
+                    <a href="{% url 'home' %}" class="text-dark hover:text-primary transition-colors duration-300 font-medium py-2 text-base">Home</a>
+                    <a href="{% url 'event_list' %}" class="text-dark hover:text-primary transition-colors duration-300 font-medium py-2 text-base">Events</a>
+                    <a href="{% url 'about' %}" class="text-dark hover:text-primary transition-colors duration-300 font-medium py-2 text-base">About</a>
+                    <a href="{% url 'contact' %}" class="text-dark hover:text-primary transition-colors duration-300 font-medium py-2 text-base">Contact</a>
+                    {% if user.is_authenticated %}
+                        <div class="border-t border-gray-200 pt-3 w-full">
+                            <div class="flex items-center space-x-3 mb-3">
+                                <img src="{% if user.profile_picture %}{{ user.profile_picture.url }}{% else %}https://ui-avatars.com/api/?name={{ user.first_name }}+{{ user.last_name }}&background=E91E63&color=fff&size=40{% endif %}" 
+                                     alt="Avatar" class="w-10 h-10 rounded-full">
+                                <div>
+                                    <p class="text-dark font-semibold text-sm">{{ user.first_name }} {{ user.last_name }}</p>
+                                    <p class="text-gray-600 text-xs capitalize">{{ user.role }}</p>
+                                </div>
                             </div>
-                        {% endif %}
-                    </div>
+                            <a href="{% url 'profile' %}" class="flex items-center px-4 py-2 text-dark hover:text-primary transition-colors duration-200 text-base">
+                                <i class="fas fa-user mr-3"></i>
+                                Profile
+                            </a>
+                            <a href="{% url 'my_events' %}" class="flex items-center px-4 py-2 text-dark hover:text-primary transition-colors duration-200 text-base">
+                                <i class="fas fa-calendar-check mr-3"></i>
+                                My Events
+                            </a>
+                            {% if user.role == 'admin' %}
+                                <a href="{% url 'admin_dashboard' %}" class="flex items-center px-4 py-2 text-dark hover:text-primary transition-colors duration-200 text-base">
+                                    <i class="fas fa-tachometer-alt mr-3"></i>
+                                    Admin Dashboard
+                                </a>
+                            {% elif user.role == 'manager' %}
+                                <a href="{% url 'manager_dashboard' %}" class="flex items-center px-4 py-2 text-dark hover:text-primary transition-colors duration-200 text-base">
+                                    <i class="fas fa-chart-line mr-3"></i>
+                                    Manager Dashboard
+                                </a>
+                            {% else %}
+                                <a href="{% url 'client_dashboard' %}" class="flex items-center px-4 py-2 text-dark hover:text-primary transition-colors duration-200 text-base">
+                                    <i class="fas fa-home mr-3"></i>
+                                    Dashboard
+                                </a>
+                            {% endif %}
+                            <form action="{% url 'logout' %}" method="post" class="block">
+                                {% csrf_token %}
+                                <button type="submit" class="flex items-center w-full px-4 py-2 text-dark hover:text-red-500 transition-colors duration-200 text-base">
+                                    <i class="fas fa-sign-out-alt mr-3"></i>
+                                    Sign Out
+                                </button>
+                            </form>
+                        </div>
+                    {% else %}
+                        <a href="{% url 'login' %}" class="text-dark hover:text-primary transition-colors duration-300 font-medium py-2 text-base">Login</a>
+                        <a href="{% url 'signup' %}" class="bg-gradient-to-r from-primary to-secondary text-white px-4 py-2 rounded-full hover-glow transition-all duration-300 font-medium text-base">Sign Up</a>
+                    {% endif %}
                 </div>
             </div>
         </div>
     </nav>
 
+    <!-- JavaScript for Menu Interactions -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const hamburgerBtn = document.getElementById('hamburger-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const avatarImg = document.querySelector('.avatar-img');
+            const dropdownMenu = document.querySelector('.dropdown-menu');
+
+            // Toggle hamburger menu
+            if (hamburgerBtn && mobileMenu) {
+                hamburgerBtn.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('hidden');
+                    mobileMenu.classList.toggle('scale-y-0');
+                    mobileMenu.classList.toggle('scale-y-100');
+                    // Toggle between hamburger and close icon
+                    const icon = hamburgerBtn.querySelector('i');
+                    icon.classList.toggle('fa-bars');
+                    icon.classList.toggle('fa-times');
+                });
+            }
+
+            // Toggle dropdown menu (for desktop)
+            if (avatarImg && dropdownMenu) {
+                avatarImg.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    dropdownMenu.classList.toggle('hidden');
+                    dropdownMenu.classList.toggle('scale-y-0');
+                    dropdownMenu.classList.toggle('scale-y-100');
+                });
+
+                // Close dropdown when clicking outside
+                document.addEventListener('click', (e) => {
+                    if (!avatarImg.contains(e.target) && !dropdownMenu.contains(e.target)) {
+                        dropdownMenu.classList.add('hidden');
+                        dropdownMenu.classList.add('scale-y-0');
+                        dropdownMenu.classList.remove('scale-y-100');
+                    }
+                });
+            }
+
+            // Close mobile menu when resizing to desktop
+            window.addEventListener('resize', () => {
+                if (window.innerWidth >= 768) {
+                    mobileMenu.classList.add('hidden');
+                    mobileMenu.classList.add('scale-y-0');
+                    mobileMenu.classList.remove('scale-y-100');
+                    const icon = hamburgerBtn.querySelector('i');
+                    icon.classList.add('fa-bars');
+                    icon.classList.remove('fa-times');
+                }
+            });
+        });
+    </script>
+
     <!-- Messages -->
     {% if messages %}
-        <div class="fixed top-20 right-4 z-40 space-y-2 messages-container">
+        <div class="fixed top-20 right-4 z-40 space-y-2">
             {% for message in messages %}
-                <div class="glass-effect text-white p-4 rounded-lg shadow-lg max-w-sm transform animate-slide-in">
+                <div class="glass-effect text-white p-4 rounded-lg shadow-lg max-w-sm transform translate-x-full animate-slide-in">
                     <div class="flex items-center">
                         {% if message.tags == 'success' %}
                             <i class="fas fa-check-circle text-green-400 mr-2"></i>
@@ -441,41 +307,41 @@
     {% endif %}
 
     <!-- Content Block -->
-    <main class="pt-24 lg:pt-28 pb-10 min-h-screen">
+    <main class="pt-20">
         {% block content %}
         {% endblock %}
     </main>
 
     <!-- Modern Footer -->
     <footer class="bg-gradient-to-r from-dark via-gray-800 to-dark text-white">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="container mx-auto px-4 py-16">
             <!-- Footer Top -->
-            <div class="footer-grid mb-12">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
                 <!-- Company Info -->
                 <div class="space-y-6">
                     <div class="flex items-center space-x-3">
-                        <div class="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-primary to-secondary rounded-xl flex items-center justify-center">
-                            <i class="fas fa-calendar-star text-white text-lg sm:text-xl"></i>
+                        <div class="w-12 h-12 bg-gradient-to-r from-primary to-secondary rounded-xl flex items-center justify-center">
+                            <i class="fas fa-calendar-star text-white text-xl"></i>
                         </div>
                         <div>
-                            <h3 class="text-xl sm:text-2xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">EventPro</h3>
-                            <p class="text-gray-400 text-xs sm:text-sm">Premium Events</p>
+                            <h3 class="text-2xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">EventPro</h3>
+                            <p class="text-gray-400 text-sm">Premium Events</p>
                         </div>
                     </div>
-                    <p class="text-gray-300 text-sm leading-relaxed">
+                    <p class="text-gray-300 leading-relaxed">
                         Creating unforgettable experiences through innovative event management solutions. Your vision, our expertise.
                     </p>
                     <div class="flex space-x-4">
-                        <a href="#" class="w-10 h-10 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center hover:scale-110 transition-transform duration-300 social-link">
+                        <a href="#" class="w-10 h-10 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center hover:scale-110 transition-transform duration-300">
                             <i class="fab fa-facebook-f text-white"></i>
                         </a>
-                        <a href="#" class="w-10 h-10 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center hover:scale-110 transition-transform duration-300 social-link">
+                        <a href="#" class="w-10 h-10 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center hover:scale-110 transition-transform duration-300">
                             <i class="fab fa-twitter text-white"></i>
                         </a>
-                        <a href="#" class="w-10 h-10 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center hover:scale-110 transition-transform duration-300 social-link">
+                        <a href="#" class="w-10 h-10 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center hover:scale-110 transition-transform duration-300">
                             <i class="fab fa-instagram text-white"></i>
                         </a>
-                        <a href="#" class="w-10 h-10 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center hover:scale-110 transition-transform duration-300 social-link">
+                        <a href="#" class="w-10 h-10 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center hover:scale-110 transition-transform duration-300">
                             <i class="fab fa-linkedin-in text-white"></i>
                         </a>
                     </div>
@@ -483,17 +349,17 @@
 
                 <!-- Quick Links -->
                 <div class="space-y-6">
-                    <h4 class="text-lg sm:text-xl font-semibold text-white">Quick Links</h4>
+                    <h4 class="text-xl font-semibold text-white">Quick Links</h4>
                     <div class="space-y-3">
-                        <a href="{% url 'event_list' %}" class="block text-gray-300 hover:text-primary transition-colors duration-300 hover:translate-x-2 transform text-sm sm:text-base">
+                        <a href="{% url 'event_list' %}" class="block text-gray-300 hover:text-primary transition-colors duration-300 hover:translate-x-2 transform">
                             <i class="fas fa-chevron-right mr-2 text-primary"></i>
                             All Events
                         </a>
-                        <a href="{% url 'about' %}" class="block text-gray-300 hover:text-primary transition-colors duration-300 hover:translate-x-2 transform text-sm sm:text-base">
+                        <a href={% url "about" %} class="block text-gray-300 hover:text-primary transition-colors duration-300 hover:translate-x-2 transform">
                             <i class="fas fa-chevron-right mr-2 text-primary"></i>
                             About Us
                         </a>
-                        <a href="{% url 'contact' %}" class="block text-gray-300 hover:text-primary transition-colors duration-300 hover:translate-x-2 transform text-sm sm:text-base">
+                        <a href={% url "contact" %} class="block text-gray-300 hover:text-primary transition-colors duration-300 hover:translate-x-2 transform">
                             <i class="fas fa-chevron-right mr-2 text-primary"></i>
                             Contact
                         </a>
@@ -502,21 +368,21 @@
 
                 <!-- Services -->
                 <div class="space-y-6">
-                    <h4 class="text-lg sm:text-xl font-semibold text-white">Our Services</h4>
+                    <h4 class="text-xl font-semibold text-white">Our Services</h4>
                     <div class="space-y-3">
-                        <div class="flex items-center space-x-3 text-gray-300 text-sm sm:text-base">
+                        <div class="flex items-center space-x-3 text-gray-300">
                             <i class="fas fa-users text-primary"></i>
                             <span>Corporate Events</span>
                         </div>
-                        <div class="flex items-center space-x-3 text-gray-300 text-sm sm:text-base">
+                        <div class="flex items-center space-x-3 text-gray-300">
                             <i class="fas fa-heart text-primary"></i>
                             <span>Weddings</span>
                         </div>
-                        <div class="flex items-center space-x-3 text-gray-300 text-sm sm:text-base">
+                        <div class="flex items-center space-x-3 text-gray-300">
                             <i class="fas fa-graduation-cap text-primary"></i>
                             <span>Conferences</span>
                         </div>
-                        <div class="flex items-center space-x-3 text-gray-300 text-sm sm:text-base">
+                        <div class="flex items-center space-x-3 text-gray-300">
                             <i class="fas fa-birthday-cake text-primary"></i>
                             <span>Private Parties</span>
                         </div>
@@ -525,21 +391,21 @@
 
                 <!-- Contact Info -->
                 <div class="space-y-6">
-                    <h4 class="text-lg sm:text-xl font-semibold text-white">Get In Touch</h4>
+                    <h4 class="text-xl font-semibold text-white">Get In Touch</h4>
                     <div class="space-y-4">
-                        <div class="flex items-start space-x-3 text-sm sm:text-base">
+                        <div class="flex items-start space-x-3">
                             <i class="fas fa-map-marker-alt text-primary mt-1"></i>
                             <span class="text-gray-300">123 Event Street, City Center, NY 10001</span>
                         </div>
-                        <div class="flex items-center space-x-3 text-sm sm:text-base">
+                        <div class="flex items-center space-x-3">
                             <i class="fas fa-phone text-primary"></i>
                             <span class="text-gray-300">+1 (555) 123-4567</span>
                         </div>
-                        <div class="flex items-center space-x-3 text-sm sm:text-base">
+                        <div class="flex items-center space-x-3">
                             <i class="fas fa-envelope text-primary"></i>
                             <span class="text-gray-300">info@eventpro.com</span>
                         </div>
-                        <div class="flex items-center space-x-3 text-sm sm:text-base">
+                        <div class="flex items-center space-x-3">
                             <i class="fas fa-clock text-primary"></i>
                             <span class="text-gray-300">24/7 Support</span>
                         </div>
@@ -550,11 +416,11 @@
             <!-- Newsletter Signup -->
             <div class="border-t border-gray-700 pt-8 mb-8">
                 <div class="text-center max-w-2xl mx-auto">
-                    <h4 class="text-lg sm:text-2xl font-semibold text-white mb-2">Stay Updated</h4>
-                    <p class="text-gray-300 text-sm sm:text-base mb-6">Subscribe to our newsletter for the latest event updates and exclusive offers.</p>
+                    <h4 class="text-2xl font-semibold text-white mb-2">Stay Updated</h4>
+                    <p class="text-gray-300 mb-6">Subscribe to our newsletter for the latest event updates and exclusive offers.</p>
                     <div class="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-                        <input type="email" placeholder="Enter your email" class="flex-1 px-4 py-3 rounded-full bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:border-primary text-sm sm:text-base">
-                        <button class="bg-gradient-to-r from-primary to-secondary text-white px-6 sm:px-8 py-3 rounded-full hover-glow transition-all duration-300 font-medium text-sm sm:text-base subscribe-btn">
+                        <input type="email" placeholder="Enter your email" class="flex-1 px-4 py-3 rounded-full bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:border-primary">
+                        <button class="bg-gradient-to-r from-primary to-secondary text-white px-8 py-3 rounded-full hover-glow transition-all duration-300 font-medium">
                             Subscribe
                         </button>
                     </div>
@@ -563,15 +429,15 @@
 
             <!-- Footer Bottom -->
             <div class="border-t border-gray-700 pt-8">
-                <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
-                    <p class="text-gray-400 text-center text-sm sm:text-base">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <p class="text-gray-400 text-center md:text-left mb-4 md:mb-0">
                         © 2025 EventPro. All rights reserved. Crafted with 
                         <span class="text-primary">♥</span> for amazing events.
                     </p>
-                    <div class="flex flex-wrap justify-center gap-4 sm:gap-6">
-                        <a href="#" class="text-gray-400 hover:text-primary transition-colors duration-300 text-sm sm:text-base">Privacy Policy</a>
-                        <a href="#" class="text-gray-400 hover:text-primary transition-colors duration-300 text-sm sm:text-base">Terms of Service</a>
-                        <a href="#" class="text-gray-400 hover:text-primary transition-colors duration-300 text-sm sm:text-base">Cookie Policy</a>
+                    <div class="flex space-x-6">
+                        <a href="#" class="text-gray-400 hover:text-primary transition-colors duration-300">Privacy Policy</a>
+                        <a href="#" class="text-gray-400 hover:text-primary transition-colors duration-300">Terms of Service</a>
+                        <a href="#" class="text-gray-400 hover:text-primary transition-colors duration-300">Cookie Policy</a>
                     </div>
                 </div>
             </div>
@@ -579,104 +445,48 @@
     </footer>
 
     <script>
-        // JavaScript for Navbar Interactions
-        document.addEventListener('DOMContentLoaded', () => {
-            // Mobile menu toggle
-            const hamburger = document.getElementById('hamburger');
-            const mobileMenu = document.getElementById('mobile-menu');
-            
-            if (hamburger && mobileMenu) {
-                hamburger.addEventListener('click', () => {
-                    hamburger.classList.toggle('open');
-                    
-                    if (mobileMenu.classList.contains('hidden')) {
-                        mobileMenu.classList.remove('hidden');
-                        mobileMenu.classList.add('mobile-menu-enter');
-                        mobileMenu.classList.remove('mobile-menu-exit');
-                    } else {
-                        mobileMenu.classList.add('mobile-menu-exit');
-                        mobileMenu.classList.remove('mobile-menu-enter');
-                        setTimeout(() => {
-                            mobileMenu.classList.add('hidden');
-                        }, 300);
-                    }
-                });
-            }
-
-            // Desktop dropdown toggle
-            const desktopAvatar = document.getElementById('desktop-avatar');
-            const desktopDropdown = desktopAvatar?.nextElementSibling;
-            
-            if (desktopAvatar && desktopDropdown) {
-                desktopAvatar.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    
-                    if (desktopDropdown.classList.contains('hidden')) {
-                        desktopDropdown.classList.remove('hidden');
-                        desktopDropdown.classList.add('dropdown-enter');
-                        desktopDropdown.classList.remove('dropdown-exit');
-                    } else {
-                        desktopDropdown.classList.add('dropdown-exit');
-                        desktopDropdown.classList.remove('dropdown-enter');
-                        setTimeout(() => {
-                            desktopDropdown.classList.add('hidden');
-                        }, 200);
-                    }
-                });
-            }
-
-            // Close dropdown when clicking outside
-            document.addEventListener('click', (e) => {
-                if (desktopDropdown && !desktopDropdown.classList.contains('hidden') && !desktopDropdown.contains(e.target) && !desktopAvatar.contains(e.target)) {
-                    desktopDropdown.classList.add('dropdown-exit');
-                    desktopDropdown.classList.remove('dropdown-enter');
-                    setTimeout(() => {
-                        desktopDropdown.classList.add('hidden');
-                    }, 200);
-                }
-            });
-
-            // Navbar scroll effect
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
             const navbar = document.getElementById('navbar');
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > 10) {
-                    navbar.style.transform = 'translateY(0)';
-                    navbar.style.boxShadow = '0 10px 25px rgba(0,0,0,0.1)';
-                } else {
-                    navbar.style.boxShadow = '0 2px 10px rgba(0,0,0,0.05)';
-                }
-            });
+            if (window.scrollY > 50) {
+                navbar.classList.add('backdrop-blur-lg', 'bg-white/90');
+            } else {
+                navbar.classList.remove('backdrop-blur-lg', 'bg-white/90');
+            }
+        });
 
-            // Auto-hide messages
+        // Auto-hide messages
+        setTimeout(function() {
             const messages = document.querySelectorAll('.animate-slide-in');
-            messages.forEach((msg) => {
-                setTimeout(() => {
-                    msg.style.transform = 'translateX(100%)';
-                    msg.style.opacity = '0';
-                    setTimeout(() => msg.remove(), 300);
-                }, 5000);
+            messages.forEach(function(msg) {
+                msg.style.transform = 'translateX(100%)';
+                msg.style.opacity = '0';
+                setTimeout(function() {
+                    msg.remove();
+                }, 300);
             });
+        }, 5000);
 
-            // Close mobile menu on resize to desktop
-            window.addEventListener('resize', () => {
-                if (window.innerWidth >= 1024) {
-                    mobileMenu.classList.add('hidden');
-                    hamburger.classList.remove('open');
+        // Initialize Lucide icons
+        document.addEventListener('DOMContentLoaded', function() {
+            try {
+                lucide.createIcons();
+            } catch (e) {
+                console.error('Failed to initialize Lucide icons:', e);
+            }
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
                 }
-            });
-
-            // Smooth scrolling for anchor links
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const target = document.querySelector(anchor.getAttribute('href'));
-                    if (target) {
-                        target.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'start'
-                        });
-                    }
-                });
             });
         });
     </script>
