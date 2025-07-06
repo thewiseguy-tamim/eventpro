@@ -251,20 +251,108 @@ class AdminDashboardView(LoginRequiredMixin, RoleRequiredMixin, TemplateView):
                 models.Q(email__icontains=search_query)
             )
 
-        context['events'] = events
-        context['users'] = users
-        context['categories'] = EventCategory.objects.all()
-        context['total_events'] = Event.objects.count()
-        context['total_users'] = User.objects.count()
-        context['active_events'] = Event.objects.filter(event_date_time__gte=timezone.now()).count()
-        context['total_rsvps'] = Event.objects.aggregate(
+        # Basic stats
+        total_events = Event.objects.count()
+        total_users = User.objects.count()
+        active_events = Event.objects.filter(event_date_time__gte=timezone.now()).count()
+        total_rsvps = Event.objects.aggregate(
             total=models.Sum('total_participants')
         )['total'] or 0
-        context['event_status'] = event_status
-        context['search_query'] = search_query
-        context['role_filter'] = role_filter
-        context['status_filter'] = status_filter
+
+        # Chart data preparation
+        chart_data = self.get_chart_data()
+
+        context.update({
+            'events': events,
+            'users': users,
+            'categories': EventCategory.objects.all(),
+            'total_events': total_events,
+            'total_users': total_users,
+            'active_events': active_events,
+            'total_rsvps': total_rsvps,
+            'event_status': event_status,
+            'search_query': search_query,
+            'role_filter': role_filter,
+            'status_filter': status_filter,
+            'chart_data': chart_data,
+        })
         return context
+
+    def get_chart_data(self):
+        """Prepare data for dashboard charts"""
+        from datetime import datetime, timedelta
+        from django.db.models import Count, Q
+        import json
+
+        # Weekly Activity Chart - Events created in last 7 days
+        today = timezone.now().date()
+        week_days = []
+        events_count = []
+        
+        for i in range(6, -1, -1):
+            day = today - timedelta(days=i)
+            week_days.append(day.strftime('%a'))
+            count = Event.objects.filter(
+                event_date_time__date=day
+            ).count()
+            events_count.append(count)
+
+        # Category Distribution - Events by category
+        category_data = EventCategory.objects.annotate(
+            event_count=Count('event')
+        ).values('name', 'event_count').order_by('-event_count')
+        
+        category_labels = [item['name'] for item in category_data]
+        category_counts = [item['event_count'] for item in category_data]
+        
+        # If no categories, provide default data
+        if not category_labels:
+            category_labels = ['Uncategorized']
+            category_counts = [Event.objects.filter(event_category=None).count()]
+
+        # User Registration Trend - Users registered in last 30 days
+        thirty_days_ago = timezone.now() - timedelta(days=30)
+        user_trend_data = []
+        trend_labels = []
+        
+        for i in range(29, -1, -1):
+            day = today - timedelta(days=i)
+            count = User.objects.filter(
+                date_joined__date=day
+            ).count()
+            user_trend_data.append(count)
+            # Only show every 5th day label to avoid crowding
+            if i % 5 == 0:
+                trend_labels.append(day.strftime('%m/%d'))
+            else:
+                trend_labels.append('')
+
+        # Role Distribution
+        role_data = User.objects.values('role').annotate(
+            count=Count('id')
+        ).order_by('-count')
+        
+        role_labels = [item['role'].title() for item in role_data]
+        role_counts = [item['count'] for item in role_data]
+
+        return {
+            'weekly_activity': {
+                'labels': json.dumps(week_days),
+                'data': json.dumps(events_count),
+            },
+            'category_distribution': {
+                'labels': json.dumps(category_labels),
+                'data': json.dumps(category_counts),
+            },
+            'user_trend': {
+                'labels': json.dumps(trend_labels),
+                'data': json.dumps(user_trend_data),
+            },
+            'role_distribution': {
+                'labels': json.dumps(role_labels),
+                'data': json.dumps(role_counts),
+            }
+        }
 
 
 

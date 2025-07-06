@@ -41,23 +41,6 @@
                 <h1 class="text-3xl sm:text-4xl font-bold text-gray-800 mb-2">Admin Dashboard</h1>
                 <p class="text-gray-600">Welcome, {{ user.first_name }} {{ user.last_name }}</p>
             </div>
-            {% comment %} <div class="flex items-center space-x-4 w-full sm:w-auto">
-                <form method="GET" class="relative flex-1 sm:flex-none">
-                    <input type="text" name="search" id="searchInput" placeholder="Search..." 
-                           class="w-full sm:w-64 pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
-                           value="{{ search_query }}">
-                    <i class="fas fa-search absolute left-3 top-2.5 h-4 w-4 text-gray-400"></i>
-                </form>
-                <div class="flex space-x-2">
-                    <button onclick="openCategoryModal()" class="p-2 bg-gradient-to-r from-primary to-secondary text-white rounded-lg shadow-sm hover:opacity-90 transition-opacity" title="Create Category">
-                        <i class="fas fa-plus h-5 w-5"></i>
-                    </button>
-                    <button class="p-2 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow relative" title="Notifications">
-                        <i class="fas fa-bell h-5 w-5 text-gray-600"></i>
-                        <span class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">3</span>
-                    </button>
-                </div>
-            </div> {% endcomment %}
         </div>
 
         <!-- Stats Cards -->
@@ -123,6 +106,245 @@
                 </div>
             </div>
         </div>
+        <!-- Overview Section - Add this after the Stats Cards and before Navigation Tabs -->
+<div class="mb-8">
+    <div class="flex items-center justify-between mb-6">
+        <h2 class="text-2xl font-bold text-gray-800">Overview</h2>
+        <p class="text-gray-600">Dashboard analytics and insights</p>
+    </div>
+
+    <!-- Charts Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <!-- Weekly Activity Chart -->
+        <div class="bg-white rounded-xl shadow-sm p-6">
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="text-lg font-semibold text-gray-800">Weekly Activity</h3>
+                <div class="flex items-center space-x-2">
+                    <div class="w-3 h-3 bg-blue-500 rounded-full"></div>
+                    <span class="text-sm text-gray-600">Events Created</span>
+                </div>
+            </div>
+            <div class="h-64">
+                <canvas id="weeklyActivityChart"></canvas>
+            </div>
+        </div>
+
+        <!-- User Roles Distribution -->
+        <div class="bg-white rounded-xl shadow-sm p-6">
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="text-lg font-semibold text-gray-800">User Roles Distribution</h3>
+                <div class="flex items-center space-x-4">
+                    <div class="flex items-center space-x-1">
+                        <div class="w-3 h-3 bg-red-500 rounded-full"></div>
+                        <span class="text-xs text-gray-600">Admin</span>
+                    </div>
+                    <div class="flex items-center space-x-1">
+                        <div class="w-3 h-3 bg-blue-500 rounded-full"></div>
+                        <span class="text-xs text-gray-600">Manager</span>
+                    </div>
+                    <div class="flex items-center space-x-1">
+                        <div class="w-3 h-3 bg-green-500 rounded-full"></div>
+                        <span class="text-xs text-gray-600">Client</span>
+                    </div>
+                </div>
+            </div>
+            <div class="h-64">
+                <canvas id="userRolesChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Monthly Events Trend -->
+        <div class="bg-white rounded-xl shadow-sm p-6">
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="text-lg font-semibold text-gray-800">Monthly Events Trend</h3>
+                <div class="flex items-center space-x-2">
+                    <div class="w-3 h-3 bg-purple-500 rounded-full"></div>
+                    <span class="text-sm text-gray-600">Events Over Time</span>
+                </div>
+            </div>
+            <div class="h-64">
+                <canvas id="monthlyEventsChart"></canvas>
+            </div>
+        </div>
+
+        <!-- RSVP Status -->
+        <div class="bg-white rounded-xl shadow-sm p-6">
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="text-lg font-semibold text-gray-800">RSVP Overview</h3>
+                <div class="flex items-center space-x-4">
+                    <div class="flex items-center space-x-1">
+                        <div class="w-3 h-3 bg-green-500 rounded-full"></div>
+                        <span class="text-xs text-gray-600">Confirmed</span>
+                    </div>
+                    <div class="flex items-center space-x-1">
+                        <div class="w-3 h-3 bg-orange-500 rounded-full"></div>
+                        <span class="text-xs text-gray-600">Available</span>
+                    </div>
+                </div>
+            </div>
+            <div class="h-64">
+                <canvas id="rsvpChart"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add Chart.js CDN before closing body tag -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+
+<script>
+// Chart.js configurations
+document.addEventListener('DOMContentLoaded', function() {
+    
+    // Weekly Activity Bar Chart
+    const weeklyActivityCtx = document.getElementById('weeklyActivityChart').getContext('2d');
+    new Chart(weeklyActivityCtx, {
+        type: 'bar',
+        data: {
+            labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+            datasets: [{
+                label: 'Events Created',
+                data: [5, 3, 8, 2, 6, 4, 7], // Replace with dynamic data
+                backgroundColor: 'rgba(59, 130, 246, 0.8)',
+                borderColor: 'rgba(59, 130, 246, 1)',
+                borderWidth: 1,
+                borderRadius: 4,
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    grid: {
+                        color: 'rgba(0, 0, 0, 0.1)'
+                    }
+                },
+                x: {
+                    grid: {
+                        display: false
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    display: false
+                }
+            }
+        }
+    });
+
+    // User Roles Pie Chart
+    const userRolesCtx = document.getElementById('userRolesChart').getContext('2d');
+    new Chart(userRolesCtx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Admin', 'Manager', 'Client'],
+            datasets: [{
+                data: [
+                    {{ users|length|default:0 }}, // Total users - replace with actual role counts
+                    Math.floor({{ users|length|default:0 }} * 0.3),
+                    Math.floor({{ users|length|default:0 }} * 0.6)
+                ],
+                backgroundColor: [
+                    'rgba(239, 68, 68, 0.8)',
+                    'rgba(59, 130, 246, 0.8)',
+                    'rgba(34, 197, 94, 0.8)'
+                ],
+                borderColor: [
+                    'rgba(239, 68, 68, 1)',
+                    'rgba(59, 130, 246, 1)',
+                    'rgba(34, 197, 94, 1)'
+                ],
+                borderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false
+                }
+            }
+        }
+    });
+
+    // Monthly Events Line Chart
+    const monthlyEventsCtx = document.getElementById('monthlyEventsChart').getContext('2d');
+    new Chart(monthlyEventsCtx, {
+        type: 'line',
+        data: {
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+            datasets: [{
+                label: 'Events',
+                data: [12, 19, 15, 25, 22, 18], // Replace with dynamic data
+                borderColor: 'rgba(139, 92, 246, 1)',
+                backgroundColor: 'rgba(139, 92, 246, 0.1)',
+                tension: 0.4,
+                fill: true,
+                borderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    grid: {
+                        color: 'rgba(0, 0, 0, 0.1)'
+                    }
+                },
+                x: {
+                    grid: {
+                        display: false
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    display: false
+                }
+            }
+        }
+    });
+
+    // RSVP Doughnut Chart
+    const rsvpCtx = document.getElementById('rsvpChart').getContext('2d');
+    new Chart(rsvpCtx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Confirmed RSVPs', 'Available Spots'],
+            datasets: [{
+                data: [
+                    {{ total_rsvps|default:0 }},
+                    Math.max(0, ({{ total_events|default:0 }} * 50) - {{ total_rsvps|default:0 }})
+                ],
+                backgroundColor: [
+                    'rgba(34, 197, 94, 0.8)',
+                    'rgba(249, 115, 22, 0.8)'
+                ],
+                borderColor: [
+                    'rgba(34, 197, 94, 1)',
+                    'rgba(249, 115, 22, 1)'
+                ],
+                borderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false
+                }
+            }
+        }
+    });
+});
+</script>
 
         <!-- Navigation Tabs -->
         <div class="mb-8">
@@ -468,5 +690,148 @@
             }
         });
     });
+    // Replace the static chart data with dynamic data from Django
+document.addEventListener('DOMContentLoaded', function() {
+    // Weekly Activity Bar Chart
+    const weeklyActivityCtx = document.getElementById('weeklyActivityChart').getContext('2d');
+    new Chart(weeklyActivityCtx, {
+        type: 'bar',
+        data: {
+            labels: {{ chart_data.weekly_activity.labels|safe }},
+            datasets: [{
+                label: 'Events Created',
+                data: {{ chart_data.weekly_activity.data|safe }},
+                backgroundColor: 'rgba(59, 130, 246, 0.8)',
+                borderColor: 'rgba(59, 130, 246, 1)',
+                borderWidth: 1,
+                borderRadius: 4,
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    grid: {
+                        color: 'rgba(0, 0, 0, 0.1)'
+                    }
+                },
+                x: {
+                    grid: {
+                        display: false
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    display: false
+                }
+            }
+        }
+    });
+
+    // User Roles Pie Chart
+    const userRolesCtx = document.getElementById('userRolesChart').getContext('2d');
+    new Chart(userRolesCtx, {
+        type: 'doughnut',
+        data: {
+            labels: {{ chart_data.user_roles.labels|safe }},
+            datasets: [{
+                data: {{ chart_data.user_roles.data|safe }},
+                backgroundColor: [
+                    'rgba(239, 68, 68, 0.8)',
+                    'rgba(59, 130, 246, 0.8)',
+                    'rgba(34, 197, 94, 0.8)'
+                ],
+                borderColor: [
+                    'rgba(239, 68, 68, 1)',
+                    'rgba(59, 130, 246, 1)',
+                    'rgba(34, 197, 94, 1)'
+                ],
+                borderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false
+                }
+            }
+        }
+    });
+
+    // Monthly Events Line Chart
+    const monthlyEventsCtx = document.getElementById('monthlyEventsChart').getContext('2d');
+    new Chart(monthlyEventsCtx, {
+        type: 'line',
+        data: {
+            labels: {{ chart_data.monthly_events.labels|safe }},
+            datasets: [{
+                label: 'Events',
+                data: {{ chart_data.monthly_events.data|safe }},
+                borderColor: 'rgba(139, 92, 246, 1)',
+                backgroundColor: 'rgba(139, 92, 246, 0.1)',
+                tension: 0.4,
+                fill: true,
+                borderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    grid: {
+                        color: 'rgba(0, 0, 0, 0.1)'
+                    }
+                },
+                x: {
+                    grid: {
+                        display: false
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    display: false
+                }
+            }
+        }
+    });
+
+    // RSVP Doughnut Chart
+    const rsvpCtx = document.getElementById('rsvpChart').getContext('2d');
+    new Chart(rsvpCtx, {
+        type: 'doughnut',
+        data: {
+            labels: {{ chart_data.rsvp_data.labels|safe }},
+            datasets: [{
+                data: {{ chart_data.rsvp_data.data|safe }},
+                backgroundColor: [
+                    'rgba(34, 197, 94, 0.8)',
+                    'rgba(249, 115, 22, 0.8)'
+                ],
+                borderColor: [
+                    'rgba(34, 197, 94, 1)',
+                    'rgba(249, 115, 22, 1)'
+                ],
+                borderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false
+                }
+            }
+        }
+    });
+});
 </script>
 {% endblock %}
