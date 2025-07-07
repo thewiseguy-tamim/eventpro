@@ -106,245 +106,89 @@
                 </div>
             </div>
         </div>
-        <!-- Overview Section - Add this after the Stats Cards and before Navigation Tabs -->
-<div class="mb-8">
-    <div class="flex items-center justify-between mb-6">
-        <h2 class="text-2xl font-bold text-gray-800">Overview</h2>
-        <p class="text-gray-600">Dashboard analytics and insights</p>
-    </div>
 
-    <!-- Charts Grid -->
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <!-- Weekly Activity Chart -->
-        <div class="bg-white rounded-xl shadow-sm p-6">
+        <!-- Overview Section -->
+        <div class="mb-8">
             <div class="flex items-center justify-between mb-6">
-                <h3 class="text-lg font-semibold text-gray-800">Weekly Activity</h3>
-                <div class="flex items-center space-x-2">
-                    <div class="w-3 h-3 bg-blue-500 rounded-full"></div>
-                    <span class="text-sm text-gray-600">Events Created</span>
-                </div>
+                <h2 class="text-2xl font-bold text-gray-800">Overview</h2>
+                <p class="text-gray-600">Dashboard analytics and insights</p>
             </div>
-            <div class="h-64">
-                <canvas id="weeklyActivityChart"></canvas>
-            </div>
-        </div>
 
-        <!-- User Roles Distribution -->
-        <div class="bg-white rounded-xl shadow-sm p-6">
-            <div class="flex items-center justify-between mb-6">
-                <h3 class="text-lg font-semibold text-gray-800">User Roles Distribution</h3>
-                <div class="flex items-center space-x-4">
-                    <div class="flex items-center space-x-1">
-                        <div class="w-3 h-3 bg-red-500 rounded-full"></div>
-                        <span class="text-xs text-gray-600">Admin</span>
+            <!-- Charts Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <!-- Weekly Activity Chart -->
+                <div class="bg-white rounded-xl shadow-sm p-6">
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="text-lg font-semibold text-gray-800">Weekly Activity</h3>
+                        <div class="flex items-center space-x-2">
+                            <div class="w-3 h-3 bg-blue-500 rounded-full"></div>
+                            <span class="text-sm text-gray-600">Events Created</span>
+                        </div>
                     </div>
-                    <div class="flex items-center space-x-1">
-                        <div class="w-3 h-3 bg-blue-500 rounded-full"></div>
-                        <span class="text-xs text-gray-600">Manager</span>
-                    </div>
-                    <div class="flex items-center space-x-1">
-                        <div class="w-3 h-3 bg-green-500 rounded-full"></div>
-                        <span class="text-xs text-gray-600">Client</span>
+                    <div class="h-64">
+                        <canvas id="weeklyActivityChart"></canvas>
                     </div>
                 </div>
-            </div>
-            <div class="h-64">
-                <canvas id="userRolesChart"></canvas>
-            </div>
-        </div>
 
-        <!-- Monthly Events Trend -->
-        <div class="bg-white rounded-xl shadow-sm p-6">
-            <div class="flex items-center justify-between mb-6">
-                <h3 class="text-lg font-semibold text-gray-800">Monthly Events Trend</h3>
-                <div class="flex items-center space-x-2">
-                    <div class="w-3 h-3 bg-purple-500 rounded-full"></div>
-                    <span class="text-sm text-gray-600">Events Over Time</span>
-                </div>
-            </div>
-            <div class="h-64">
-                <canvas id="monthlyEventsChart"></canvas>
-            </div>
-        </div>
-
-        <!-- RSVP Status -->
-        <div class="bg-white rounded-xl shadow-sm p-6">
-            <div class="flex items-center justify-between mb-6">
-                <h3 class="text-lg font-semibold text-gray-800">RSVP Overview</h3>
-                <div class="flex items-center space-x-4">
-                    <div class="flex items-center space-x-1">
-                        <div class="w-3 h-3 bg-green-500 rounded-full"></div>
-                        <span class="text-xs text-gray-600">Confirmed</span>
+                <!-- User Roles Distribution -->
+                <div class="bg-white rounded-xl shadow-sm p-6">
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="text-lg font-semibold text-gray-800">User Roles Distribution</h3>
+                        <div class="flex items-center space-x-4">
+                            <div class="flex items-center space-x-1">
+                                <div class="w-3 h-3 bg-red-500 rounded-full"></div>
+                                <span class="text-xs text-gray-600">Admin</span>
+                            </div>
+                            <div class="flex items-center space-x-1">
+                                <div class="w-3 h-3 bg-blue-500 rounded-full"></div>
+                                <span class="text-xs text-gray-600">Manager</span>
+                            </div>
+                            <div class="flex items-center space-x-1">
+                                <div class="w-3 h-3 bg-green-500 rounded-full"></div>
+                                <span class="text-xs text-gray-600">Client</span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="flex items-center space-x-1">
-                        <div class="w-3 h-3 bg-orange-500 rounded-full"></div>
-                        <span class="text-xs text-gray-600">Available</span>
+                    <div class="h-64">
+                        <canvas id="userRolesChart"></canvas>
                     </div>
                 </div>
-            </div>
-            <div class="h-64">
-                <canvas id="rsvpChart"></canvas>
+
+                <!-- Monthly Events Trend -->
+                <div class="bg-white rounded-xl shadow-sm p-6">
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="text-lg font-semibold text-gray-800">Monthly Events Trend</h3>
+                        <div class="flex items-center space-x-2">
+                            <div class="w-3 h-3 bg-purple-500 rounded-full"></div>
+                            <span class="text-sm text-gray-600">Events Over Time</span>
+                        </div>
+                    </div>
+                    <div class="h-64">
+                        <canvas id="monthlyEventsChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- RSVP Status -->
+                <div class="bg-white rounded-xl shadow-sm p-6">
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="text-lg font-semibold text-gray-800">RSVP Overview</h3>
+                        <div class="flex items-center space-x-4">
+                            <div class="flex items-center space-x-1">
+                                <div class="w-3 h-3 bg-green-500 rounded-full"></div>
+                                <span class="text-xs text-gray-600">Confirmed</span>
+                            </div>
+                            <div class="flex items-center space-x-1">
+                                <div class="w-3 h-3 bg-orange-500 rounded-full"></div>
+                                <span class="text-xs text-gray-600">Available</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="h-64">
+                        <canvas id="rsvpChart"></canvas>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
-
-<!-- Add Chart.js CDN before closing body tag -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
-
-<script>
-// Chart.js configurations
-document.addEventListener('DOMContentLoaded', function() {
-    
-    // Weekly Activity Bar Chart
-    const weeklyActivityCtx = document.getElementById('weeklyActivityChart').getContext('2d');
-    new Chart(weeklyActivityCtx, {
-        type: 'bar',
-        data: {
-            labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-            datasets: [{
-                label: 'Events Created',
-                data: [5, 3, 8, 2, 6, 4, 7], // Replace with dynamic data
-                backgroundColor: 'rgba(59, 130, 246, 0.8)',
-                borderColor: 'rgba(59, 130, 246, 1)',
-                borderWidth: 1,
-                borderRadius: 4,
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    grid: {
-                        color: 'rgba(0, 0, 0, 0.1)'
-                    }
-                },
-                x: {
-                    grid: {
-                        display: false
-                    }
-                }
-            },
-            plugins: {
-                legend: {
-                    display: false
-                }
-            }
-        }
-    });
-
-    // User Roles Pie Chart
-    const userRolesCtx = document.getElementById('userRolesChart').getContext('2d');
-    new Chart(userRolesCtx, {
-        type: 'doughnut',
-        data: {
-            labels: ['Admin', 'Manager', 'Client'],
-            datasets: [{
-                data: [
-                    {{ users|length|default:0 }}, // Total users - replace with actual role counts
-                    Math.floor({{ users|length|default:0 }} * 0.3),
-                    Math.floor({{ users|length|default:0 }} * 0.6)
-                ],
-                backgroundColor: [
-                    'rgba(239, 68, 68, 0.8)',
-                    'rgba(59, 130, 246, 0.8)',
-                    'rgba(34, 197, 94, 0.8)'
-                ],
-                borderColor: [
-                    'rgba(239, 68, 68, 1)',
-                    'rgba(59, 130, 246, 1)',
-                    'rgba(34, 197, 94, 1)'
-                ],
-                borderWidth: 2
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: {
-                    display: false
-                }
-            }
-        }
-    });
-
-    // Monthly Events Line Chart
-    const monthlyEventsCtx = document.getElementById('monthlyEventsChart').getContext('2d');
-    new Chart(monthlyEventsCtx, {
-        type: 'line',
-        data: {
-            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-            datasets: [{
-                label: 'Events',
-                data: [12, 19, 15, 25, 22, 18], // Replace with dynamic data
-                borderColor: 'rgba(139, 92, 246, 1)',
-                backgroundColor: 'rgba(139, 92, 246, 0.1)',
-                tension: 0.4,
-                fill: true,
-                borderWidth: 2
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    grid: {
-                        color: 'rgba(0, 0, 0, 0.1)'
-                    }
-                },
-                x: {
-                    grid: {
-                        display: false
-                    }
-                }
-            },
-            plugins: {
-                legend: {
-                    display: false
-                }
-            }
-        }
-    });
-
-    // RSVP Doughnut Chart
-    const rsvpCtx = document.getElementById('rsvpChart').getContext('2d');
-    new Chart(rsvpCtx, {
-        type: 'doughnut',
-        data: {
-            labels: ['Confirmed RSVPs', 'Available Spots'],
-            datasets: [{
-                data: [
-                    {{ total_rsvps|default:0 }},
-                    Math.max(0, ({{ total_events|default:0 }} * 50) - {{ total_rsvps|default:0 }})
-                ],
-                backgroundColor: [
-                    'rgba(34, 197, 94, 0.8)',
-                    'rgba(249, 115, 22, 0.8)'
-                ],
-                borderColor: [
-                    'rgba(34, 197, 94, 1)',
-                    'rgba(249, 115, 22, 1)'
-                ],
-                borderWidth: 2
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: {
-                    display: false
-                }
-            }
-        }
-    });
-});
-</script>
 
         <!-- Navigation Tabs -->
         <div class="mb-8">
@@ -362,24 +206,20 @@ document.addEventListener('DOMContentLoaded', function() {
                         <i class="fas fa-tags h-4 w-4 inline mr-2"></i>
                         Categories
                     </button>
+                    <button class="tab-btn {% if request.GET.tab == 'customizer' %}active border-b-2 border-primary text-primary{% else %}border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300{% endif %} py-2 px-1 text-sm font-medium whitespace-nowrap" data-tab="customizer">
+                        <i class="fas fa-cog h-4 w-4 inline mr-2"></i>
+                        Customizer
+                    </button>
                 </nav>
             </div>
         </div>
 
         <!-- Events Management Tab -->
-        <div id="events-tab" class="tab-content {% if request.GET.tab == 'users' or request.GET.tab == 'categories' %}hidden{% endif %}">
+        <div id="events-tab" class="tab-content {% if request.GET.tab == 'users' or request.GET.tab == 'categories' or request.GET.tab == 'customizer' %}hidden{% endif %}">
             <div class="bg-white rounded-xl shadow-sm p-6 mb-6">
                 <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
                     <h2 class="text-2xl font-semibold text-gray-800">Event Management</h2>
                     <div class="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
-                        {% comment %} <form method="GET">
-                            <input type="hidden" name="tab" value="events">
-                            <select name="event_status" onchange="this.form.submit()" class="border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                <option value="" {% if not event_status %}selected{% endif %}>All Events</option>
-                                <option value="upcoming" {% if event_status == 'upcoming' %}selected{% endif %}>Upcoming</option>
-                                <option value="past" {% if event_status == 'past' %}selected{% endif %}>Past</option>
-                            </select>
-                        </form> {% endcomment %}
                         <a href="{% url 'event_create' %}" class="bg-gradient-to-r from-primary to-secondary text-white px-4 py-2 rounded-lg flex items-center justify-center space-x-2 transition-opacity hover:opacity-90">
                             <i class="fas fa-plus h-4 w-4"></i>
                             <span>Create New Event</span>
@@ -396,7 +236,6 @@ document.addEventListener('DOMContentLoaded', function() {
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Location</th>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Category</th>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Participants</th>
-                                {% comment %} <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th> {% endcomment %}
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
                             </tr>
                         </thead>
@@ -421,18 +260,6 @@ document.addEventListener('DOMContentLoaded', function() {
                                         {{ event.total_participants|default:0 }}
                                     </div>
                                 </td>
-                                {% comment %} <td class="px-6 py-4 whitespace-nowrap">
-                                    {% now "U" as current_timestamp %}
-                                    {% if event.event_date_time.timestamp > current_timestamp %}
-                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                            Upcoming
-                                        </span>
-                                    {% else %}
-                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 text-gray-800">
-                                            Past
-                                        </span>
-                                    {% endif %}
-                                </td> {% endcomment %}
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                     <div class="flex space-x-2">
                                         <a href="{% url 'event_update' pk=event.id %}" class="text-indigo-600 hover:text-indigo-900 p-1 rounded hover:bg-indigo-50 transition-colors" title="Edit Event">
@@ -573,79 +400,183 @@ document.addEventListener('DOMContentLoaded', function() {
         </div>
 
         <!-- Categories Management Tab -->
-<div id="categories-tab" class="tab-content {% if request.GET.tab != 'categories' %}hidden{% endif %}">
-    <div class="bg-white rounded-xl shadow-sm p-6">
-        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
-            <h2 class="text-2xl font-semibold text-gray-800">Category Management</h2>
-            <button onclick="openCategoryModal()" class="bg-gradient-to-r from-primary to-secondary text-white px-4 py-2 rounded-lg flex items-center justify-center space-x-2 transition-opacity hover:opacity-90">
-                <i class="fas fa-plus h-4 w-4"></i>
-                <span>Create New Category</span>
-            </button>
-        </div>
-        
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {% for category in categories %}
-            <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-lg border border-gray-200 hover:shadow-md transition-shadow">
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center space-x-3">
-                        <div class="w-10 h-10 bg-gradient-to-r from-primary to-secondary rounded-lg flex items-center justify-center">
-                            <i class="fas fa-tag text-white"></i>
-                        </div>
-                        <div>
-                            <h3 class="font-semibold text-gray-800">{{ category.name }}</h3>
-                            <p class="text-sm text-gray-600">{{ category.event_set.count }} events</p>
+        <div id="categories-tab" class="tab-content {% if request.GET.tab != 'categories' %}hidden{% endif %}">
+            <div class="bg-white rounded-xl shadow-sm p-6">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
+                    <h2 class="text-2xl font-semibold text-gray-800">Category Management</h2>
+                    <button onclick="openCategoryModal()" class="bg-gradient-to-r from-primary to-secondary text-white px-4 py-2 rounded-lg flex items-center justify-center space-x-2 transition-opacity hover:opacity-90">
+                        <i class="fas fa-plus h-4 w-4"></i>
+                        <span>Create New Category</span>
+                    </button>
+                </div>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {% for category in categories %}
+                    <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-lg border border-gray-200 hover:shadow-md transition-shadow">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-10 h-10 bg-gradient-to-r from-primary to-secondary rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-tag text-white"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-semibold text-gray-800">{{ category.name }}</h3>
+                                    <p class="text-sm text-gray-600">{{ category.event_set.count }} events</p>
+                                </div>
+                            </div>
+                            <div class="flex space-x-2">
+                                <form action="{% url 'eventcategory-delete' pk=category.id %}" method="POST" onsubmit="return confirm('Are you sure you want to delete the category \"{{ category.name }}\"? This action cannot be undone.');" class="inline">
+                                    {% csrf_token %}
+                                    <button type="submit" class="text-red-600 hover:text-red-900 p-1 rounded hover:bg-red-50 transition-colors" title="Delete Category">
+                                        <i class="fas fa-trash h-4 w-4"></i>
+                                    </button>
+                                </form>
+                            </div>
                         </div>
                     </div>
-                    <div class="flex space-x-2">
-                        <form action="{% url 'eventcategory-delete' pk=category.id %}" method="POST" onsubmit="return confirm('Are you sure you want to delete the category \"{{ category.name }}\"? This action cannot be undone.');" class="inline">
-                            {% csrf_token %}
-                            <button type="submit" class="text-red-600 hover:text-red-900 p-1 rounded hover:bg-red-50 transition-colors" title="Delete Category">
-                                <i class="fas fa-trash h-4 w-4"></i>
-                            </button>
-                        </form>
+                    {% empty %}
+                    <div class="col-span-full text-center py-8">
+                        <i class="fas fa-tags h-12 w-12 text-gray-300 mb-4"></i>
+                        <p class="text-gray-500 mb-4">No categories found.</p>
+                        <button onclick="openCategoryModal()" class="text-primary hover:text-secondary font-medium">Create your first category</button>
                     </div>
+                    {% endfor %}
                 </div>
             </div>
-            {% empty %}
-            <div class="col-span-full text-center py-8">
-                <i class="fas fa-tags h-12 w-12 text-gray-300 mb-4"></i>
-                <p class="text-gray-500 mb-4">No categories found.</p>
-                <button onclick="openCategoryModal()" class="text-primary hover:text-secondary font-medium">Create your first category</button>
+        </div>
+
+        <!-- Customizer Tab -->
+        <div id="customizer-tab" class="tab-content {% if request.GET.tab != 'customizer' %}hidden{% endif %}">
+            <div class="bg-white rounded-xl shadow-sm p-6">
+                <h2 class="text-2xl font-semibold text-gray-800 mb-6">Customizer</h2>
+
+                <!-- Hero Section Preview -->
+                <section class="relative min-h-[400px] flex items-center justify-center overflow-hidden mb-8">
+                    <img src="{{ landing_settings.hero_image.url }}" alt="Hero Background" class="absolute inset-0 w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-br from-pink-600/70 via-purple-700/80 to-blue-600/70"></div>
+                    <div class="absolute inset-0 bg-black/30"></div>
+                    <div class="absolute top-20 left-10 w-20 h-20 bg-white/10 rounded-full blur-xl floating"></div>
+                    <div class="absolute top-40 right-20 w-32 h-32 bg-primary/20 rounded-full blur-2xl floating" style="animation-delay: -2s;"></div>
+                    <div class="absolute bottom-20 left-1/4 w-16 h-16 bg-secondary/20 rounded-full blur-xl floating" style="animation-delay: -4s;"></div>
+                    <div class="container mx-auto px-4 text-center text-white relative z-10">
+                        <div class="max-w-4xl mx-auto">
+                            <h1 class="text-5xl md:text-7xl font-bold mb-6 leading-tight">
+                                The Best Biggest
+                                <span class="block bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent">
+                                    EVENT
+                                </span>
+                                <span class="block text-3xl md:text-4xl font-normal mt-2">IN 2025</span>
+                            </h1>
+                            <p class="text-xl md:text-2xl text-gray-200 mb-8 max-w-2xl mx-auto leading-relaxed">
+                                Create unforgettable experiences with our premium event management platform
+                            </p>
+                            <div class="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+                                <a href="{% url 'event_list' %}" class="bg-gradient-to-r from-primary to-secondary text-white px-8 py-4 rounded-full text-lg font-semibold hover-glow transition-all duration-300 flex items-center justify-center">
+                                    <i class="fas fa-rocket mr-2"></i>
+                                    Get Started
+                                </a>
+                                <a href="#services" class="border-2 border-white text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-white hover:text-dark transition-all duration-300 flex items-center justify-center">
+                                    <i class="fas fa-play mr-2"></i>
+                                    Learn More
+                                </a>
+                            </div>
+                            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-md mx-auto">
+                                <div class="glass-effect rounded-2xl p-4">
+                                    <div class="text-3xl font-bold text-primary" id="days">0</div>
+                                    <div class="text-sm text-gray-300">DAYS</div>
+                                </div>
+                                <div class="glass-effect rounded-2xl p-4">
+                                    <div class="text-3xl font-bold text-primary" id="hours">0</div>
+                                    <div class="text-sm text-gray-300">HRS</div>
+                                </div>
+                                <div class="glass-effect rounded-2xl p-4">
+                                    <div class="text-3xl font-bold text-primary" id="minutes">0</div>
+                                    <div class="text-sm text-gray-300">MIN</div>
+                                </div>
+                                <div class="glass-effect rounded-2xl p-4">
+                                    <div class="text-3xl font-bold text-primary" id="seconds">0</div>
+                                    <div class="text-sm text-gray-300">SEC</div>
+                                </div>
+                            </div>
+                            <p class="text-gray-300 mt-4">Next Major Event Launch</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Customization Form -->
+                <form method="POST" enctype="multipart/form-data" class="space-y-6">
+                    {% csrf_token %}
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">Customize Hero Section</h3>
+                        <div class="mb-4">
+                            <label for="hero_image" class="block text-sm font-medium text-gray-700 mb-2">Hero Background Image</label>
+                            <input type="file" id="hero_image" name="hero_image" accept="image/*" class="w-full px-3 py-2 border border-gray-300 rounded-lg">
+                            <p class="text-sm text-gray-500 mt-1">Current: {{ landing_settings.hero_image.url }}</p>
+                        </div>
+                        <div class="mb-4">
+                            <label for="countdown_date" class="block text-sm font-medium text-gray-700 mb-2">Countdown Date & Time</label>
+                            <input type="datetime-local" id="countdown_date" name="countdown_date" value="{{ landing_settings.countdown_date|date:'Y-m-d\TH:i' }}" required class="w-full px-3 py-2 border border-gray-300 rounded-lg">
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">Select Featured Events</h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                            <div>
+                                <label for="featured_event_1" class="block text-sm font-medium text-gray-700 mb-2">Featured Event 1</label>
+                                <select name="featured_event_1" id="featured_event_1" class="w-full px-3 py-2 border border-gray-300 rounded-lg">
+                                    <option value="">None</option>
+                                    {% for event in all_events %}
+                                        <option value="{{ event.id }}" {% if event == landing_settings.featured_event_1 %}selected{% endif %}>{{ event.event_name }} ({{ event.event_date_time|date:"M d, Y" }})</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div>
+                                <label for="featured_event_2" class="block text-sm font-medium text-gray-700 mb-2">Featured Event 2</label>
+                                <select name="featured_event_2" id="featured_event_2" class="w-full px-3 py-2 border border-gray-300 rounded-lg">
+                                    <option value="">None</option>
+                                    {% for event in all_events %}
+                                        <option value="{{ event.id }}" {% if event == landing_settings.featured_event_2 %}selected{% endif %}>{{ event.event_name }} ({{ event.event_date_time|date:"M d, Y" }})</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div>
+                                <label for="featured_event_3" class="block text-sm font-medium text-gray-700 mb-2">Featured Event 3</label>
+                                <select name="featured_event_3" id="featured_event_3" class="w-full px-3 py-2 border border-gray-300 rounded-lg">
+                                    <option value="">None</option>
+                                    {% for event in all_events %}
+                                        <option value="{{ event.id }}" {% if event == landing_settings.featured_event_3 %}selected{% endif %}>{{ event.event_name }} ({{ event.event_date_time|date:"M d, Y" }})</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="bg-gradient-to-r from-primary to-secondary text-white px-4 py-2 rounded-lg hover:opacity-90 transition-opacity">Save Changes</button>
+                </form>
             </div>
-            {% endfor %}
         </div>
     </div>
 </div>
-    </div>
-</div>
+
+<!-- Chart.js CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
 
 <script>
     // Tab switching functionality
     function switchTab(tab) {
-        // Update URL with tab parameter
         const url = new URL(window.location);
         url.searchParams.set('tab', tab);
         window.history.pushState({}, '', url);
-
-        // Remove active classes from all tabs
         document.querySelectorAll('.tab-btn').forEach(btn => {
             btn.classList.remove('active', 'border-primary', 'text-primary');
             btn.classList.add('border-transparent', 'text-gray-500');
         });
-        
-        // Hide all tab content
         document.querySelectorAll('.tab-content').forEach(content => {
             content.classList.add('hidden');
         });
-
-        // Activate selected tab
         const activeBtn = document.querySelector(`[data-tab="${tab}"]`);
         if (activeBtn) {
             activeBtn.classList.add('active', 'border-primary', 'text-primary');
             activeBtn.classList.remove('border-transparent', 'text-gray-500');
         }
-        
-        // Show selected tab content
         const tabContent = document.getElementById(`${tab}-tab`);
         if (tabContent) {
             tabContent.classList.remove('hidden');
@@ -660,6 +591,30 @@ document.addEventListener('DOMContentLoaded', function() {
     function closeCategoryModal() {
         document.getElementById('categoryModal').classList.add('hidden');
         document.getElementById('categoryForm').reset();
+    }
+
+    // Countdown timer functionality
+    function startCountdown() {
+        const countdownDate = new Date('{{ landing_settings.countdown_date|date:"c" }}').getTime();
+        const countdown = setInterval(() => {
+            const now = new Date().getTime();
+            const distance = countdownDate - now;
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            document.getElementById('days').textContent = days;
+            document.getElementById('hours').textContent = hours;
+            document.getElementById('minutes').textContent = minutes;
+            document.getElementById('seconds').textContent = seconds;
+            if (distance < 0) {
+                clearInterval(countdown);
+                document.getElementById('days').textContent = '0';
+                document.getElementById('hours').textContent = '0';
+                document.getElementById('minutes').textContent = '0';
+                document.getElementById('seconds').textContent = '0';
+            }
+        }, 1000);
     }
 
     // Initialize dashboard
@@ -689,149 +644,111 @@ document.addEventListener('DOMContentLoaded', function() {
                 closeCategoryModal();
             }
         });
-    });
-    // Replace the static chart data with dynamic data from Django
-document.addEventListener('DOMContentLoaded', function() {
-    // Weekly Activity Bar Chart
-    const weeklyActivityCtx = document.getElementById('weeklyActivityChart').getContext('2d');
-    new Chart(weeklyActivityCtx, {
-        type: 'bar',
-        data: {
-            labels: {{ chart_data.weekly_activity.labels|safe }},
-            datasets: [{
-                label: 'Events Created',
-                data: {{ chart_data.weekly_activity.data|safe }},
-                backgroundColor: 'rgba(59, 130, 246, 0.8)',
-                borderColor: 'rgba(59, 130, 246, 1)',
-                borderWidth: 1,
-                borderRadius: 4,
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    grid: {
-                        color: 'rgba(0, 0, 0, 0.1)'
-                    }
-                },
-                x: {
-                    grid: {
-                        display: false
-                    }
-                }
+
+        // Start countdown timer
+        startCountdown();
+
+        // Chart.js configurations
+        const weeklyActivityCtx = document.getElementById('weeklyActivityChart').getContext('2d');
+        new Chart(weeklyActivityCtx, {
+            type: 'bar',
+            data: {
+                labels: {{ chart_data.weekly_activity.labels|safe }},
+                datasets: [{
+                    label: 'Events Created',
+                    data: {{ chart_data.weekly_activity.data|safe }},
+                    backgroundColor: 'rgba(59, 130, 246, 0.8)',
+                    borderColor: 'rgba(59, 130, 246, 1)',
+                    borderWidth: 1,
+                    borderRadius: 4,
+                }]
             },
-            plugins: {
-                legend: {
-                    display: false
-                }
-            }
-        }
-    });
-
-    // User Roles Pie Chart
-    const userRolesCtx = document.getElementById('userRolesChart').getContext('2d');
-    new Chart(userRolesCtx, {
-        type: 'doughnut',
-        data: {
-            labels: {{ chart_data.user_roles.labels|safe }},
-            datasets: [{
-                data: {{ chart_data.user_roles.data|safe }},
-                backgroundColor: [
-                    'rgba(239, 68, 68, 0.8)',
-                    'rgba(59, 130, 246, 0.8)',
-                    'rgba(34, 197, 94, 0.8)'
-                ],
-                borderColor: [
-                    'rgba(239, 68, 68, 1)',
-                    'rgba(59, 130, 246, 1)',
-                    'rgba(34, 197, 94, 1)'
-                ],
-                borderWidth: 2
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: {
-                    display: false
-                }
-            }
-        }
-    });
-
-    // Monthly Events Line Chart
-    const monthlyEventsCtx = document.getElementById('monthlyEventsChart').getContext('2d');
-    new Chart(monthlyEventsCtx, {
-        type: 'line',
-        data: {
-            labels: {{ chart_data.monthly_events.labels|safe }},
-            datasets: [{
-                label: 'Events',
-                data: {{ chart_data.monthly_events.data|safe }},
-                borderColor: 'rgba(139, 92, 246, 1)',
-                backgroundColor: 'rgba(139, 92, 246, 0.1)',
-                tension: 0.4,
-                fill: true,
-                borderWidth: 2
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    grid: {
-                        color: 'rgba(0, 0, 0, 0.1)'
-                    }
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: { beginAtZero: true, grid: { color: 'rgba(0, 0, 0, 0.1)' } },
+                    x: { grid: { display: false } }
                 },
-                x: {
-                    grid: {
-                        display: false
-                    }
-                }
-            },
-            plugins: {
-                legend: {
-                    display: false
-                }
+                plugins: { legend: { display: false } }
             }
-        }
-    });
+        });
 
-    // RSVP Doughnut Chart
-    const rsvpCtx = document.getElementById('rsvpChart').getContext('2d');
-    new Chart(rsvpCtx, {
-        type: 'doughnut',
-        data: {
-            labels: {{ chart_data.rsvp_data.labels|safe }},
-            datasets: [{
-                data: {{ chart_data.rsvp_data.data|safe }},
-                backgroundColor: [
-                    'rgba(34, 197, 94, 0.8)',
-                    'rgba(249, 115, 22, 0.8)'
-                ],
-                borderColor: [
-                    'rgba(34, 197, 94, 1)',
-                    'rgba(249, 115, 22, 1)'
-                ],
-                borderWidth: 2
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: {
-                    display: false
-                }
+        const userRolesCtx = document.getElementById('userRolesChart').getContext('2d');
+        new Chart(userRolesCtx, {
+            type: 'doughnut',
+            data: {
+                labels: {{ chart_data.user_roles.labels|safe }},
+                datasets: [{
+                    data: {{ chart_data.user_roles.data|safe }},
+                    backgroundColor: ['rgba(239, 68, 68, 0.8)', 'rgba(59, 130, 246, 0.8)', 'rgba(34, 197, 94, 0.8)'],
+                    borderColor: ['rgba(239, 68, 68, 1)', 'rgba(59, 130, 246, 1)', 'rgba(34, 197, 94, 1)'],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } }
             }
-        }
+        });
+
+        const monthlyEventsCtx = document.getElementById('monthlyEventsChart').getContext('2d');
+        new Chart(monthlyEventsCtx, {
+            type: 'line',
+            data: {
+                labels: {{ chart_data.monthly_events.labels|safe }},
+                datasets: [{
+                    label: 'Events',
+                    data: {{ chart_data.monthly_events.data|safe }},
+                    borderColor: 'rgba(139, 92, 246, 1)',
+                    backgroundColor: 'rgba(139, 92, 246, 0.1)',
+                    tension: 0.4,
+                    fill: true,
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: { beginAtZero: true, grid: { color: 'rgba(0, 0, 0, 0.1)' } },
+                    x: { grid: { display: false } }
+                },
+                plugins: { legend: { display: false } }
+            }
+        });
+
+        const rsvpCtx = document.getElementById('rsvpChart').getContext('2d');
+        new Chart(rsvpCtx, {
+            type: 'doughnut',
+            data: {
+                labels: {{ chart_data.rsvp_data.labels|safe }},
+                datasets: [{
+                    data: {{ chart_data.rsvp_data.data|safe }},
+                    backgroundColor: ['rgba(34, 197, 94, 0.8)', 'rgba(249, 115, 22, 0.8)'],
+                    borderColor: ['rgba(34, 197, 94, 1)', 'rgba(249, 115, 22, 1)'],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } }
+            }
+        });
     });
-});
 </script>
+
+<style>
+.floating { animation: float 6s ease-in-out infinite; }
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+    100% { transform: translateY(0px); }
+}
+.glass-effect { background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2); }
+.hover-glow { box-shadow: 0 0 0 rgba(0, 0, 0, 0); }
+.hover-glow:hover { box-shadow: 0 0 20px rgba(255, 255, 255, 0.5); }
+</style>
 {% endblock %}

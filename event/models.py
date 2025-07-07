@@ -20,3 +20,13 @@ class Event(models.Model):
 
     def __str__(self):
         return self.event_name
+    
+class LandingPageSettings(models.Model):
+    hero_image = models.ImageField(upload_to='hero_images/', default='hero_images/default.jpg')
+    countdown_date = models.DateTimeField()
+    featured_event_1 = models.ForeignKey(Event, on_delete=models.SET_NULL, null=True, related_name='featured_1')
+    featured_event_2 = models.ForeignKey(Event, on_delete=models.SET_NULL, null=True, related_name='featured_2')
+    featured_event_3 = models.ForeignKey(Event, on_delete=models.SET_NULL, null=True, related_name='featured_3')
+
+    def __str__(self):
+        return "Landing Page Settings"

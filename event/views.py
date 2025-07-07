@@ -27,6 +27,23 @@ from django.utils import timezone
 from .forms import EventForm
 from django.contrib.messages.views import SuccessMessageMixin
 
+
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import TemplateView
+from django.utils import timezone
+from django.db.models import Count, Sum, Q
+import json
+from datetime import datetime, timedelta
+
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import TemplateView
+from django.utils import timezone
+from django.db.models import Count, Sum, Q
+from django.shortcuts import redirect
+from .models import Event, EventCategory, LandingPageSettings
+import json
+from datetime import datetime, timedelta
+
 class RoleRequiredMixin:
     allowed_roles = []
 
@@ -211,13 +228,25 @@ class UserStatusToggleView(LoginRequiredMixin, RoleRequiredMixin, View):
         messages.success(request, f"User {status} successfully!")
         return redirect('admin_dashboard')
 
-class AdminDashboardView(LoginRequiredMixin, RoleRequiredMixin, TemplateView):
+class AdminDashboardView(LoginRequiredMixin, TemplateView):
     template_name = 'dashboard/admin_dashboard.html'
     allowed_roles = ['admin']
 
+    def post(self, request, *args, **kwargs):
+        settings, created = LandingPageSettings.objects.get_or_create(pk=1)
+        if 'hero_image' in request.FILES:
+            settings.hero_image = request.FILES['hero_image']
+        countdown_date = request.POST.get('countdown_date')
+        if countdown_date:
+            settings.countdown_date = timezone.datetime.strptime(countdown_date, '%Y-%m-%dT%H:%M')
+        settings.featured_event_1 = Event.objects.filter(id=request.POST.get('featured_event_1')).first()
+        settings.featured_event_2 = Event.objects.filter(id=request.POST.get('featured_event_2')).first()
+        settings.featured_event_3 = Event.objects.filter(id=request.POST.get('featured_event_3')).first()
+        settings.save()
+        return redirect('admin_dashboard')
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        # Filter events based on GET parameters
         event_status = self.request.GET.get('event_status', '')
         search_query = self.request.GET.get('search', '')
         role_filter = self.request.GET.get('role', '')
@@ -233,9 +262,8 @@ class AdminDashboardView(LoginRequiredMixin, RoleRequiredMixin, TemplateView):
                 events = events.filter(event_date_time__lt=now)
         if search_query:
             events = events.filter(
-                models.Q(event_name__icontains=search_query) |
-                models.Q(status__icontains=search_query) |
-                models.Q(event_location__icontains=search_query)
+                Q(event_name__icontains=search_query) |
+                Q(event_location__icontains=search_query)
             )
 
         # Users
@@ -246,18 +274,23 @@ class AdminDashboardView(LoginRequiredMixin, RoleRequiredMixin, TemplateView):
             users = users.filter(is_active=(status_filter == 'active'))
         if search_query:
             users = users.filter(
-                models.Q(first_name__icontains=search_query) |
-                models.Q(last_name__icontains=search_query) |
-                models.Q(email__icontains=search_query)
+                Q(first_name__icontains=search_query) |
+                Q(last_name__icontains=search_query) |
+                Q(email__icontains=search_query)
             )
 
         # Basic stats
         total_events = Event.objects.count()
         total_users = User.objects.count()
         active_events = Event.objects.filter(event_date_time__gte=timezone.now()).count()
-        total_rsvps = Event.objects.aggregate(
-            total=models.Sum('total_participants')
-        )['total'] or 0
+        total_rsvps = Event.objects.aggregate(total=Sum('total_participants'))['total'] or 0
+
+        # Landing page settings
+        settings, created = LandingPageSettings.objects.get_or_create(
+            pk=1,
+            defaults={'countdown_date': timezone.now() + timedelta(days=30)}
+        )
+        all_events = Event.objects.all().order_by('event_date_time')
 
         # Chart data preparation
         chart_data = self.get_chart_data()
@@ -275,82 +308,67 @@ class AdminDashboardView(LoginRequiredMixin, RoleRequiredMixin, TemplateView):
             'role_filter': role_filter,
             'status_filter': status_filter,
             'chart_data': chart_data,
+            'landing_settings': settings,
+            'all_events': all_events,
         })
         return context
 
     def get_chart_data(self):
-        """Prepare data for dashboard charts"""
-        from datetime import datetime, timedelta
-        from django.db.models import Count, Q
-        import json
-
-        # Weekly Activity Chart - Events created in last 7 days
         today = timezone.now().date()
         week_days = []
         events_count = []
-        
         for i in range(6, -1, -1):
             day = today - timedelta(days=i)
             week_days.append(day.strftime('%a'))
-            count = Event.objects.filter(
-                event_date_time__date=day
-            ).count()
+            count = Event.objects.filter(event_date_time__date=day).count()
             events_count.append(count)
+        if not week_days:
+            week_days = [datetime.now().strftime('%a')]
+            events_count = [0]
 
-        # Category Distribution - Events by category
-        category_data = EventCategory.objects.annotate(
-            event_count=Count('event')
-        ).values('name', 'event_count').order_by('-event_count')
-        
-        category_labels = [item['name'] for item in category_data]
-        category_counts = [item['event_count'] for item in category_data]
-        
-        # If no categories, provide default data
-        if not category_labels:
-            category_labels = ['Uncategorized']
-            category_counts = [Event.objects.filter(event_category=None).count()]
-
-        # User Registration Trend - Users registered in last 30 days
-        thirty_days_ago = timezone.now() - timedelta(days=30)
-        user_trend_data = []
-        trend_labels = []
-        
-        for i in range(29, -1, -1):
-            day = today - timedelta(days=i)
-            count = User.objects.filter(
-                date_joined__date=day
-            ).count()
-            user_trend_data.append(count)
-            # Only show every 5th day label to avoid crowding
-            if i % 5 == 0:
-                trend_labels.append(day.strftime('%m/%d'))
-            else:
-                trend_labels.append('')
-
-        # Role Distribution
-        role_data = User.objects.values('role').annotate(
-            count=Count('id')
-        ).order_by('-count')
-        
+        role_data = User.objects.values('role').annotate(count=Count('id')).order_by('-count')
         role_labels = [item['role'].title() for item in role_data]
         role_counts = [item['count'] for item in role_data]
+        if not role_labels:
+            role_labels = ['Admin', 'Manager', 'Client']
+            role_counts = [0, 0, 0]
+
+        six_months_ago = today - timedelta(days=180)
+        monthly_events_data = []
+        month_labels = []
+        for i in range(5, -1, -1):
+            month_start = (today - timedelta(days=30 * i)).replace(day=1)
+            count = Event.objects.filter(
+                event_date_time__year=month_start.year,
+                event_date_time__month=month_start.month
+            ).count()
+            monthly_events_data.append(count)
+            month_labels.append(month_start.strftime('%b'))
+        if not month_labels:
+            month_labels = [datetime.now().strftime('%b')]
+            monthly_events_data = [0]
+
+        total_rsvps = Event.objects.aggregate(total=Sum('total_participants'))['total'] or 0
+        total_events = Event.objects.count()
+        max_capacity = total_events * 50
+        available_spots = max(0, max_capacity - total_rsvps)
 
         return {
             'weekly_activity': {
                 'labels': json.dumps(week_days),
                 'data': json.dumps(events_count),
             },
-            'category_distribution': {
-                'labels': json.dumps(category_labels),
-                'data': json.dumps(category_counts),
-            },
-            'user_trend': {
-                'labels': json.dumps(trend_labels),
-                'data': json.dumps(user_trend_data),
-            },
-            'role_distribution': {
+            'user_roles': {
                 'labels': json.dumps(role_labels),
                 'data': json.dumps(role_counts),
+            },
+            'monthly_events': {
+                'labels': json.dumps(month_labels),
+                'data': json.dumps(monthly_events_data),
+            },
+            'rsvp_data': {
+                'labels': json.dumps(['Confirmed RSVPs', 'Available Spots']),
+                'data': json.dumps([total_rsvps, available_spots]),
             }
         }
 
@@ -417,14 +435,24 @@ class ClientDashboardView(LoginRequiredMixin, TemplateView):
         return context
 
 
-class HomeView(TemplateView):
+class HomeView(ListView):
+    model = Event
     template_name = 'home.html'
+    context_object_name = 'events'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['upcoming_events'] = Event.objects.filter(
-            event_date_time__gte=timezone.now()
-        ).order_by('event_date_time')[:6]
+        settings, created = LandingPageSettings.objects.get_or_create(
+            pk=1,
+            defaults={'countdown_date': timezone.now() + timedelta(days=30)}
+        )
+        context['landing_settings'] = settings
+        context['landing_settings'].featured_events = [
+            settings.featured_event_1,
+            settings.featured_event_2,
+            settings.featured_event_3
+        ]
+        context['landing_settings'].featured_events = [e for e in context['landing_settings'].featured_events if e]
         return context
     
 logger = logging.getLogger(__name__)
