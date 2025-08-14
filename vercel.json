@@ -1,20 +1,13 @@
 {
+  "version": 2,
   "builds": [
-    { "src": "event_project/wsgi.py", "use": "@vercel/python", "config": { "runtime": "python3.11" } }
+    {
+      "src": "event_project/wsgi.py",
+      "use": "@vercel/python",
+      "config": { "runtime": "python3.11" }
+    }
   ],
   "routes": [
     { "src": "/(.*)", "dest": "event_project/wsgi.py" }
-  ],
-  "functions": {
-    "event_project/wsgi.py": {
-      "includeFiles": [
-        "templates/**",
-        "static/**",
-        "staticfiles/**",
-        "event/**",
-        "users/**",
-        "event_project/**"
-      ]
-    }
-  }
+  ]
 }
