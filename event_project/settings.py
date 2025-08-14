@@ -67,13 +67,21 @@ TEMPLATES = [
 WSGI_APPLICATION = 'event_project.wsgi.application'
 
 # Database
+# DATABASES = {
+#     'default': dj_database_url.config(
+#         default='postgresql://db_vup1_user:KTwvynGvn1FWkUd11PDNPNn4AyxJD7Yf@dpg-d2f468ali9vc73bfmjrg-a.oregon-postgres.render.com/db_vup1',
+#         conn_max_age=600
+#     )
+# }
+
 DATABASES = {
     'default': dj_database_url.config(
-        default='postgresql://event_db_0q4t_user:QiSUVi23iFoAfG8Sctw8OM3PKu38XPtJ@dpg-d1keqhndiees73edv09g-a.oregon-postgres.render.com/event_db_0q4t',
-        conn_max_age=600
+        default='postgresql://postgres.endwqrkxnxcvozpwueik:Tamim%40%401900@aws-1-ap-southeast-1.pooler.supabase.com:5432/postgres'
     )
 }
 
+
+# postgresql://event_db_0q4t_user:QiSUVi23iFoAfG8Sctw8OM3PKu38XPtJ@dpg-d1keqhndiees73edv09g-a.oregon-postgres.render.com/event_db_0q4t
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
     {
