@@ -15,13 +15,14 @@ SECRET_KEY = 'django-insecure-t#k^k0z8#5!q8l#3z#r#z#v#z#z#z#z#z#z#z#z#z#z#z#z#z'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True  # Set to False in production
 
-# Allow all hosts (development only)
-ALLOWED_HOSTS = ['*']
+# Allow all hosts + Vercel
+ALLOWED_HOSTS = ['*', '.vercel.app']
 
 # CSRF trusted origins
 CSRF_TRUSTED_ORIGINS = [
     'https://*.onrender.com',
-    'http://127.0.0.1:8000'
+    'http://127.0.0.1:8000',
+    'https://*.vercel.app',
 ]
 
 # Application definition
@@ -38,6 +39,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # Serve static files on Vercel
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -67,35 +69,18 @@ TEMPLATES = [
 WSGI_APPLICATION = 'event_project.wsgi.application'
 
 # Database
-# DATABASES = {
-#     'default': dj_database_url.config(
-#         default='postgresql://db_vup1_user:KTwvynGvn1FWkUd11PDNPNn4AyxJD7Yf@dpg-d2f468ali9vc73bfmjrg-a.oregon-postgres.render.com/db_vup1',
-#         conn_max_age=600
-#     )
-# }
-
 DATABASES = {
     'default': dj_database_url.config(
         default='postgresql://postgres.endwqrkxnxcvozpwueik:Tamim%40%401900@aws-1-ap-southeast-1.pooler.supabase.com:5432/postgres'
     )
 }
 
-
-# postgresql://event_db_0q4t_user:QiSUVi23iFoAfG8Sctw8OM3PKu38XPtJ@dpg-d1keqhndiees73edv09g-a.oregon-postgres.render.com/event_db_0q4t
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
+    {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
 
 # Internationalization
@@ -105,13 +90,10 @@ USE_I18N = True
 USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
-# Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    BASE_DIR / 'static',
-]
+STATICFILES_DIRS = [BASE_DIR / 'static']
 STATIC_ROOT = BASE_DIR / 'staticfiles'
-
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Media files (User uploads)
 MEDIA_URL = '/media/'
