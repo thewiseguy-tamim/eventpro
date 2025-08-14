@@ -3,29 +3,23 @@ from pathlib import Path
 from dotenv import load_dotenv
 import dj_database_url
 
-# Load environment variables from .env file
+# Load environment variables from .env (optional locally; Vercel uses its own env vars)
 load_dotenv()
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-t#k^k0z8#5!q8l#3z#r#z#v#z#z#z#z#z#z#z#z#z#z#z#z#z'
+# Secrets from environment (set them in Vercel → Project → Settings → Environment Variables)
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'dev-unsafe-key')
+DEBUG = os.getenv('DEBUG', 'False').lower() == 'true'
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True  # Set to False in production
-
-# Allow all hosts + Vercel
 ALLOWED_HOSTS = ['*', '.vercel.app']
 
-# CSRF trusted origins
 CSRF_TRUSTED_ORIGINS = [
-    'https://*.onrender.com',
-    'http://127.0.0.1:8000',
     'https://*.vercel.app',
+    'http://127.0.0.1:8000',
+    'https://*.onrender.com',
 ]
 
-# Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -68,14 +62,16 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'event_project.wsgi.application'
 
-# Database
+# Database (use DATABASE_URL env var; SSL required for Supabase)
 DATABASES = {
-    'default': dj_database_url.config(
-        default='postgresql://postgres.endwqrkxnxcvozpwueik:Tamim%40%401900@aws-1-ap-southeast-1.pooler.supabase.com:5432/postgres'
+    "default": dj_database_url.config(
+        env="DATABASE_URL",
+        default="postgresql://postgres.endwqrkxnxcvozpwueik:Tamim%40%401900@aws-1-ap-southeast-1.pooler.supabase.com:5432/postgres",
+        conn_max_age=600,
+        ssl_require=True
     )
 }
 
-# Password validation
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
     {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
@@ -83,29 +79,28 @@ AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
 
-# Internationalization
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
-# Static files (CSS, JavaScript, Images)
+# Static files
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
 STATIC_ROOT = BASE_DIR / 'staticfiles'
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# Avoid manifest error on Vercel unless you've run collectstatic and shipped the manifest
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
-# Media files (User uploads)
+# Media (serverless FS is read-only; use remote storage in production)
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
-# Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Custom user model
 AUTH_USER_MODEL = 'users.User'
 
-# Email settings
+# Email settings (optional)
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = os.getenv('EMAIL_HOST')
 EMAIL_PORT = int(os.getenv('EMAIL_PORT', 587))
