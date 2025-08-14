@@ -67,10 +67,12 @@ DATABASES = {
     "default": dj_database_url.config(
         env="DATABASE_URL",
         default="postgresql://postgres.endwqrkxnxcvozpwueik:Tamim%40%401900@aws-1-ap-southeast-1.pooler.supabase.com:5432/postgres",
-        conn_max_age=600,
+        conn_max_age=0,
         ssl_require=True
     )
 }
+
+CONN_HEALTH_CHECKS = True
 
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
