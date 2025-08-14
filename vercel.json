@@ -1,5 +1,14 @@
 {
-  "rewrites": [
-    { "source": "/(.*)", "destination": "/$1" }
+  "version": 2,
+  "builds": [
+    {
+      "src": "event_project/wsgi.py",
+      "use": "@vercel/python",
+      "config": { "maxLambdaSize": "50mb" }
+    }
+  ],
+  "routes": [
+    { "src": "/static/(.*)", "dest": "staticfiles/$1" },
+    { "src": "/(.*)", "dest": "event_project/wsgi.py" }
   ]
 }
