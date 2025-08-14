@@ -10,7 +10,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Secrets from environment (set them in Vercel → Project → Settings → Environment Variables)
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'dev-unsafe-key')
-DEBUG = os.getenv('DEBUG', 'False').lower() == 'true'
+DEBUG = os.getenv('DEBUG', 'False').lower() == 'false'
 
 ALLOWED_HOSTS = ['*', '.vercel.app']
 
