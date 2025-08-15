@@ -1,114 +1,45 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}About Us - EventPro{% endblock %}
 
 {% block extra_css %}
 <style>
-    .floating {
-        animation: floating 6s ease-in-out infinite;
-    }
-    @keyframes floating {
-        0%, 100% { transform: translateY(0px); }
-        50% { transform: translateY(-20px); }
-    }
-    
-    .fade-in-up {
-        opacity: 0;
-        transform: translateY(30px);
-        animation: fadeInUp 0.8s ease forwards;
-    }
-    
-    @keyframes fadeInUp {
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-    
+    .floating { animation: floating 6s ease-in-out infinite; }
+    @keyframes floating { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-20px); } }
+
+    .fade-in-up { opacity: 0; transform: translateY(30px); animation: fadeInUp 0.8s ease forwards; }
+    @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
+
     .stagger-1 { animation-delay: 0.1s; }
     .stagger-2 { animation-delay: 0.2s; }
     .stagger-3 { animation-delay: 0.3s; }
     .stagger-4 { animation-delay: 0.4s; }
-    
-    .counter {
-        font-size: 3rem;
-        font-weight: 700;
-        background: linear-gradient(135deg, #E91E63, #7C3AED);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-    }
-    
-    .value-card {
-        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        position: relative;
-        overflow: hidden;
-    }
-    
-    .value-card::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: linear-gradient(135deg, #E91E63, #7C3AED);
-        opacity: 0;
-        transition: opacity 0.3s ease;
-        z-index: -1;
-    }
-    
-    .value-card:hover::before {
-        opacity: 0.1;
-    }
-    
-    .value-card:hover {
-        transform: translateY(-8px) scale(1.02);
-        box-shadow: 0 20px 40px rgba(233, 30, 99, 0.2);
-    }
-    
-    .team-card {
-        transition: all 0.3s ease;
-        position: relative;
-        overflow: hidden;
-    }
-    
-    .team-info {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        padding: 1.5rem;
-        color: white;
-        transform: translateY(100%);
-        transition: transform 0.3s ease;
-        background: rgba(0, 0, 0, 0.7); /* Added black semi-transparent background for readability */
-    }
-    
-    .team-card:hover .team-info {
-        transform: translateY(0);
-    }
-    
-    .parallax-bg {
-        background-attachment: fixed;
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: cover;
-    }
+
+    .counter { font-size: 3rem; font-weight: 700; background: linear-gradient(135deg, #E91E63, #7C3AED); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+
+    .value-card { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); position: relative; overflow: hidden; }
+    .value-card::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, #E91E63, #7C3AED); opacity: 0; transition: opacity 0.3s ease; z-index: -1; }
+    .value-card:hover::before { opacity: 0.1; }
+    .value-card:hover { transform: translateY(-8px) scale(1.02); box-shadow: 0 20px 40px rgba(233, 30, 99, 0.2); }
+
+    .team-card { transition: all 0.3s ease; position: relative; overflow: hidden; }
+    .team-info { position: absolute; bottom: 0; left: 0; right: 0; padding: 1.5rem; color: white; transform: translateY(100%); transition: transform 0.3s ease; background: rgba(0, 0, 0, 0.7); }
+    .team-card:hover .team-info { transform: translateY(0); }
+
+    .parallax-bg { background-attachment: fixed; background-position: center; background-repeat: no-repeat; background-size: cover; }
 </style>
 {% endblock %}
 
 {% block content %}
-<!-- Hero Section -->
 <section class="relative min-h-screen bg-hero-pattern flex items-center justify-center overflow-hidden">
-    <!-- Floating Elements -->
     <div class="absolute inset-0 overflow-hidden">
         <div class="floating absolute top-20 left-10 w-4 h-4 bg-white/20 rounded-full"></div>
         <div class="floating absolute top-40 right-20 w-6 h-6 bg-white/10 rounded-full" style="animation-delay: -2s;"></div>
         <div class="floating absolute bottom-40 left-20 w-8 h-8 bg-white/15 rounded-full" style="animation-delay: -4s;"></div>
         <div class="floating absolute bottom-20 right-10 w-5 h-5 bg-white/20 rounded-full" style="animation-delay: -1s;"></div>
     </div>
-    
+
     <div class="container mx-auto px-4 text-center relative z-10">
         <div class="max-w-4xl mx-auto">
             <h1 class="text-6xl md:text-7xl font-bold text-white mb-6 fade-in-up">
@@ -129,8 +60,7 @@
             </div>
         </div>
     </div>
-    
-    <!-- Scroll Indicator -->
+
     <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2">
         <div class="pulse-ring absolute inset-0 border-2 border-white/30 rounded-full"></div>
         <div class="w-12 h-12 border-2 border-white/50 rounded-full flex items-center justify-center">
@@ -139,7 +69,6 @@
     </div>
 </section>
 
-<!-- Our Story Section -->
 <section id="story" class="py-20 bg-white">
     <div class="container mx-auto px-4">
         <div class="max-w-4xl mx-auto text-center">
@@ -147,7 +76,7 @@
                 Our <span class="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Story</span>
             </h2>
             <div class="w-24 h-1 bg-gradient-to-r from-primary to-secondary mx-auto mb-12"></div>
-            
+
             <div class="grid md:grid-cols-2 gap-12 items-center">
                 <div class="text-left">
                     <p class="text-lg text-gray-600 mb-6 leading-relaxed">
@@ -168,16 +97,14 @@
                 </div>
                 <div class="relative">
                     <div class="h-[550px] rounded-3xl floating">
-    <img src="/media/qq.webp" alt="Our Story" class="w-full h-full object-cover rounded-2xl">
-</div>
-
+                        <img src="/media/qq.webp" alt="Our Story" class="w-full h-full object-cover rounded-2xl">
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- Stats Section -->
 <section class="py-20 bg-gradient-to-r from-gray-50 to-white">
     <div class="container mx-auto px-4">
         <div class="text-center mb-16">
@@ -188,7 +115,7 @@
                 Numbers that reflect our commitment to excellence and client satisfaction
             </p>
         </div>
-        
+
         <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
             <div class="text-center p-6 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
                 <div class="counter mb-4">500+</div>
@@ -214,7 +141,6 @@
     </div>
 </section>
 
-<!-- Values Section -->
 <section class="py-20 bg-white">
     <div class="container mx-auto px-4">
         <div class="text-center mb-16">
@@ -225,7 +151,7 @@
                 The principles that guide everything we do and define who we are
             </p>
         </div>
-        
+
         <div class="grid md:grid-cols-3 gap-8">
             <div class="value-card bg-white p-8 rounded-2xl shadow-lg text-center">
                 <div class="w-16 h-16 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center mx-auto mb-6">
@@ -236,7 +162,7 @@
                     We pour our heart into every project, ensuring that your special moments are crafted with genuine care and enthusiasm that shows in every detail.
                 </p>
             </div>
-            
+
             <div class="value-card bg-white p-8 rounded-2xl shadow-lg text-center">
                 <div class="w-16 h-16 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center mx-auto mb-6">
                     <i class="fas fa-gem text-white text-2xl"></i>
@@ -246,7 +172,7 @@
                     We maintain the highest standards in every aspect of our work, from initial planning to final execution, ensuring flawless delivery every time.
                 </p>
             </div>
-            
+
             <div class="value-card bg-white p-8 rounded-2xl shadow-lg text-center">
                 <div class="w-16 h-16 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center mx-auto mb-6">
                     <i class="fas fa-lightbulb text-white text-2xl"></i>
@@ -260,7 +186,6 @@
     </div>
 </section>
 
-<!-- Team Section -->
 <section class="py-20 bg-white">
     <div class="container mx-auto px-4">
         <div class="text-center mb-16">
@@ -271,11 +196,11 @@
                 The passionate professionals behind every successful event
             </p>
         </div>
-        
+
         <div class="grid md:grid-cols-3 gap-8">
             <div class="team-card bg-white rounded-2xl overflow-hidden shadow-lg fade-in-up stagger-1">
                 <div class="aspect-square relative">
-                    <img src="/media/team1.jpeg" alt="Sarah Johnson" class="w-full h-full object-cover">
+                    <img src="/media/team1.jpeg" alt="David Johnson" class="w-full h-full object-cover">
                     <div class="team-info">
                         <h3 class="text-xl font-bold mb-2">David Johnson</h3>
                         <p class="text-white/90 mb-2">Creative Director</p>
@@ -283,7 +208,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="team-card bg-white rounded-2xl overflow-hidden shadow-lg fade-in-up stagger-2">
                 <div class="aspect-square relative">
                     <img src="/media/team2.jpg" alt="Michael Chen" class="w-full h-full object-cover">
@@ -294,7 +219,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="team-card bg-white rounded-2xl overflow-hidden shadow-lg fade-in-up stagger-3">
                 <div class="aspect-square relative">
                     <img src="/media/team3.avif" alt="Emily Rodriguez" class="w-full h-full object-cover">
@@ -309,14 +234,13 @@
     </div>
 </section>
 
-<!-- CTA Section -->
 <section class="py-20 bg-gradient-to-r from-primary to-secondary relative overflow-hidden">
     <div class="absolute inset-0">
         <div class="floating absolute top-10 left-10 w-6 h-6 bg-white/10 rounded-full"></div>
         <div class="floating absolute top-20 right-20 w-4 h-4 bg-white/20 rounded-full" style="animation-delay: -2s;"></div>
         <div class="floating absolute bottom-20 left-20 w-8 h-8 bg-white/15 rounded-full" style="animation-delay: -4s;"></div>
     </div>
-    
+
     <div class="container mx-auto px-4 text-center relative z-10">
         <h2 class="text-4xl md:text-5xl font-bold text-white mb-6">
             Ready to Create Something Amazing?
@@ -340,67 +264,37 @@
 
 {% block extra_js %}
 <script>
-    // Intersection Observer for animations
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    };
-    
+    const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
     const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('fade-in-up');
-            }
-        });
+        entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('fade-in-up'); });
     }, observerOptions);
-    
-    // Observe elements for animation
-    document.querySelectorAll('.value-card, .team-card, .counter').forEach(el => {
-        observer.observe(el);
-    });
-    
-    // Counter animation
+
+    document.querySelectorAll('.value-card, .team-card, .counter').forEach(el => observer.observe(el));
+
     function animateCounter(element, target) {
-        let current = 0;
-        const increment = target / 100;
+        let current = 0; const increment = target / 100;
         const timer = setInterval(() => {
             current += increment;
-            if (current >= target) {
-                current = target;
-                clearInterval(timer);
-            }
-            
-            if (target >= 1000) {
-                element.textContent = (current / 1000).toFixed(0) + 'K+';
-            } else if (target >= 100) {
-                element.textContent = Math.floor(current) + '%';
-            } else {
-                element.textContent = Math.floor(current) + '+';
-            }
+            if (current >= target) { current = target; clearInterval(timer); }
+            if (target >= 1000) element.textContent = (current / 1000).toFixed(0) + 'K+';
+            else if (target >= 100) element.textContent = Math.floor(current) + '%';
+            else element.textContent = Math.floor(current) + '+';
         }, 20);
     }
-    
-    // Trigger counter animations when in view
+
     const counterObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 const counter = entry.target;
                 const text = counter.textContent;
                 const target = parseInt(text.replace(/[^0-9]/g, ''));
-                
-                if (text.includes('K')) {
-                    animateCounter(counter, target * 1000);
-                } else {
-                    animateCounter(counter, target);
-                }
-                
+                if (text.includes('K')) animateCounter(counter, target * 1000);
+                else animateCounter(counter, target);
                 counterObserver.unobserve(counter);
             }
         });
     }, observerOptions);
-    
-    document.querySelectorAll('.counter').forEach(counter => {
-        counterObserver.observe(counter);
-    });
+
+    document.querySelectorAll('.counter').forEach(counter => counterObserver.observe(counter));
 </script>
 {% endblock %}

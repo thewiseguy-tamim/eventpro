@@ -1,11 +1,15 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}EventPro - Premium Event Management Platform{% endblock %}
 
 {% block content %}
 <!-- Hero Section -->
 <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
-    <img src="{{ landing_settings.hero_image.url|default:'/media/hero_images/default.jpg' }}" alt="Hero Background" class="absolute inset-0 w-full h-full object-cover">
+    <img src="{{ landing_settings.hero_image.url|default:'/media/hero_images/default.jpg' }}"
+         alt="Hero Background"
+         class="absolute inset-0 w-full h-full object-cover"
+         onerror="this.onerror=null;this.src='{% static 'images/hero/default.jpg' %}'">
     <div class="absolute inset-0 bg-gradient-to-br from-pink-600/70 via-purple-700/80 to-blue-600/70"></div>
     <div class="absolute inset-0 bg-black/30"></div>
     <div class="absolute top-20 left-10 w-20 h-20 bg-white/10 rounded-full blur-xl floating"></div>
@@ -172,7 +176,10 @@
         <!-- Gallery Grid -->
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
             <div class="relative group overflow-hidden rounded-2xl aspect-square">
-                <img src="/media/concert.jpg" alt="Concert" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                <img src="/media/concert.jpg"
+                     alt="Concert"
+                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                     onerror="this.onerror=null;this.src='{% static 'images/placeholders/gallery-default.jpg' %}'">
                 <div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-all duration-300"></div>
                 <div class="absolute inset-0 flex items-center justify-center">
                     <i class="fas fa-music text-white text-4xl opacity-80"></i>
@@ -184,7 +191,10 @@
             </div>
             
             <div class="relative group overflow-hidden rounded-2xl aspect-square">
-                <img src="/media/corp.webp" alt="Corporate" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                <img src="/media/corp.webp"
+                     alt="Corporate"
+                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                     onerror="this.onerror=null;this.src='{% static 'images/placeholders/gallery-default.jpg' %}'">
                 <div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-all duration-300"></div>
                 <div class="absolute inset-0 flex items-center justify-center">
                     <i class="fas fa-users text-white text-4xl opacity-80"></i>
@@ -196,7 +206,10 @@
             </div>
             
             <div class="relative group overflow-hidden rounded-2xl aspect-square md:col-span-2">
-                <img src="/media/wedding.jpg" alt="Wedding" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                <img src="/media/wedding.jpg"
+                     alt="Wedding"
+                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                     onerror="this.onerror=null;this.src='{% static 'images/placeholders/gallery-default.jpg' %}'">
                 <div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-all duration-300"></div>
                 <div class="absolute inset-0 flex items-center justify-center">
                     <i class="fas fa-heart text-white text-6xl opacity-80"></i>
@@ -208,8 +221,10 @@
             </div>
             
             <div class="relative group overflow-hidden rounded-2xl aspect-square md:col-span-2 md:-mt-[23.5rem] z-10">
-
-                <img src="/media/conference.jpg" alt="Conference" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                <img src="/media/conference.jpg"
+                     alt="Conference"
+                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                     onerror="this.onerror=null;this.src='{% static 'images/placeholders/gallery-default.jpg' %}'">
                 <div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-all duration-300"></div>
                 <div class="absolute inset-0 flex items-center justify-center">
                     <i class="fas fa-graduation-cap text-white text-6xl opacity-80"></i>
@@ -221,7 +236,10 @@
             </div>
             
             <div class="relative group overflow-hidden rounded-2xl aspect-square">
-                <img src="/media/party.jpg" alt="Party" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                <img src="/media/party.jpg"
+                     alt="Party"
+                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                     onerror="this.onerror=null;this.src='{% static 'images/placeholders/gallery-default.jpg' %}'">
                 <div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-all duration-300"></div>
                 <div class="absolute inset-0 flex items-center justify-center">
                     <i class="fas fa-birthday-cake text-white text-4xl opacity-80"></i>
@@ -233,7 +251,10 @@
             </div>
             
             <div class="relative group overflow-hidden rounded-2xl aspect-square">
-                <img src="/media/gala.jpg" alt="Gala" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                <img src="/media/gala.jpg"
+                     alt="Gala"
+                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                     onerror="this.onerror=null;this.src='{% static 'images/placeholders/gallery-default.jpg' %}'">
                 <div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-all duration-300"></div>
                 <div class="absolute inset-0 flex items-center justify-center">
                     <i class="fas fa-star text-white text-4xl opacity-80"></i>
@@ -262,7 +283,10 @@
             <!-- Speaker 1 -->
             <div class="text-center group">
                 <div class="relative mb-6 mx-auto w-48 h-48">
-                    <img src="/media/Speaker1.jpeg" alt="Sarah Johnson" class="w-full h-full rounded-full object-cover group-hover:scale-105 transition-transform duration-300">
+                    <img src="/media/Speaker1.jpeg"
+                         alt="Sarah Johnson"
+                         class="w-full h-full rounded-full object-cover group-hover:scale-105 transition-transform duration-300"
+                         onerror="this.onerror=null;this.src='{% static 'images/placeholders/avatar-default.jpg' %}'">
                     <div class="absolute -bottom-2 left-1/2 transform -translate-x-1/2">
                         <div class="flex space-x-2">
                             <div class="w-3 h-3 bg-blue-500 rounded-full"></div>
@@ -279,7 +303,10 @@
             <!-- Speaker 2 -->
             <div class="text-center group">
                 <div class="relative mb-6 mx-auto w-48 h-48">
-                    <img src="/media/Speaker2.jpeg" alt="Michael Chen" class="w-full h-full rounded-full object-cover group-hover:scale-105 transition-transform duration-300">
+                    <img src="/media/Speaker2.jpeg"
+                         alt="Michael Chen"
+                         class="w-full h-full rounded-full object-cover group-hover:scale-105 transition-transform duration-300"
+                         onerror="this.onerror=null;this.src='{% static 'images/placeholders/avatar-default.jpg' %}'">
                     <div class="absolute -bottom-2 left-1/2 transform -translate-x-1/2">
                         <div class="flex space-x-2">
                             <div class="w-3 h-3 bg-blue-500 rounded-full"></div>
@@ -296,7 +323,10 @@
             <!-- Speaker 3 -->
             <div class="text-center group">
                 <div class="relative mb-6 mx-auto w-48 h-48">
-                    <img src="/media/Speaker3.jpeg" alt="Emily Rodriguez" class="w-full h-full rounded-full object-cover group-hover:scale-105 transition-transform duration-300">
+                    <img src="/media/Speaker3.jpeg"
+                         alt="Emily Rodriguez"
+                         class="w-full h-full rounded-full object-cover group-hover:scale-105 transition-transform duration-300"
+                         onerror="this.onerror=null;this.src='{% static 'images/placeholders/avatar-default.jpg' %}'">
                     <div class="absolute -bottom-2 left-1/2 transform -translate-x-1/2">
                         <div class="flex space-x-2">
                             <div class="w-3 h-3 bg-blue-500 rounded-full"></div>
@@ -313,7 +343,10 @@
             <!-- Speaker 4 -->
             <div class="text-center group">
                 <div class="relative mb-6 mx-auto w-48 h-48">
-                    <img src="/media/Speaker4.jpeg" alt="David Park" class="w-full h-full rounded-full object-cover group-hover:scale-105 transition-transform duration-300">
+                    <img src="/media/Speaker4.jpeg"
+                         alt="David Park"
+                         class="w-full h-full rounded-full object-cover group-hover:scale-105 transition-transform duration-300"
+                         onerror="this.onerror=null;this.src='{% static 'images/placeholders/avatar-default.jpg' %}'">
                     <div class="absolute -bottom-2 left-1/2 transform -translate-x-1/2">
                         <div class="flex space-x-2">
                             <div class="w-3 h-3 bg-blue-500 rounded-full"></div>
