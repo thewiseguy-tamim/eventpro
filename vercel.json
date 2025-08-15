@@ -4,10 +4,18 @@
     {
       "src": "event_project/wsgi.py",
       "use": "@vercel/python",
-      "config": { "runtime": "python3.11" }
+      "config": {
+        "runtime": "python3.11",
+        "includeFiles": ["staticfiles/**"]
+      }
     }
   ],
   "routes": [
     { "src": "/(.*)", "dest": "event_project/wsgi.py" }
-  ]
+  ],
+  "buildCommand": "python -m pip install -r requirements.txt && python manage.py collectstatic --noinput",
+  "env": {
+    "DJANGO_SETTINGS_MODULE": "event_project.settings",
+    "PYTHONUNBUFFERED": "1"
+  }
 }

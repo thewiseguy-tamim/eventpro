@@ -10,7 +10,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Core
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'dev-unsafe-key')
-DEBUG = False
+DEBUG = os.getenv('DEBUG', 'False').lower() == 'true'
 
 ALLOWED_HOSTS = ['*', '.vercel.app']
 
@@ -30,7 +30,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    # Optional: Cloudinary
+    # Optional media via Cloudinary
     'cloudinary',
     'cloudinary_storage',
 
@@ -41,7 +41,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # serve static
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -97,15 +97,18 @@ USE_TZ = True
 
 # Static (WhiteNoise)
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [BASE_DIR / 'static']  # keep if you have a /static dir
+# Include your project static dir and also include media under the 'media' prefix
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',
+    ('media', BASE_DIR / 'media'),  # collectstatic will place files under staticfiles/media/...
+]
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # Media
 MEDIA_URL = '/media/'
-# Always set MEDIA_ROOT to your real media folder (matches your repo layout)
-MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_ROOT = BASE_DIR / 'media'  # your repo media folder (commit it)
 
-# Use Cloudinary only in non-debug AND when creds exist
+# Optional Cloudinary for dynamic uploads in production
 cloudinary_creds_present = (
     os.getenv('CLOUDINARY_URL')
     or (
