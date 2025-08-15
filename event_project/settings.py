@@ -3,12 +3,14 @@ from pathlib import Path
 from dotenv import load_dotenv
 import dj_database_url
 
-# Load environment variables from .env locally (Vercel uses its own env store)
+# Load environment variables locally (.env). On Vercel, use the dashboard env.
 load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Secrets from environment
+# -------------------------------------------------------------------
+# Core settings
+# -------------------------------------------------------------------
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'dev-unsafe-key')
 DEBUG = os.getenv('DEBUG', 'False').lower() == 'true'
 
@@ -20,6 +22,9 @@ CSRF_TRUSTED_ORIGINS = [
     'https://*.onrender.com',
 ]
 
+# -------------------------------------------------------------------
+# Installed apps / middleware
+# -------------------------------------------------------------------
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -27,8 +32,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # Media via Cloudinary
     'cloudinary',
     'cloudinary_storage',
+
+    # Your apps
     'event',
     'users',
 ]
@@ -64,17 +73,22 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'event_project.wsgi.application'
 
-# Database (Supabase). Use transaction pooler (6543) and no persistent connections (serverless-safe)
+# -------------------------------------------------------------------
+# Database (Supabase) — Use Transaction Pooler (6543) for serverless
+# -------------------------------------------------------------------
 DATABASES = {
     'default': dj_database_url.config(
         env='DATABASE_URL',
         default='postgresql://postgres.endwqrkxnxcvozpwueik:Tamim%40%401900@aws-1-ap-southeast-1.pooler.supabase.com:6543/postgres',
-        conn_max_age=0,
+        conn_max_age=0,     # close after each request (serverless-friendly)
         ssl_require=True,
     )
 }
 CONN_HEALTH_CHECKS = True
 
+# -------------------------------------------------------------------
+# Password validation
+# -------------------------------------------------------------------
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
     {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
@@ -82,17 +96,24 @@ AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
 
+# -------------------------------------------------------------------
+# Internationalization
+# -------------------------------------------------------------------
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
-# Static files
+# -------------------------------------------------------------------
+# Static files (WhiteNoise)
+# -------------------------------------------------------------------
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-# Media files (use Cloudinary on Vercel; fallback to /tmp if not configured)
+# -------------------------------------------------------------------
+# Media files (Cloudinary on Vercel; fallback to /tmp if not configured)
+# -------------------------------------------------------------------
 MEDIA_URL = '/media/'
 
 use_cloudinary = bool(
@@ -104,34 +125,42 @@ use_cloudinary = bool(
 )
 
 if use_cloudinary:
+    # Configure Cloudinary (force HTTPS)
     CLOUDINARY_STORAGE = {
         'CLOUD_NAME': os.getenv('CLOUDINARY_CLOUD_NAME'),
         'API_KEY': os.getenv('CLOUDINARY_API_KEY'),
         'API_SECRET': os.getenv('CLOUDINARY_API_SECRET'),
+        'SECURE': True,   # ensure https URLs
     }
+    try:
+        import cloudinary
+        cloudinary.config(
+            cloud_name=CLOUDINARY_STORAGE['CLOUD_NAME'],
+            api_key=CLOUDINARY_STORAGE['API_KEY'],
+            api_secret=CLOUDINARY_STORAGE['API_SECRET'],
+            secure=True,
+        )
+    except Exception:
+        pass
     default_storage_backend = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 else:
-    # Temporary local storage to avoid 500s on Vercel (files won't persist)
+    # Temporary local storage so writes don't 500 on Vercel (NOT persistent)
     default_storage_backend = 'django.core.files.storage.FileSystemStorage'
     MEDIA_ROOT = '/tmp/media'
 
-# Django 5+ storage settings
+# Django 5+ storages config
 STORAGES = {
-    'default': {
-        'BACKEND': default_storage_backend,
-    },
-    'staticfiles': {
-        # Use non-manifest storage to avoid startup crash if collectstatic isn't run
-        'BACKEND': 'whitenoise.storage.CompressedStaticFilesStorage',
-    },
+    'default': {'BACKEND': default_storage_backend},
+    'staticfiles': {'BACKEND': 'whitenoise.storage.CompressedStaticFilesStorage'},
 }
 
+# -------------------------------------------------------------------
+# Misc
+# -------------------------------------------------------------------
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-# Custom user model
 AUTH_USER_MODEL = 'users.User'
 
-# Email settings (optional)
+# Email (optional)
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = os.getenv('EMAIL_HOST')
 EMAIL_PORT = int(os.getenv('EMAIL_PORT', 587))

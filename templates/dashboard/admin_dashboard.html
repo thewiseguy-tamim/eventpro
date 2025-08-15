@@ -337,7 +337,7 @@
                             <tr class="hover:bg-gray-50 transition-colors">
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="flex items-center">
-                                        {% if user_obj.profile_picture %}
+                                        {% if user_obj.profile_picture and user_obj.profile_picture.name %}
                                             <img class="h-8 w-8 rounded-full mr-3 object-cover" src="{{ user_obj.profile_picture.url }}" alt="{{ user_obj.first_name }}">
                                         {% else %}
                                             <div class="h-8 w-8 rounded-full bg-gradient-to-r from-primary to-secondary flex items-center justify-center mr-3">
@@ -424,7 +424,7 @@
                                 </div>
                             </div>
                             <div class="flex space-x-2">
-                                <form action="{% url 'eventcategory-delete' pk=category.id %}" method="POST" onsubmit="return confirm('Are you sure you want to delete the category \"{{ category.name }}\"? This action cannot be undone.');" class="inline">
+                                <form action="{% url 'eventcategory-delete' pk=category.id %}" method="POST" onsubmit="return confirm('Are you sure you want to delete the category &quot;{{ category.name }}&quot;? This action cannot be undone.');" class="inline">
                                     {% csrf_token %}
                                     <button type="submit" class="text-red-600 hover:text-red-900 p-1 rounded hover:bg-red-50 transition-colors" title="Delete Category">
                                         <i class="fas fa-trash h-4 w-4"></i>
@@ -449,9 +449,13 @@
             <div class="bg-white rounded-xl shadow-sm p-6">
                 <h2 class="text-2xl font-semibold text-gray-800 mb-6">Customizer</h2>
 
-                <!-- Hero Section Preview -->
+                <!-- Hero Section Preview (SAFE) -->
                 <section class="relative min-h-[400px] flex items-center justify-center overflow-hidden mb-8">
-                    <img src="{{ landing_settings.hero_image.url }}" alt="Hero Background" class="absolute inset-0 w-full h-full object-cover">
+                    {% if landing_settings.hero_image and landing_settings.hero_image.name %}
+                        <img src="{{ landing_settings.hero_image.url }}" alt="Hero Background" class="absolute inset-0 w-full h-full object-cover">
+                    {% else %}
+                        <img src="https://placehold.co/1600x600?text=No+Hero+Image" alt="No hero" class="absolute inset-0 w-full h-full object-cover">
+                    {% endif %}
                     <div class="absolute inset-0 bg-gradient-to-br from-pink-600/70 via-purple-700/80 to-blue-600/70"></div>
                     <div class="absolute inset-0 bg-black/30"></div>
                     <div class="absolute top-20 left-10 w-20 h-20 bg-white/10 rounded-full blur-xl floating"></div>
@@ -510,11 +514,19 @@
                         <div class="mb-4">
                             <label for="hero_image" class="block text-sm font-medium text-gray-700 mb-2">Hero Background Image</label>
                             <input type="file" id="hero_image" name="hero_image" accept="image/*" class="w-full px-3 py-2 border border-gray-300 rounded-lg">
-                            <p class="text-sm text-gray-500 mt-1">Current: {{ landing_settings.hero_image.url }}</p>
+                            {% if landing_settings.hero_image and landing_settings.hero_image.name %}
+                                <p class="text-sm text-gray-500 mt-1">Current: 
+                                    <a class="underline" href="{{ landing_settings.hero_image.url }}" target="_blank" rel="noopener">
+                                        {{ landing_settings.hero_image.name }}
+                                    </a>
+                                </p>
+                            {% else %}
+                                <p class="text-sm text-gray-500 mt-1">Current: None</p>
+                            {% endif %}
                         </div>
                         <div class="mb-4">
                             <label for="countdown_date" class="block text-sm font-medium text-gray-700 mb-2">Countdown Date & Time</label>
-                            <input type="datetime-local" id="countdown_date" name="countdown_date" value="{{ landing_settings.countdown_date|date:'Y-m-d\TH:i' }}" required class="w-full px-3 py-2 border border-gray-300 rounded-lg">
+                            <input type="datetime-local" id="countdown_date" name="countdown_date" value="{{ landing_settings.countdown_date|date:'Y-m-d\\TH:i' }}" required class="w-full px-3 py-2 border border-gray-300 rounded-lg">
                         </div>
                     </div>
                     <div>
@@ -603,16 +615,12 @@
             const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-            document.getElementById('days').textContent = days;
-            document.getElementById('hours').textContent = hours;
-            document.getElementById('minutes').textContent = minutes;
-            document.getElementById('seconds').textContent = seconds;
+            document.getElementById('days').textContent = Math.max(0, days);
+            document.getElementById('hours').textContent = Math.max(0, hours);
+            document.getElementById('minutes').textContent = Math.max(0, minutes);
+            document.getElementById('seconds').textContent = Math.max(0, seconds);
             if (distance < 0) {
                 clearInterval(countdown);
-                document.getElementById('days').textContent = '0';
-                document.getElementById('hours').textContent = '0';
-                document.getElementById('minutes').textContent = '0';
-                document.getElementById('seconds').textContent = '0';
             }
         }, 1000);
     }
@@ -625,18 +633,6 @@
                 switchTab(this.dataset.tab);
             });
         });
-
-        // Search functionality
-        const searchInput = document.getElementById('searchInput');
-        if (searchInput) {
-            let timeout;
-            searchInput.addEventListener('input', function() {
-                clearTimeout(timeout);
-                timeout = setTimeout(() => {
-                    this.form.submit();
-                }, 300);
-            });
-        }
 
         // Close modal when clicking outside
         document.getElementById('categoryModal').addEventListener('click', function(e) {
